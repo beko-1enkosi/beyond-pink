@@ -23,7 +23,7 @@ export const requestSchema = z
   .superRefine(({ messages }, ctx) => {
     if (messages.at(-1)?.role !== "user")
       ctx.addIssue({ code: "custom", message: "Please send a question to Bri." });
-    if (messages.some((m) => m.role === "user" && m.parts[0]?.text.length > INPUT_LIMIT))
+    if (messages.some((m) => m.role === "user" && (m.parts[0]?.text.length ?? 0) > INPUT_LIMIT))
       ctx.addIssue({
         code: "custom",
         message: "Please keep each question under 1,000 characters.",

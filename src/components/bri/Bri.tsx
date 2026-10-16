@@ -112,10 +112,8 @@ export function Bri() {
           </Button>
         </DialogPrimitive.Trigger>
       </div>
-      <DialogPrimitive.Portal forceMount>
+      <DialogPrimitive.Portal>
         <DialogPrimitive.Content
-          forceMount
-          hidden={!open}
           aria-describedby="bri-subtitle"
           onOpenAutoFocus={(e) => {
             e.preventDefault();
