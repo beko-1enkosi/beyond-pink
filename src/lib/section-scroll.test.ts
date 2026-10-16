@@ -19,7 +19,7 @@ describe("same-page scrolling", () => {
     document.body.innerHTML = '<section id="about"></section>';
     vi.spyOn(window, "matchMedia").mockReturnValue({ matches: true } as MediaQueryList);
     vi.spyOn(document.documentElement, "scrollHeight", "get").mockReturnValue(5000);
-    vi.spyOn(Element.prototype, "getBoundingClientRect").mockReturnValue({ top: 500 } as DOMRect);
+    vi.spyOn(HTMLElement.prototype, "offsetTop", "get").mockReturnValue(500);
     vi.spyOn(window, "requestAnimationFrame").mockImplementation(callback => { callback(0); return 1; });
     const scroll = vi.spyOn(window, "scrollTo").mockImplementation(() => {});
     scrollToSection("#about");

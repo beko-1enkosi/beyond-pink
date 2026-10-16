@@ -41,8 +41,15 @@ export function scrollToSection(hash: string, waitForMenu = false) {
     }
     const navbarHeight = document.querySelector('header nav[aria-label="Main"]')?.getBoundingClientRect().height ?? 72;
     const from = window.scrollY;
+    // Layout offsets ignore entrance-animation transforms on the section.
+    let layoutTop = 0;
+    let element: HTMLElement | null = target;
+    while (element) {
+      layoutTop += element.offsetTop;
+      element = element.offsetParent instanceof HTMLElement ? element.offsetParent : null;
+    }
     const to = Math.min(
-      sectionScrollTop(target.getBoundingClientRect().top, from, navbarHeight),
+      sectionScrollTop(layoutTop, 0, navbarHeight),
       Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
     );
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
