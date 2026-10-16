@@ -128,11 +128,50 @@ export function Navbar() {
     >
       <nav
         aria-label="Main"
-        className="mx-auto flex h-[var(--nav-height)] max-w-7xl items-center justify-between gap-4 px-4 sm:px-6 lg:px-8"
+        className="mx-auto grid h-[var(--nav-height)] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-2 px-3 sm:px-6 md:flex md:justify-between md:gap-3 lg:px-8"
       >
-        <Logo />
+        <Sheet>
+          <SheetTrigger asChild>
+            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label="Open menu">
+              <Menu className="!h-5 !w-5" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="w-[85vw] max-w-sm border-r bg-background p-0">
+            <div className="flex h-full flex-col px-6 pb-8 pt-16">
+              <SheetTitle className="font-serif text-2xl font-medium">Menu</SheetTitle>
+              <ul className="mt-6 flex flex-col">
+                {NAV_LINKS.map((l) => (
+                  <li key={l.href}>
+                    <SheetClose asChild>
+                      <a
+                        href={l.href}
+                        className={cn(
+                          "block border-b py-4 font-serif text-2xl transition-colors hover:text-foreground",
+                          active === l.href ? "text-foreground" : "text-muted-foreground",
+                        )}
+                      >
+                        {l.label}
+                      </a>
+                    </SheetClose>
+                  </li>
+                ))}
+              </ul>
+              <div className="mt-auto flex items-center justify-between pt-8">
+                <LanguageSelect className="border" />
+                <GithubLink />
+              </div>
+            </div>
+          </SheetContent>
+        </Sheet>
 
-        <ul className="hidden items-center gap-1 lg:flex">
+        <div className="flex min-w-0 items-center justify-center gap-1.5 md:justify-start">
+          <Logo />
+          <span className="truncate font-serif text-[1.6rem] font-medium leading-none md:hidden lg:inline">
+            Beyond<span className="text-rose">Pink</span>
+          </span>
+        </div>
+
+        <ul className="hidden items-center md:flex lg:gap-1">
           {NAV_LINKS.map((l) => {
             const isActive = active === l.href;
             return (
@@ -141,7 +180,7 @@ export function Navbar() {
                   href={l.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "group relative px-4 py-2 text-[0.95rem] font-medium transition-colors",
+                    "group relative px-2.5 py-2 text-sm font-medium transition-colors lg:px-4 lg:text-[0.95rem]",
                     isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
@@ -149,7 +188,7 @@ export function Navbar() {
                   <span
                     aria-hidden
                     className={cn(
-                      "absolute inset-x-4 -bottom-0.5 h-px origin-center bg-sage transition-transform duration-300",
+                      "absolute inset-x-2.5 -bottom-0.5 h-px origin-center bg-sage transition-transform duration-300 lg:inset-x-4",
                       isActive ? "scale-x-100 bg-rose" : "scale-x-0 group-hover:scale-x-100",
                     )}
                   />
@@ -160,48 +199,14 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-1 sm:gap-2">
-          <div className="hidden items-center gap-1 lg:flex">
+          <div className="hidden items-center md:flex">
             <LanguageSelect />
             <GithubLink />
           </div>
-          <Button variant="brea" className="ml-1 h-9 px-4 lg:h-11 lg:px-6" onClick={() => setBreaOpen(true)}>
+          <Button variant="brea" className="h-9 px-3.5 text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
             Try Brea
-            <ArrowRight className="hidden sm:block" aria-hidden />
+            <ArrowRight className="hidden lg:block" aria-hidden />
           </Button>
-
-          <Sheet>
-            <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="rounded-full lg:hidden" aria-label="Open menu">
-                <Menu className="!h-5 !w-5" />
-              </Button>
-            </SheetTrigger>
-            <SheetContent side="right" className="w-[85vw] max-w-sm border-l bg-background p-0">
-              <div className="flex h-full flex-col px-6 pb-8 pt-16">
-                <SheetTitle className="font-serif text-2xl font-medium">Menu</SheetTitle>
-                <ul className="mt-6 flex flex-col">
-                  {NAV_LINKS.map((l) => (
-                    <li key={l.href}>
-                      <SheetClose asChild>
-                        <a
-                          href={l.href}
-                          className={cn(
-                            "block border-b py-4 font-serif text-2xl transition-colors hover:text-foreground",
-                            active === l.href ? "text-foreground" : "text-muted-foreground",
-                          )}
-                        >
-                          {l.label}
-                        </a>
-                      </SheetClose>
-                    </li>
-                  ))}
-                </ul>
-                <div className="mt-auto flex items-center justify-between pt-8">
-                  <LanguageSelect className="border" />
-                  <GithubLink />
-                </div>
-              </div>
-            </SheetContent>
-          </Sheet>
         </div>
       </nav>
 
