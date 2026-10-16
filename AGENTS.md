@@ -17,5 +17,6 @@ AI Elements must adapt to existing UI primitive variants rather than changing sh
 Bri's message renderer excludes the unused Mermaid diagram plugin so graph dependencies cannot break landing-page initialization; text formatting and links remain supported.
 Bri's approved support contact lives in a browser-safe shared module consumed by the renderer and server instructions, so callable links and model guidance stay consistent.
 Bri uses Radix's modal overlay for background scroll locking and the visual viewport for compact-screen panel geometry, so keyboard resizing stays local to the assistant.
+Bri voice controls use browser-native APIs only inside effects and visitor actions, with session-only lifecycle cleanup and editable recognition drafts; this avoids extra AI calls and keeps audio out of application storage.
 Explore previews keep educational data and bounded journey navigation in a separate browser-safe module, with a section-local Radix modal, so interactivity does not alter shared primitives or completed sections.
 Landing-page copy uses local source-key dictionaries and one hydration-safe language provider around site sections; Bri stays outside that provider, so website language changes cannot affect chat behavior. Optional close-label props localize site dialogs without changing default shared primitive behavior.
