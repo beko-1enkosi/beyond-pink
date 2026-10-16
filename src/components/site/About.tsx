@@ -166,8 +166,8 @@ export function About() {
           <div className="relative overflow-hidden rounded-[2rem] border border-mist-deep bg-mist px-6 py-12 sm:px-10 sm:py-14 lg:px-12 lg:py-16">
             <Leaf className="absolute -left-2 top-2 h-9 w-20 text-sage" />
             <Leaf className="absolute -right-2 bottom-2 h-9 w-20 rotate-180 text-sage" />
-            <div className="grid items-center gap-8 md:grid-cols-[minmax(0,0.8fr)_minmax(0,1.2fr)] md:gap-12">
-              <div className="mx-auto w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] shadow-soft ring-1 ring-mist-deep md:mx-0 md:max-w-[21rem]">
+            <div className="grid items-center gap-8 md:grid-cols-[minmax(0,0.62fr)_minmax(0,1.38fr)] md:gap-10 lg:gap-12">
+              <div className="mx-auto w-full max-w-[17rem] overflow-hidden rounded-[1.5rem] shadow-soft ring-1 ring-mist-deep md:mx-0 md:max-w-none">
                 <img
                   src={belongImg.url}
                   alt="Illustration of a diverse crowd of people with eyes closed, pink breast-cancer awareness ribbons among them."
