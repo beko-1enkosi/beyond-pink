@@ -14,6 +14,7 @@ Same-page navigation uses the shared section-scroll module, installed by the ind
 Bri uses AI Elements and a session-only AI SDK conversation, with model calls and instructions isolated behind a same-origin TanStack server route; this preserves the landing page and prevents client exposure of secrets or stored chat data.
 Bri’s temporary request limiter stores hashed visitor counters only in each server isolate, with a global ceiling; it is best-effort rather than durable protection and resets on restart.
 AI Elements must adapt to existing UI primitive variants rather than changing shared buttons; this avoids altering completed website sections.
+Bri's message renderer excludes the unused Mermaid diagram plugin so graph dependencies cannot break landing-page initialization; text formatting and links remain supported.
 Bri's approved support contact lives in a browser-safe shared module consumed by the renderer and server instructions, so callable links and model guidance stay consistent.
 Bri uses Radix's modal overlay for background scroll locking and the visual viewport for compact-screen panel geometry, so keyboard resizing stays local to the assistant.
 Explore previews keep educational data and bounded journey navigation in a separate browser-safe module, with a section-local Radix modal, so interactivity does not alter shared primitives or completed sections.
