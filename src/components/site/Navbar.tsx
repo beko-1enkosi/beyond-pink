@@ -51,7 +51,7 @@ function Logo() {
       <img
         src={logo.url}
         alt="BeyondPink"
-        className="absolute inset-0 h-full w-full scale-[1.9] object-contain"
+        className="absolute inset-0 h-full w-full scale-[1.7] object-contain"
         style={{ transformOrigin: "52% 44%" }}
       />
     </a>
