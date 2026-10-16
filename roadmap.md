@@ -5,7 +5,7 @@
 - [x] Verify conversation, errors, navigation and mobile fit.
 
 # Bri chat polish
-- [ ] Add gentle thinking dots and compact keyboard-aware chat with background scroll lock.
-- [ ] Preserve reader-controlled conversation scrolling and latest-message button.
-- [ ] Add compassionate health guidance and CANSA support telephone link.
-- [ ] Verify real responses, error states, scrolling and mobile layout.
+- [x] Add gentle thinking dots and compact keyboard-aware chat with background scroll lock.
+- [x] Preserve reader-controlled conversation scrolling and latest-message button.
+- [x] Add compassionate health guidance and CANSA support telephone link.
+- [x] Verify real responses, error states, scrolling and mobile layout.
