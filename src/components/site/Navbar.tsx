@@ -45,7 +45,7 @@ function Logo() {
         history.replaceState(null, "", "#home");
       }}
       aria-label="BeyondPink — back to top"
-      className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14"
+      className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-xl md:h-16 md:w-16"
     >
       {/* Original SVG, scaled within a crop frame to trim its built-in whitespace */}
       <img
@@ -166,7 +166,7 @@ export function Navbar() {
 
         <div className="flex min-w-0 items-center justify-center gap-1.5 md:justify-start">
           <Logo />
-          <span className="truncate font-serif text-[1.6rem] font-medium leading-none md:hidden lg:inline">
+          <span className="truncate font-serif text-[1.45rem] font-medium leading-none sm:text-[1.6rem]">
             Beyond<span className="text-rose">Pink</span>
           </span>
         </div>
@@ -180,7 +180,7 @@ export function Navbar() {
                   href={l.href}
                   aria-current={isActive ? "true" : undefined}
                   className={cn(
-                    "group relative px-2.5 py-2 text-sm font-medium transition-colors lg:px-4 lg:text-[0.95rem]",
+                    "group relative px-2 py-2 text-sm font-medium transition-colors lg:px-4 lg:text-[0.95rem]",
                     isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
@@ -188,7 +188,7 @@ export function Navbar() {
                   <span
                     aria-hidden
                     className={cn(
-                      "absolute inset-x-2.5 -bottom-0.5 h-px origin-center bg-sage transition-transform duration-300 lg:inset-x-4",
+                      "absolute inset-x-2 -bottom-0.5 h-px origin-center bg-sage transition-transform duration-300 lg:inset-x-4",
                       isActive ? "scale-x-100 bg-rose" : "scale-x-0 group-hover:scale-x-100",
                     )}
                   />
@@ -198,12 +198,13 @@ export function Navbar() {
           })}
         </ul>
 
-        <div className="flex items-center gap-1 sm:gap-2">
+        <div className="flex items-center gap-0.5 sm:gap-2">
+          <LanguageSelect className="px-2 md:hidden" />
           <div className="hidden items-center md:flex">
             <LanguageSelect />
             <GithubLink />
           </div>
-          <Button variant="brea" className="h-9 px-3.5 text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
+          <Button variant="brea" className="h-9 px-3 text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
             Try Brea
             <ArrowRight className="hidden lg:block" aria-hidden />
           </Button>
