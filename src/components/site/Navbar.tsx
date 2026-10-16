@@ -99,7 +99,7 @@ function GithubLink() {
 }
 
 export function Navbar() {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [breaOpen, setBreaOpen] = useState(false);
   const active = useActiveSection();
@@ -132,7 +132,7 @@ export function Navbar() {
       >
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={t("Open menu")}>
+            <Button variant="ghost" size="icon" className={cn("rounded-full", language === "en" ? "md:hidden" : "lg:hidden")} aria-label={t("Open menu")}>
               <Menu className="!h-5 !w-5" />
             </Button>
           </SheetTrigger>
@@ -164,13 +164,13 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
 
-        <div className="flex min-w-0 items-center justify-center gap-1 md:justify-start">
+        <div className="flex min-w-0 shrink-0 items-center justify-center gap-1 md:justify-start">
           <Logo />
           <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
           </span>
         </div>
 
-        <ul className="hidden items-center md:flex lg:gap-1">
+        <ul className={cn("hidden items-center lg:gap-1", language === "en" ? "md:flex" : "lg:flex")}>
           {NAV_LINKS.map((l) => {
             const isActive = active === l.href;
             return (

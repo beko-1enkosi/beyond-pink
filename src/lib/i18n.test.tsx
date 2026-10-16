@@ -1,6 +1,7 @@
 import { act, render, cleanup } from "@testing-library/react";
 import { afterEach, describe, expect, it } from "vitest";
 import { LANGUAGE_CODES, LANGUAGE_STORAGE_KEY, LanguageProvider, parseLanguage, translate, useTranslation } from "./i18n";
+import { dictionaries } from "./locales";
 
 afterEach(() => { cleanup(); localStorage.clear(); });
 describe("website language rules", () => {
@@ -14,7 +15,12 @@ describe("website language rules", () => {
     expect(parseLanguage({ code: "zu" })).toBe("en");
   });
   it("falls back to the English source when a translation is missing", () => {
-    expect(translate("zu", "unregistered-source-key")).toBe("unregistered-source-key");
+    const source = dictionaries["en"];
+    const target = dictionaries["zu"];
+    if (!source || !target) throw new Error("Required dictionaries missing");
+    source["fallback-test"] = "English fallback";
+    try { expect(translate("zu", "fallback-test")).toBe("English fallback"); }
+    finally { delete source["fallback-test"]; }
   });
   it("restores the saved choice and persists changes under one shared key", () => {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, "xh");
