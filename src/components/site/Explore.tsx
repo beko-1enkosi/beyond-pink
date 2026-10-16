@@ -117,7 +117,10 @@ export function Explore() {
 
         <Reveal className="mt-12 text-center md:mt-16">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Educational preview · Brea is on its way</p>
-          <ButtonBrea onClick={openBrea} />
+          <Button variant="brea" className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>
+            Explore in Brea
+            <ArrowRight aria-hidden />
+          </Button>
         </Reveal>
       </div>
     </section>
