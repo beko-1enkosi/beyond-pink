@@ -70,8 +70,8 @@ export function Footer() {
         }}
       />
 
-      <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8 sm:py-12 lg:px-10">
-        <div className="grid gap-9 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.05fr] lg:gap-10">
+      <div className="mx-auto max-w-7xl px-5 py-9 sm:px-8 sm:py-10 lg:px-10">
+        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-[1.5fr_1fr_1fr_1.05fr] lg:gap-8">
           {/* Brand */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3">
@@ -93,7 +93,7 @@ export function Footer() {
                 Beyond<span className="text-rose">Pink</span>
               </span>
             </div>
-            <p className="mt-4 max-w-xs font-serif text-lg italic leading-snug text-ivory/75">
+            <p className="mt-4 max-w-xs font-serif text-lg italic leading-snug text-ivory/85">
               Beyond the Pink Ribbon. Beyond Awareness.
             </p>
           </div>
@@ -101,12 +101,12 @@ export function Footer() {
           {/* Quick links */}
           <nav aria-labelledby="footer-quick-links">
             <ColHeading>Quick Links</ColHeading>
-            <ul id="footer-quick-links" className="mt-4 space-y-2.5">
+            <ul id="footer-quick-links" className="mt-3.5 grid grid-cols-2 gap-x-5 gap-y-2 sm:block sm:space-y-2">
               {QUICK_LINKS.map((l) => (
                 <li key={l.href}>
                   <a
                     href={l.href}
-                    className="group inline-flex items-center gap-2 text-sm text-ivory/75 transition-colors duration-300 hover:text-rose motion-reduce:transition-none"
+                    className="group inline-flex items-center gap-2 text-sm text-ivory/80 transition-colors duration-300 hover:text-rose motion-reduce:transition-none"
                   >
                     <span
                       aria-hidden
@@ -122,7 +122,7 @@ export function Footer() {
           {/* Connect */}
           <div>
             <ColHeading>Connect</ColHeading>
-            <ul className="mt-4 flex items-center gap-2.5">
+            <ul className="mt-3.5 flex items-center gap-2.5">
               {SOCIALS.map((s) => (
                 <li key={s.label}>
                   <a
@@ -141,7 +141,7 @@ export function Footer() {
           {/* Brea */}
           <div>
             <ColHeading>Explore Brea</ColHeading>
-            <div className="mt-4">
+            <div className="mt-3.5">
               <Button
                 variant="brea"
                 className="h-9 px-4 text-[0.85rem] shadow-glow"
@@ -154,10 +154,10 @@ export function Footer() {
           </div>
         </div>
 
-        <div className="mt-10 border-t border-ivory/10 pt-5 sm:mt-12">
+        <div className="mt-8 border-t border-ivory/15 pt-4 sm:mt-9">
           <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-            <p className="text-xs text-ivory/55">© 2026 BeyondPink. All rights reserved.</p>
-            <p className="text-xs text-ivory/55">
+            <p className="text-xs text-ivory/70">© 2026 BeyondPink. All rights reserved.</p>
+            <p className="text-xs text-ivory/70">
               Educational information only. Not a substitute for professional medical advice.
             </p>
           </div>
