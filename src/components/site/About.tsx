@@ -181,7 +181,7 @@ export function About() {
                 <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
                   Breast cancer affects more than one gender, and its impact extends to families, friends and communities. BeyondPink welcomes women, men, caregivers, loved ones and everyone seeking understanding and support.
                 </p>
-                <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-1.5 text-sm text-foreground md:mx-0">
+                <p className="mx-auto mt-5 inline-flex items-center gap-2 self-center rounded-full bg-background/70 px-4 py-1.5 text-sm text-foreground md:mx-0 md:self-start">
                   <span className="h-1.5 w-1.5 rounded-full bg-rose" aria-hidden />
                   Breast cancer can also occur in men.
                 </p>
