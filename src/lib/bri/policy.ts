@@ -12,8 +12,12 @@ export const requestSchema = z
           id: z.string().min(1).max(200),
           role: z.enum(["user", "assistant"]),
           parts: z.preprocess(
-            (parts) => Array.isArray(parts) ? parts.filter(part => part?.type !== "step-start") : parts,
-            z.array(z.object({ type: z.literal("text"), text: z.string().min(1).max(6000) })).min(1).max(10),
+            (parts) =>
+              Array.isArray(parts) ? parts.filter((part) => part?.type !== "step-start") : parts,
+            z
+              .array(z.object({ type: z.literal("text"), text: z.string().min(1).max(6000) }))
+              .min(1)
+              .max(10),
           ),
         }),
       )
@@ -23,7 +27,11 @@ export const requestSchema = z
   .superRefine(({ messages }, ctx) => {
     if (messages.at(-1)?.role !== "user")
       ctx.addIssue({ code: "custom", message: "Please send a question to Bri." });
-    if (messages.some((m) => m.role === "user" && m.parts.reduce((n, p) => n + p.text.length, 0) > INPUT_LIMIT))
+    if (
+      messages.some(
+        (m) => m.role === "user" && m.parts.reduce((n, p) => n + p.text.length, 0) > INPUT_LIMIT,
+      )
+    )
       ctx.addIssue({
         code: "custom",
         message: "Please keep each question under 1,000 characters.",

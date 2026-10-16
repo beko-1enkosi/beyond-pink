@@ -15,12 +15,19 @@ describe("Bri privacy and request rules", () => {
   it("requires Google history to end with a user", () =>
     expect(requestSchema.safeParse(question("draft", "assistant")).success).toBe(false));
   it("accepts streamed assistant history with SDK step markers", () => {
-    const result = requestSchema.safeParse({ messages: [
-      { id: "first", role: "assistant", parts: [{ type: "step-start" }, { type: "text", text: "Brea is planned." }] },
-      ...question("What about Find Care?").messages,
-    ] });
+    const result = requestSchema.safeParse({
+      messages: [
+        {
+          id: "first",
+          role: "assistant",
+          parts: [{ type: "step-start" }, { type: "text", text: "Brea is planned." }],
+        },
+        ...question("What about Find Care?").messages,
+      ],
+    });
     expect(result.success).toBe(true);
-    if (result.success) expect(result.data.messages[0]?.parts).toEqual([{ type: "text", text: "Brea is planned." }]);
+    if (result.success)
+      expect(result.data.messages[0]?.parts).toEqual([{ type: "text", text: "Brea is planned." }]);
   });
   it("rejects attachments rather than sending private files", () =>
     expect(
