@@ -1,11 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
-import { PageSection } from "@/components/site/PageSection";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Explore } from "@/components/site/Explore";
 import { Support } from "@/components/site/Support";
 import { Resources } from "@/components/site/Resources";
+import { Founder } from "@/components/site/Founder";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -39,7 +39,7 @@ function Index() {
         <Explore />
         <Support />
         <Resources />
-        <PageSection id="founder" label="Meet the Founder" />
+        <Founder />
       </main>
       <footer id="footer" aria-label="Footer" />
     </>
