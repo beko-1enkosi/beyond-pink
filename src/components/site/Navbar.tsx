@@ -42,7 +42,7 @@ function Logo() {
     <a
       href="#home"
       aria-label={t("BeyondPink — back to top")}
-      className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14 md:h-16 md:w-16"
+      className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl max-[360px]:h-10 max-[360px]:w-10 sm:h-14 sm:w-14 md:h-16 md:w-16"
     >
       {/* Original SVG, scaled within a crop frame to trim its built-in whitespace */}
       <img
@@ -166,7 +166,7 @@ export function Navbar() {
 
         <div className="flex min-w-0 shrink-0 items-center justify-center gap-1 md:justify-start">
           <Logo />
-          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
+          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none max-[360px]:text-base sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
           </span>
         </div>
 
