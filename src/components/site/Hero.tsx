@@ -50,7 +50,7 @@ export function Hero() {
     <section
       id="home"
       aria-label="Welcome to BeyondPink"
-      className="relative isolate flex h-[calc(88svh-var(--nav-height))] min-h-[560px] w-full overflow-hidden bg-charcoal md:h-[calc(88vh-var(--nav-height))] md:min-h-[600px] lg:max-h-[900px]"
+      className="relative isolate flex h-[calc(96svh-var(--nav-height))] min-h-[600px] w-full overflow-hidden bg-charcoal md:h-[calc(88vh-var(--nav-height))] md:min-h-[600px] lg:max-h-[900px]"
     >
       {/* Slides */}
       <div
@@ -190,21 +190,21 @@ export function Hero() {
       {/* Fixed text */}
       <div className="pointer-events-none mx-auto flex w-full max-w-7xl items-end px-5 pb-20 sm:px-16 sm:pb-24 md:items-center md:pb-0 lg:px-20">
         <div className="pointer-events-auto max-w-xl text-ivory">
-          <p className="text-[0.7rem] font-medium uppercase tracking-[0.28em] text-ivory/85 sm:text-xs">
+          <p className="text-[0.7rem] font-medium uppercase tracking-[0.18em] text-ivory/85 sm:text-xs sm:tracking-[0.28em]">
             BeyondPink <span className="mx-1.5 text-rose">•</span> Breast Health Awareness
           </p>
-          <h1 className="mt-4 text-[2.6rem] leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
+          <h1 className="mt-4 text-[2.35rem] leading-[1.02] tracking-tight sm:text-6xl lg:text-7xl">
             Beyond the Pink Ribbon.
             <span className="mt-1 block italic text-rose">Beyond Awareness.</span>
           </h1>
-          <p className="mt-5 max-w-md text-base leading-relaxed text-ivory/90 sm:text-lg">
+          <p className="mt-4 max-w-md text-[0.95rem] sm:mt-5 sm:text-base leading-relaxed text-ivory/90 sm:text-lg">
             Breast health is more than a conversation in October. Discover accessible education,
             compassionate support and a place where everyone belongs.
           </p>
-          <div className="mt-7 flex flex-col gap-3 min-[420px]:flex-row">
+          <div className="mt-6 flex flex-wrap gap-3 sm:mt-7">
             <Button
               variant="brea"
-              className="h-12 px-7 text-base"
+              className="h-12 px-6 text-base sm:px-7"
               onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}
             >
               Try Brea
@@ -212,7 +212,7 @@ export function Hero() {
             </Button>
             <Button
               variant="outline"
-              className="h-12 rounded-full border-ivory/50 bg-ivory/10 px-7 text-base text-ivory backdrop-blur-sm hover:border-ivory hover:bg-ivory/20 hover:text-ivory"
+              className="h-12 rounded-full border-ivory/50 bg-ivory/10 px-6 text-base sm:px-7 text-ivory backdrop-blur-sm hover:border-ivory hover:bg-ivory/20 hover:text-ivory"
               onClick={scrollToAbout}
             >
               Learn More
