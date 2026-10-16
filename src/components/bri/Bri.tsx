@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { ArrowUp, Leaf, RotateCcw, X } from "lucide-react";
+import { ArrowUp, Leaf, Mic, Square, RotateCcw, X } from "lucide-react";
 import { useReducedMotion } from "motion/react";
 import { Button } from "@/components/ui/button";
 import {
@@ -19,6 +19,8 @@ import {
 } from "@/components/ai-elements/prompt-input";
 import { scrollToSection } from "@/lib/section-scroll";
 import { BRI_SUPPORT_CONTACT } from "@/lib/bri/support-contact";
+import { useBriVoice } from "./use-bri-voice";
+import { VoiceResponse } from "./VoiceResponse";
 
 const QUESTIONS = [
   "What is BeyondPink?",
@@ -62,6 +64,7 @@ export function Bri() {
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [notice, setNotice] = useState("");
+  const voice = useBriVoice(open, setDraft);
   const input = useRef<HTMLTextAreaElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
@@ -93,6 +96,7 @@ export function Bri() {
   }, [open]);
   const send = (text: string) => {
     if (busy || !text.trim()) return;
+    voice.abortListening();
     setNotice("");
     clearError();
     setDraft("");
@@ -158,6 +162,8 @@ export function Bri() {
               aria-label="Start a new chat"
               disabled={busy}
               onClick={() => {
+                voice.abortListening();
+                voice.stopPlayback();
                 setMessages([]);
                 setNotice("");
                 clearError();
@@ -195,6 +201,7 @@ export function Bri() {
                 <MessageContent>
                   <MessageResponse>{WELCOME}</MessageResponse>
                 </MessageContent>
+                <VoiceResponse id="welcome" text={WELCOME} voice={voice} />
               </Message>
               {messages.length === 0 && (
                 <div className="grid grid-cols-2 gap-2">
@@ -251,6 +258,9 @@ export function Bri() {
                       ) : null,
                     )}
                   </MessageContent>
+                  {m.role === "assistant" && !(busy && m.id === latest?.id) && (
+                    <VoiceResponse id={m.id} text={m.parts.filter((p) => p.type === "text").map((p) => p.text).join(" ")} voice={voice} />
+                  )}
                 </Message>
               ))}
               {thinking && !notice && (
@@ -281,7 +291,7 @@ export function Bri() {
               <PromptInputTextarea
                 ref={input}
                 value={draft}
-                onChange={(e) => setDraft(e.target.value)}
+                onChange={(e) => { voice.abortListening(); setDraft(e.target.value); }}
                 maxLength={1000}
                 aria-label="Message Bri"
                 placeholder="Ask Bri a question…"
@@ -289,7 +299,17 @@ export function Bri() {
                 className="max-h-20 min-h-9 py-2 text-base sm:max-h-28 sm:min-h-12 sm:text-sm"
               />
               <PromptInputFooter className="justify-between py-1 sm:py-2">
-                <Leaf className="h-4 w-4 text-sage" aria-hidden />
+                <div className="flex items-center gap-2">
+                  <Leaf className="h-4 w-4 text-sage" aria-hidden />
+                  <Button type="button" variant="ghost" size="icon" disabled={busy}
+                    className={`h-8 w-8 rounded-full text-foreground ${voice.listening ? "bg-sage/25 motion-safe:animate-pulse" : ""}`}
+                    aria-label={voice.listening ? "Stop recording" : "Speak your question in English"}
+                    aria-pressed={voice.listening}
+                    title={voice.listening ? "Stop recording" : voice.recognitionSupported ? "Speak your question in English" : "Voice input unavailable in this browser"}
+                    onClick={() => voice.listening ? voice.stopListening() : voice.startListening(draft)}>
+                    {voice.listening ? <Square className="!h-4 !w-4" /> : <Mic className="!h-4 !w-4" />}
+                  </Button>
+                </div>
                 <PromptInputSubmit
                   status={status}
                   onStop={() => {
@@ -304,9 +324,11 @@ export function Bri() {
                 </PromptInputSubmit>
               </PromptInputFooter>
             </PromptInput>
+            {voice.voiceNotice && <p role="status" className="mt-1 text-[11px] leading-snug text-foreground">{voice.voiceNotice}</p>}
             <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground sm:mt-2.5 sm:leading-relaxed">
               Bri is an AI assistant for website information only. Please don't share private
               medical details. Bri does not replace professional healthcare advice.
+              {voice.recognitionSupported && " Voice input may use your browser’s online speech service. BeyondPink does not store audio."}
             </p>
           </div>
         </DialogPrimitive.Content>
