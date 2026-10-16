@@ -23,7 +23,7 @@ const SOCIALS = [
   {
     label: "LinkedIn",
     name: "Thobeka Nkosi on LinkedIn",
-    href: "https://www.linkedin.com/in/thobeka-nkosi-217640293",
+    href: "https://www.linkedin.com/in/thobeka-nkosi-217640293/",
     icon: Linkedin,
     external: true,
   },
