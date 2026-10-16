@@ -45,7 +45,7 @@ const SOCIALS = [
 
 function ColHeading({ children }: { children: ReactNode }) {
   return (
-    <h2 className="flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ivory/60">
+    <h2 className="flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ivory/75">
       <span aria-hidden className="h-px w-5 bg-sage/70" />
       {children}
     </h2>
