@@ -4,6 +4,7 @@ import { HeartHandshake, HandHeart, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import supportImg from "@/assets/support-community.webp.asset.json";
 import { cn } from "@/lib/utils";
+import { SectionWaves } from "./SectionWaves";
 
 const CARDS = [
   {
@@ -119,6 +120,7 @@ export function Support() {
           </Button>
         </Reveal>
       </div>
+      <SectionWaves />
     </section>
   );
 }

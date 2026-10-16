@@ -7,6 +7,7 @@ import recogniseChangesImg from "@/assets/explore-recognise-changes.webp.asset.j
 import understandJourneyImg from "@/assets/explore-understand-journey.webp.asset.json";
 import { cn } from "@/lib/utils";
 import { ExplorePreview } from "./ExplorePreview";
+import { SectionWaves } from "./SectionWaves";
 
 const CARDS = [
   {
@@ -131,6 +132,7 @@ export function Explore() {
           </Button>
         </Reveal>
       </div>
+      <SectionWaves />
     </section>
   );
 }

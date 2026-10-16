@@ -3,6 +3,8 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, Users } from "lucide-react";
 import belongImg from "@/assets/about-belong.webp.asset.json";
 import { cn } from "@/lib/utils";
+import { SectionWaves } from "./SectionWaves";
+import { useVisibleCount } from "./use-visible-count";
 
 const ABOUT_IMAGE = {
   src: belongImg.url,
@@ -52,23 +54,10 @@ function Reveal({ children, className, delay = 0 }: { children: ReactNode; class
   );
 }
 
-function CountUp({ value, decimals, suffix, start }: { value: number; decimals: number; suffix: string; start: boolean }) {
-  const [n, setN] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) { setN(value); return; }
-    let raf = 0;
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const p = Math.min(1, (t - t0) / 1500);
-      setN(value * (1 - Math.pow(1 - p, 3)));
-      if (p < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => cancelAnimationFrame(raf);
-  }, [start, value]);
-  const text = n.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-  return <>{text}{suffix}</>;
+function CountUp({ value, decimals, suffix }: { value: number; decimals: number; suffix: string }) {
+  const { ref, count } = useVisibleCount(value);
+  const text = count.toLocaleString("en-US", { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
+  return <span ref={ref}>{text}{suffix}</span>;
 }
 
 function Leaf({ className }: { className?: string }) {
@@ -84,7 +73,6 @@ function Leaf({ className }: { className?: string }) {
 
 export function About() {
   const { t } = useTranslation();
-  const [statsRef, statsSeen] = useInView<HTMLDivElement>();
   return (
     <section id="about" aria-labelledby="about-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
       <div aria-hidden className="pointer-events-none absolute -right-24 top-24 -z-10 h-72 w-72 rounded-full bg-sage/15 blur-3xl" />
@@ -129,7 +117,7 @@ export function About() {
         </div>
 
         {/* Statistics */}
-        <div ref={statsRef} className="mt-20 lg:mt-24">
+        <div className="mt-20 lg:mt-24">
           <Reveal>
             <p className="text-center text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">{t("Historical estimates · GLOBOCAN 2022 · not live figures")}</p>
           </Reveal>
@@ -138,7 +126,7 @@ export function About() {
               <Reveal key={s.label} delay={i * 120}>
                 <figure className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-7">
                   <p className="font-serif text-5xl text-foreground sm:text-6xl" aria-label={`${s.value.toLocaleString("en-US")}${s.suffix}`}>
-                    <span aria-hidden><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} start={statsSeen} /></span>
+                    <span aria-hidden><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} /></span>
                   </p>
                   <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
                   <figcaption className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(s.label)}</figcaption>
@@ -163,6 +151,7 @@ export function About() {
           </div>
         </Reveal>
       </div>
+      <SectionWaves />
     </section>
   );
 }

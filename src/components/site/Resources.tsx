@@ -3,6 +3,7 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { SectionWaves } from "./SectionWaves";
 
 type Link = { label: string; href: string };
 
@@ -158,6 +159,7 @@ export function Resources() {
           </div>
         </Reveal>
       </div>
+      <SectionWaves />
     </section>
   );
 }
