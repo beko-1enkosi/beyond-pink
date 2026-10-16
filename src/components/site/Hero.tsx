@@ -6,6 +6,7 @@ import img3 from "@/assets/hero-3-care.webp.v2.asset.json";
 import img4 from "@/assets/hero-4-men.webp.asset.json";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { scrollToSection } from "@/lib/section-scroll";
 
 export const OPEN_BREA_EVENT = "beyondpink:open-brea";
 
@@ -57,8 +58,7 @@ export function Hero() {
   }, [index, paused, reduced, n]);
 
   const scrollToAbout = () => {
-    document.querySelector("#about")?.scrollIntoView({ behavior: reduced ? "auto" : "smooth" });
-    history.replaceState(null, "", "#about");
+    scrollToSection("#about");
   };
 
   const arrowCls =

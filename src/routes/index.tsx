@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
+import { installSectionScrolling } from "@/lib/section-scroll";
 import { Navbar } from "@/components/site/Navbar";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
@@ -30,6 +32,7 @@ export const Route = createFileRoute("/")({
 });
 
 function Index() {
+  useEffect(installSectionScrolling, []);
   return (
     <>
       <Navbar />

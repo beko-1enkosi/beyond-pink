@@ -39,11 +39,6 @@ function Logo() {
   return (
     <a
       href="#home"
-      onClick={(e) => {
-        e.preventDefault();
-        window.scrollTo({ top: 0, behavior: "smooth" });
-        history.replaceState(null, "", "#home");
-      }}
       aria-label="BeyondPink — back to top"
       className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14 md:h-16 md:w-16"
     >

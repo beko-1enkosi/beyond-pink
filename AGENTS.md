@@ -8,3 +8,5 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+Same-page navigation uses the shared section-scroll module, installed by the index page; section buttons call the same helper so easing, sticky-navbar offsets, mobile-menu closure and reduced-motion handling remain consistent.
