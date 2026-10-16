@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import * as Dialog from "@radix-ui/react-dialog";
 import { ArrowLeft, ArrowRight, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,12 +9,17 @@ type Props = { kind: ExplorePreviewKind; title: string; img: string; alt: string
 
 export function ExplorePreview({ kind, title, img, alt, children }: Props) {
   const [selected, setSelected] = useState(0);
+  const explanation = useRef<HTMLDivElement>(null);
+  const selectTopic = (index: number) => {
+    setSelected(index);
+    requestAnimationFrame(() => explanation.current?.scrollIntoView({ block: "nearest", behavior: "instant" }));
+  };
   const topics = kind === "anatomy" ? ANATOMY_TERMS : CHANGE_TOPICS;
   const topic = topics[selected] ?? topics[0];
   const step = JOURNEY_STEPS[selected] ?? JOURNEY_STEPS[0];
   return (
     <Dialog.Root onOpenChange={(open) => { if (open) setSelected(0); }}>
-      <div className="relative h-full">
+      <div className="group/explore-card relative h-full">
         {children}
         <Dialog.Trigger asChild>
           <Button variant="ghost" aria-label={`Explore ${title}`} className="absolute inset-0 h-full w-full rounded-[2rem] p-0 hover:bg-transparent focus-visible:ring-2 focus-visible:ring-sage">
@@ -36,16 +41,16 @@ export function ExplorePreview({ kind, title, img, alt, children }: Props) {
           <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain p-5 sm:p-8">
             {kind !== "journey" ? (
               <div className={cn("grid items-start gap-6", kind === "anatomy" && "md:grid-cols-[1.1fr_1fr]")}>
-                {kind === "anatomy" && <img src={img} alt={alt} className="mx-auto max-h-72 w-full object-contain md:max-h-[440px]" />}
+                {kind === "anatomy" && <img src={img} alt={alt} className="mx-auto max-h-44 w-full object-contain sm:max-h-72 md:max-h-[440px]" />}
                 <div>
                   <div role="group" aria-label={kind === "anatomy" ? "Breast anatomy terms" : "Breast change topics"} className={cn("grid gap-2", kind === "anatomy" ? "grid-cols-2" : "sm:grid-cols-2")}>
                     {topics.map((item, index) => (
-                      <Button key={item.title} variant="outline" aria-pressed={selected === index} onClick={() => setSelected(index)} aria-controls={`${kind}-explanation`} className={cn("h-auto min-h-11 whitespace-normal px-3 py-2 text-left leading-relaxed", selected === index && "border-sage bg-accent text-accent-foreground ring-1 ring-sage/40")}>
+                      <Button key={item.title} variant="outline" aria-pressed={selected === index} onClick={() => selectTopic(index)} aria-controls={`${kind}-explanation`} className={cn("h-auto min-h-11 whitespace-normal px-3 py-2 text-left leading-relaxed", selected === index && "border-sage bg-accent text-accent-foreground ring-1 ring-sage/40")}>
                         {item.title}
                       </Button>
                     ))}
                   </div>
-                  <div id={`${kind}-explanation`} aria-live="polite" aria-atomic="true" className="mt-5 border-l-2 border-rose pl-4">
+                  <div ref={explanation} id={`${kind}-explanation`} aria-live="polite" aria-atomic="true" className="mt-5 border-l-2 border-rose pl-4">
                     <h3 className="font-serif text-2xl leading-snug">{topic.title}</h3>
                     <p className="mt-2 text-sm leading-relaxed">{topic.text}</p>
                   </div>
@@ -63,14 +68,14 @@ export function ExplorePreview({ kind, title, img, alt, children }: Props) {
                   <p className="mt-2 font-medium text-sm">{step.subtitle}</p>
                   <p className="mt-3 text-sm leading-relaxed">{step.text}</p>
                 </div>
-                <nav aria-label="Journey steps" className="mt-7 flex justify-between gap-3">
-                  <Button variant="outline" disabled={selected === 0} onClick={() => setSelected((s) => moveJourneyStep(s, "back"))}><ArrowLeft aria-hidden />Back</Button>
-                  <Button variant="outline" disabled={selected === 2} onClick={() => setSelected((s) => moveJourneyStep(s, "next"))}>Next<ArrowRight aria-hidden /></Button>
-                </nav>
               </div>
             )}
           </div>
           <footer className="shrink-0 border-t border-sage/25 bg-accent/40 px-5 py-3 sm:px-8">
+            {kind === "journey" && <nav aria-label="Journey steps" className="mb-3 flex justify-between gap-3">
+              <Button variant="outline" disabled={selected === 0} onClick={() => setSelected((s) => moveJourneyStep(s, "back"))}><ArrowLeft aria-hidden />Back</Button>
+              <Button variant="outline" disabled={selected === 2} onClick={() => setSelected((s) => moveJourneyStep(s, "next"))}>Next<ArrowRight aria-hidden /></Button>
+            </nav>}
             <p className="text-xs leading-relaxed text-muted-foreground">Educational information only. This preview does not replace professional medical advice, diagnosis or treatment.</p>
           </footer>
         </Dialog.Content>

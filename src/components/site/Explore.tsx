@@ -99,7 +99,7 @@ export function Explore() {
           {CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 120} className="h-full">
               <ExplorePreview kind={card.kind} title={card.title} img={card.img.url} alt={card.alt}>
-              <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+              <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-all duration-300 ease-out group-hover/explore-card:-translate-y-2 group-hover/explore-card:shadow-soft motion-reduce:transition-none motion-reduce:group-hover/explore-card:translate-y-0">
                 <div className={cn("relative flex aspect-[4/3] items-center justify-center overflow-hidden p-6 sm:p-8", card.imgBg)}>
                   <Sprig className="absolute -left-2 top-2 h-8 w-16 text-sage/50" />
                   <img
@@ -107,7 +107,7 @@ export function Explore() {
                     alt={card.alt}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover/explore-card:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover/explore-card:scale-100"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
