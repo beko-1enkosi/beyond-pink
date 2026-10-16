@@ -2,7 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import img1 from "@/assets/hero-1-unity.webp.asset.json";
 import img2 from "@/assets/hero-2-diversity.webp.asset.json";
-import img3 from "@/assets/hero-3-care.webp.asset.json";
+import img3 from "@/assets/hero-3-care.webp.v2.asset.json";
 import img4 from "@/assets/hero-4-men.webp.asset.json";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -86,7 +86,7 @@ export function Hero() {
             compassionate support and a place where everyone belongs.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button variant="brea" className="h-[3.25rem] px-7 text-base shadow-glow-strong sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
+            <Button variant="brea" className="h-[3.25rem] px-7 text-base sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
               Try Brea
               <ArrowRight aria-hidden />
             </Button>
