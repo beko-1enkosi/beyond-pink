@@ -5,6 +5,7 @@ import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Explore } from "@/components/site/Explore";
 import { Support } from "@/components/site/Support";
+import { Resources } from "@/components/site/Resources";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -37,7 +38,7 @@ function Index() {
         <About />
         <Explore />
         <Support />
-        <PageSection id="resources" label="Resources" />
+        <Resources />
         <PageSection id="founder" label="Meet the Founder" />
       </main>
       <footer id="footer" aria-label="Footer" />
