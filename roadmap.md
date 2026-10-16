@@ -16,9 +16,9 @@
 - [x] Verify real responses, error states, scrolling and mobile layout.
 
 # Bri voice accessibility
-- [ ] Add optional English microphone input with editable drafts and graceful browser/permission fallback.
-- [ ] Add visitor-controlled English read-aloud with pause, resume, stop and close cleanup.
-- [ ] Verify voice lifecycle, privacy, existing chat and compact-screen fit.
+- [x] Add optional English microphone input with editable drafts and graceful browser/permission fallback.
+- [x] Add visitor-controlled English read-aloud with pause, resume, stop and close cleanup.
+- [x] Verify voice lifecycle using simulated browser speech, privacy, real AI chat and compact-screen fit; physical microphone and audible voice quality depend on visitor devices.
 
 # Explore interactions
 - [x] Add anatomy terms, changes topics and a three-step educational journey.

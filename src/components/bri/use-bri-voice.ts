@@ -153,7 +153,11 @@ export function useBriVoice(open: boolean, onDraft: (text: string) => void) {
     };
     setVoiceNotice("");
     setPlayback({ id, state: "playing" });
-    try { window.speechSynthesis.speak(current); }
+    try {
+      // Cancellation may leave the browser's global speech queue paused.
+      if (window.speechSynthesis.paused) window.speechSynthesis.resume();
+      window.speechSynthesis.speak(current);
+    }
     catch { stopPlayback(); setVoiceNotice("Read aloud couldn’t start. Bri’s response is still available as text."); }
   };
   const togglePause = () => {

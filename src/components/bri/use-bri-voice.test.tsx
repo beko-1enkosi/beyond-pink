@@ -16,12 +16,13 @@ class Utterance {
   lang = ""; rate = 1; voice = null; onend = null; onerror = null;
   constructor(public text: string) {}
 }
-const synthesis = { speak: vi.fn(), cancel: vi.fn(), pause: vi.fn(), resume: vi.fn(), getVoices: () => [] };
+const synthesis = { paused: false, speak: vi.fn(), cancel: vi.fn(), pause: vi.fn(), resume: vi.fn(), getVoices: () => [] };
 beforeEach(() => {
   vi.stubGlobal("SpeechRecognition", Recognition);
   vi.stubGlobal("SpeechSynthesisUtterance", Utterance);
   vi.stubGlobal("speechSynthesis", synthesis);
   vi.clearAllMocks();
+  synthesis.paused = false;
 });
 afterEach(() => { cleanup(); vi.unstubAllGlobals(); });
 
@@ -90,6 +91,14 @@ describe("Bri optional voice rules", () => {
     act(() => result.current.readAloud("two", "Second"));
     expect(synthesis.cancel).toHaveBeenCalledOnce();
     expect(result.current.playback?.id).toBe("two");
+  });
+  it("resumes the browser queue when selecting another response after pausing", () => {
+    const { result } = renderHook(() => useBriVoice(true, vi.fn()));
+    act(() => result.current.readAloud("one", "First"));
+    synthesis.paused = true;
+    act(() => result.current.readAloud("two", "Second"));
+    expect(synthesis.resume).toHaveBeenCalledOnce();
+    expect(result.current.playback).toEqual({ id: "two", state: "playing" });
   });
   it("stops microphone and playback on chat close", () => {
     const { result, rerender } = renderHook(({ open }) => useBriVoice(open, vi.fn()), { initialProps: { open: true } });
