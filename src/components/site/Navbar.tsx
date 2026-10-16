@@ -166,7 +166,7 @@ export function Navbar() {
 
         <div className="flex min-w-0 shrink-0 items-center justify-center gap-1 md:justify-start">
           <Logo />
-          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none max-[360px]:text-base sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
+          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none max-[360px]:text-sm sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
           </span>
         </div>
 
