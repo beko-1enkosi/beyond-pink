@@ -99,3 +99,6 @@
     }
   }
 }
+
+.hero-img { object-position: var(--pos-m, 50% 50%); }
+@media (min-width: 768px) { .hero-img { object-position: var(--pos, 50% 50%); } }
