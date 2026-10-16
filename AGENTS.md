@@ -16,3 +16,4 @@ Bri’s temporary request limiter stores hashed visitor counters only in each se
 AI Elements must adapt to existing UI primitive variants rather than changing shared buttons; this avoids altering completed website sections.
 Bri's approved support contact lives in a browser-safe shared module consumed by the renderer and server instructions, so callable links and model guidance stay consistent.
 Bri uses Radix's modal overlay for background scroll locking and the visual viewport for compact-screen panel geometry, so keyboard resizing stays local to the assistant.
+Explore previews keep educational data and bounded journey navigation in a separate browser-safe module, with a section-local Radix modal, so interactivity does not alter shared primitives or completed sections.

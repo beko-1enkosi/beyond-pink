@@ -9,3 +9,8 @@
 - [x] Preserve reader-controlled conversation scrolling and latest-message button.
 - [x] Add compassionate health guidance and CANSA support telephone link.
 - [x] Verify real responses, error states, scrolling and mobile layout.
+
+# Explore interactions
+- [ ] Add anatomy terms, changes topics and a three-step educational journey.
+- [ ] Open accessible previews from the existing cards without changing the Brea button.
+- [ ] Verify selections, timeline, focus, closing and mobile fit.
