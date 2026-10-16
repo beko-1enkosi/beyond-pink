@@ -24,3 +24,8 @@
 - [x] Add anatomy terms, changes topics and a three-step educational journey.
 - [x] Open accessible previews from the existing cards without changing the Brea button.
 - [x] Verify selections, timeline, focus, closing and mobile fit.
+
+# Explore button refinement
+- [x] Replace the small "Tap to Explore" text links with sage pill buttons, olive border, arrow and hover glow.
+- [x] Keep 44px touch targets, identical size and alignment, translated labels and the same preview opening from card or button.
+- [x] Verify clicks, hover glow, translations and fit on desktop, mobile and narrow screens.

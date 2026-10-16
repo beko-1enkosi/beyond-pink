@@ -38,12 +38,14 @@
   --color-blush: var(--blush);
   --color-rose: var(--rose);
   --color-sage: var(--sage);
+  --color-olive: var(--olive);
   --color-ivory: var(--ivory);
   --color-mist: var(--mist);
   --color-mist-deep: var(--mist-deep);
   --shadow-soft: var(--shadow-soft-v);
   --shadow-glow: var(--shadow-glow-v);
   --shadow-glow-strong: var(--shadow-glow-strong-v);
+  --shadow-glow-sage: var(--shadow-glow-sage-v);
   --shadow-bri: var(--shadow-bri-v);
   --shadow-bri-strong: var(--shadow-bri-strong-v);
 }
@@ -56,6 +58,7 @@
   --blush: oklch(0.900 0.025 5); /* #EED7DA */
   --rose: oklch(0.783 0.115 354); /* #F69ABD */
   --sage: oklch(0.743 0.073 120); /* #A8B88A */
+  --olive: oklch(0.52 0.075 118); /* soft olive for sage button borders */
   --ivory: oklch(0.959 0.013 75); /* #F6F0E8 */
   /* Support & inclusion of men */
   --mist: oklch(0.9524 0.0134 233.7); /* #E7F1F7 */
@@ -84,6 +87,7 @@
   --shadow-soft-v: 0 6px 24px -12px color-mix(in oklab, var(--charcoal) 25%, transparent);
   --shadow-glow-v: 0 0 0 1px color-mix(in oklab, var(--rose) 40%, transparent), 0 6px 22px -6px color-mix(in oklab, var(--rose) 60%, transparent);
   --shadow-glow-strong-v: 0 0 0 1px color-mix(in oklab, var(--rose) 55%, transparent), 0 10px 32px -6px color-mix(in oklab, var(--rose) 80%, transparent);
+  --shadow-glow-sage-v: 0 0 0 1px color-mix(in oklab, var(--sage) 60%, transparent), 0 10px 26px -10px color-mix(in oklab, var(--sage) 75%, transparent);
   --nav-height: 4.5rem;
   --gradient-brea: linear-gradient(110deg, oklch(0.80 0.11 354) 0%, oklch(0.87 0.06 358) 30%, oklch(0.80 0.11 354) 55%, oklch(0.84 0.06 30) 80%, oklch(0.80 0.08 110) 100%);
   --bri-olive: oklch(0.45 0.075 120);
