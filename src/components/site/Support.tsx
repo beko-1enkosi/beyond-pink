@@ -85,7 +85,7 @@ export function Support() {
 
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:px-10 lg:pb-24 lg:pt-32">
         <Reveal className="mx-auto max-w-3xl">
-          <div className="rounded-[2.5rem] bg-ivory/55 px-6 py-9 shadow-soft backdrop-blur-md sm:px-10 sm:py-11">
+          <div className="rounded-[2.5rem] bg-ivory/45 px-6 py-9 shadow-soft backdrop-blur-sm sm:px-10 sm:py-11">
             <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/80 sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />
               Support &amp; Community
