@@ -121,6 +121,20 @@
 .bri-launcher { box-shadow: var(--shadow-bri-v); transition: box-shadow .3s; animation: bri-float 4s ease-in-out infinite; }
 .bri-launcher:hover { box-shadow: var(--shadow-bri-strong-v); }
 .bri-panel[hidden] { display: none; }
+.bri-launcher-wrap[hidden] { display: none; }
+.bri-panel { overscroll-behavior: contain; }
+.bri-panel [role="log"] > div { overscroll-behavior: contain; }
+.bri-thinking-dot { animation: bri-think 1.4s ease-in-out infinite; }
+.bri-thinking-dot:nth-of-type(3) { animation-delay: .18s; }
+.bri-thinking-dot:nth-of-type(4) { animation-delay: .36s; }
+@keyframes bri-think { 0%, 100% { opacity: .45; transform: scale(.85); } 50% { opacity: 1; transform: scale(1); } }
 @keyframes bri-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-@media (prefers-reduced-motion: reduce) { .bri-launcher { animation: none; } }
-@media (max-height: 500px) { .bri-panel { bottom: 8px; height: calc(100dvh - 16px); } }
+@media (prefers-reduced-motion: reduce) { .bri-launcher, .bri-thinking-dot { animation: none; } }
+@media (max-width: 767px), (max-height: 500px) {
+  .bri-panel {
+    top: calc(var(--bri-viewport-top, 0px) + 8px + env(safe-area-inset-top, 0px));
+    bottom: auto;
+    height: min(660px, calc(var(--bri-viewport-height, 100dvh) - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));
+  }
+  .bri-composer [data-slot="input-group"] { min-height: 0; }
+}
