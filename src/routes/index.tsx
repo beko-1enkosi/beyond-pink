@@ -1,24 +1,42 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { Navbar } from "@/components/site/Navbar";
+import { PageSection } from "@/components/site/PageSection";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "BeyondPink — Beyond the Pink Ribbon. Beyond Awareness." },
+      {
+        name: "description",
+        content:
+          "BeyondPink is a breast-health awareness campaign encouraging education, understanding, compassion and meaningful support.",
+      },
+      { property: "og:title", content: "BeyondPink — Beyond the Pink Ribbon. Beyond Awareness." },
+      {
+        property: "og:description",
+        content: "A breast-health education and awareness campaign for South Africa and the world.",
+      },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <>
+      <Navbar />
+      <main>
+        {/* Sections are placeholders — content added in later steps */}
+        <PageSection id="home" label="Hero" />
+        <PageSection id="about" label="About" />
+        <PageSection id="explore" label="Explore" />
+        <PageSection id="support" label="Support" />
+        <PageSection id="resources" label="Resources" />
+        <PageSection id="founder" label="Meet the Founder" />
+      </main>
+      <footer id="footer" aria-label="Footer" />
+    </>
   );
 }
