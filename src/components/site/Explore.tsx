@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -35,6 +36,7 @@ const CARDS = [
 ] as const;
 
 function useInView<T extends Element>() {
+  const { t } = useTranslation();
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -74,6 +76,7 @@ function Sprig({ className }: { className?: string }) {
 }
 
 export function Explore() {
+  const { t } = useTranslation();
   const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
   return (
     <section id="explore" aria-labelledby="explore-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
@@ -83,16 +86,11 @@ export function Explore() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
-            <span className="h-px w-8 bg-sage" aria-hidden />
-            Explore Breast Health
-            <span className="h-px w-8 bg-sage" aria-hidden />
+            <span className="h-px w-8 bg-sage" aria-hidden />{t("Explore Breast Health")}<span className="h-px w-8 bg-sage" aria-hidden />
           </p>
-          <h2 id="explore-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-            Knowledge Is Power. <span className="italic text-rose">Understanding Changes Everything.</span>
+          <h2 id="explore-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("Knowledge Is Power.")} <span className="italic text-rose">{t("Understanding Changes Everything.")}</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
-            Discover the knowledge and resources to better understand breast health, recognise changes and navigate your journey with confidence.
-          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">{t("Discover the knowledge and resources to better understand breast health, recognise changes and navigate your journey with confidence.")}</p>
         </Reveal>
 
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
@@ -104,17 +102,17 @@ export function Explore() {
                   <Sprig className="absolute -left-2 top-2 h-8 w-16 text-sage/50" />
                   <img
                     src={card.img.url}
-                    alt={card.alt}
+                    alt={t(card.alt)}
                     loading="lazy"
                     decoding="async"
                     className="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover/explore-card:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover/explore-card:scale-100"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
-                  <h3 className="text-2xl leading-snug text-foreground">{card.title}</h3>
+                  <h3 className="text-2xl leading-snug text-foreground">{t(card.title)}</h3>
                   <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
-                  <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{card.text}</p>
-                  <p className="mt-auto flex items-center gap-2 pt-5 text-xs font-medium text-foreground">Tap to Explore <ArrowRight className="h-3.5 w-3.5 text-sage" aria-hidden /></p>
+                  <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(card.text)}</p>
+                  <p className="mt-auto flex items-center gap-2 pt-5 text-xs font-medium text-foreground">{t("Tap to Explore")} <ArrowRight className="h-3.5 w-3.5 text-sage" aria-hidden /></p>
                 </div>
               </article>
               </ExplorePreview>
@@ -123,10 +121,8 @@ export function Explore() {
         </div>
 
         <Reveal className="mt-12 text-center md:mt-16">
-          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">Educational preview · Brea is on its way</p>
-          <Button variant="brea" className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>
-            Explore in Brea
-            <ArrowRight aria-hidden />
+          <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t("Educational preview · Brea is on its way")}</p>
+          <Button variant="brea" className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>{t("Explore in Brea")}<ArrowRight aria-hidden />
           </Button>
         </Reveal>
       </div>

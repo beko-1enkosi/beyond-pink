@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { HeartHandshake, HandHeart, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,6 +27,7 @@ const CARDS = [
 ];
 
 function useInView<T extends Element>() {
+  const { t } = useTranslation();
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -65,6 +67,7 @@ function Sprig({ className }: { className?: string }) {
 }
 
 export function Support() {
+  const { t } = useTranslation();
   const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
   return (
     <section id="support" aria-labelledby="support-heading" className="relative isolate">
@@ -87,16 +90,11 @@ export function Support() {
         <Reveal className="mx-auto max-w-3xl">
           <div className="rounded-[2.5rem] bg-ivory/45 px-6 py-9 shadow-soft backdrop-blur-sm sm:px-10 sm:py-11">
             <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/80 sm:text-xs sm:tracking-[0.28em]">
-              <span className="h-px w-8 bg-sage" aria-hidden />
-              Support &amp; Community
-              <span className="h-px w-8 bg-sage" aria-hidden />
+              <span className="h-px w-8 bg-sage" aria-hidden />{t("Support & Community")}<span className="h-px w-8 bg-sage" aria-hidden />
             </p>
-            <h2 id="support-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              No One Should Navigate <span className="italic text-rose">This Alone.</span>
+            <h2 id="support-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("No One Should Navigate")} <span className="italic text-rose">{t("This Alone.")}</span>
             </h2>
-            <p className="mx-auto mt-5 max-w-2xl text-[0.98rem] leading-relaxed text-foreground/85 sm:text-lg">
-              Whether you&rsquo;re seeking answers, supporting someone you love, or hoping to connect with people who understand, there&rsquo;s a place for you here.
-            </p>
+            <p className="mx-auto mt-5 max-w-2xl text-[0.98rem] leading-relaxed text-foreground/85 sm:text-lg">{t("Whether you’re seeking answers, supporting someone you love, or hoping to connect with people who understand, there’s a place for you here.")}</p>
           </div>
         </Reveal>
 
@@ -107,9 +105,9 @@ export function Support() {
                 <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl text-charcoal", card.iconBg)}>
                   <card.icon className="h-6 w-6" aria-hidden />
                 </span>
-                <h3 className="mt-5 text-2xl leading-snug text-foreground">{card.title}</h3>
+                <h3 className="mt-5 text-2xl leading-snug text-foreground">{t(card.title)}</h3>
                 <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{card.text}</p>
+                <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(card.text)}</p>
               </article>
             </Reveal>
           ))}
@@ -117,9 +115,7 @@ export function Support() {
 
         <Reveal className="mt-12 text-center md:mt-16">
           <Sprig className="mx-auto mb-5 h-7 w-14 text-sage/60" />
-          <Button variant="brea" className="h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>
-            Find Support in Brea
-            <ArrowRight aria-hidden />
+          <Button variant="brea" className="h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>{t("Find Support in Brea")}<ArrowRight aria-hidden />
           </Button>
         </Reveal>
       </div>

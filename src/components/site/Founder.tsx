@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import founderImg from "@/assets/founder-portrait.webp.asset.json";
 import { Linkedin } from "lucide-react";
@@ -10,6 +11,7 @@ const PORTRAIT = {
 };
 
 function useInView<T extends Element>() {
+  const { t } = useTranslation();
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -59,6 +61,7 @@ function Ribbon({ className }: { className?: string }) {
 }
 
 export function Founder() {
+  const { t } = useTranslation();
   return (
     <section id="founder" aria-labelledby="founder-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
       <div aria-hidden className="pointer-events-none absolute -left-24 top-32 -z-10 h-72 w-72 rounded-full bg-blush/40 blur-3xl" />
@@ -76,34 +79,25 @@ export function Founder() {
             <Leaf className="absolute -right-6 top-14 z-10 h-12 w-24 text-sage" />
             <div aria-hidden className="absolute -bottom-3 -right-3 h-full w-full rounded-[2.5rem] border border-sage/60" />
             <div className="relative aspect-[3/4] w-full overflow-hidden rounded-[2.5rem] bg-accent shadow-soft">
-              <img src={PORTRAIT.src} alt={PORTRAIT.alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+              <img src={PORTRAIT.src} alt={t(PORTRAIT.alt)} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
           </Reveal>
 
           {/* Story */}
           <Reveal delay={150}>
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
-              <span className="h-px w-8 bg-sage" aria-hidden />
-              Meet the Founder
-            </p>
-            <h2 id="founder-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              The Heart Behind <span className="italic text-rose">BeyondPink.</span>
+              <span className="h-px w-8 bg-sage" aria-hidden />{t("Meet the Founder")}</p>
+            <h2 id="founder-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("The Heart Behind")} <span className="italic text-rose">{t("BeyondPink.")}</span>
             </h2>
-            <p className="mt-4 text-lg font-medium text-foreground/85 sm:text-xl">Built with purpose. Inspired by people.</p>
+            <p className="mt-4 text-lg font-medium text-foreground/85 sm:text-xl">{t("Built with purpose. Inspired by people.")}</p>
             <span aria-hidden className="mt-6 block h-0.5 w-10 rounded-full bg-rose" />
 
             <div className="mt-6 space-y-4 text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
-              <p>
-                BeyondPink was inspired by my colleague, Nthabi, whose passion for breast cancer awareness was shaped by the loss of a friend. Her advocacy made me reflect on how little many of my peers know about breast health, even though breast cancer can affect anyone.
-              </p>
-              <p>
-                At 25, I wanted to take initiative and build something meaningful. With my BSc Life Sciences background, along with my Software Development skills, I saw an opportunity to bring science and technology together to turn awareness into understanding, education and support.
-              </p>
+              <p>{t("BeyondPink was inspired by my colleague, Nthabi, whose passion for breast cancer awareness was shaped by the loss of a friend. Her advocacy made me reflect on how little many of my peers know about breast health, even though breast cancer can affect anyone.")}</p>
+              <p>{t("At 25, I wanted to take initiative and build something meaningful. With my BSc Life Sciences background, along with my Software Development skills, I saw an opportunity to bring science and technology together to turn awareness into understanding, education and support.")}</p>
             </div>
 
-            <p className="mt-8 font-serif text-lg italic leading-snug text-foreground/80 sm:mt-10 sm:text-xl">
-              Let&rsquo;s connect and keep building meaningful health innovation.
-            </p>
+            <p className="mt-8 font-serif text-lg italic leading-snug text-foreground/80 sm:mt-10 sm:text-xl">{t("Let’s connect and keep building meaningful health innovation.")}</p>
 
             <Button
               asChild
@@ -113,11 +107,9 @@ export function Founder() {
                 href="https://www.linkedin.com/in/thobeka-nkosi-217640293"
                 target="_blank"
                 rel="noopener noreferrer"
-                aria-label="Connect with Thobeka Nkosi on LinkedIn (opens in a new tab)"
+                aria-label={t("Connect with Thobeka Nkosi on LinkedIn (opens in a new tab)")}
               >
-                <Linkedin aria-hidden />
-                Connect on LinkedIn
-              </a>
+                <Linkedin aria-hidden />{t("Connect on LinkedIn")}</a>
             </Button>
           </Reveal>
         </div>

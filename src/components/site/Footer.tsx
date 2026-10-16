@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import type { ReactNode } from "react";
 import { ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
@@ -53,12 +54,13 @@ function ColHeading({ children }: { children: ReactNode }) {
 }
 
 export function Footer() {
+  const { t } = useTranslation();
   const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
 
   return (
     <footer
       id="footer"
-      aria-label="Site footer"
+      aria-label={t("Site footer")}
       className="bg-charcoal-deep text-ivory"
     >
       <div
@@ -77,30 +79,27 @@ export function Footer() {
             <div className="flex items-center gap-3">
               <a
                 href="#home"
-                aria-label="BeyondPink — back to top"
+                aria-label={t("BeyondPink — back to top")}
                 className="relative block h-11 w-11 shrink-0 overflow-hidden rounded-xl"
               >
                 <img
                   src={logo.url}
-                  alt="BeyondPink"
+                  alt={t("BeyondPink")}
                   loading="lazy"
                   decoding="async"
                   className="absolute inset-0 h-full w-full scale-[1.7] object-contain"
                   style={{ transformOrigin: "52% 44%" }}
                 />
               </a>
-              <span className="whitespace-nowrap font-serif text-[1.5rem] font-medium leading-none">
-                Beyond<span className="text-rose">Pink</span>
+              <span className="whitespace-nowrap font-serif text-[1.5rem] font-medium leading-none">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
               </span>
             </div>
-            <p className="mt-4 max-w-xs font-serif text-lg italic leading-snug text-ivory/85">
-              Beyond the Pink Ribbon. Beyond Awareness.
-            </p>
+            <p className="mt-4 max-w-xs font-serif text-lg italic leading-snug text-ivory/85">{t("Beyond the Pink Ribbon. Beyond Awareness.")}</p>
           </div>
 
           {/* Quick links */}
           <nav aria-labelledby="footer-quick-links">
-            <ColHeading>Quick Links</ColHeading>
+            <ColHeading>{t("Quick Links")}</ColHeading>
             <ul id="footer-quick-links" className="mt-3.5 grid grid-cols-2 gap-x-5 gap-y-2 sm:block sm:space-y-2">
               {QUICK_LINKS.map((l) => (
                 <li key={l.href}>
@@ -112,7 +111,7 @@ export function Footer() {
                       aria-hidden
                       className="h-px w-0 bg-rose transition-all duration-300 ease-out group-hover:w-3 motion-reduce:transition-none"
                     />
-                    {l.label}
+                    {t(l.label)}
                   </a>
                 </li>
               ))}
@@ -121,13 +120,13 @@ export function Footer() {
 
           {/* Connect */}
           <div>
-            <ColHeading>Connect</ColHeading>
+            <ColHeading>{t("Connect")}</ColHeading>
             <ul className="mt-3.5 flex items-center gap-2.5">
               {SOCIALS.map((s) => (
                 <li key={s.label}>
                   <a
                     href={s.href}
-                    aria-label={s.external ? `${s.name} (opens in a new tab)` : `${s.name} (opens your email application)`}
+                    aria-label={`${t(s.name)} ${t(s.external ? "(opens in a new tab)" : "(opens your email application)")}`}
                     {...(s.external ? { target: "_blank", rel: "noopener noreferrer" } : {})}
                     className="group inline-flex h-10 w-10 items-center justify-center rounded-full border border-ivory/15 text-ivory/80 transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-rose/60 hover:text-rose hover:shadow-glow motion-reduce:transition-none motion-reduce:hover:translate-y-0"
                   >
@@ -140,15 +139,13 @@ export function Footer() {
 
           {/* Brea */}
           <div>
-            <ColHeading>Explore Brea</ColHeading>
+            <ColHeading>{t("Explore Brea")}</ColHeading>
             <div className="mt-3.5">
               <Button
                 variant="brea"
                 className="h-9 px-4 text-[0.85rem] shadow-glow"
                 onClick={openBrea}
-              >
-                Try Brea
-                <ArrowRight aria-hidden />
+              >{t("Try Brea")}<ArrowRight aria-hidden />
               </Button>
             </div>
           </div>
@@ -156,10 +153,8 @@ export function Footer() {
 
         <div className="mt-8 border-t border-ivory/15 pt-4 sm:mt-9">
           <div className="flex flex-col gap-1.5 sm:flex-row sm:items-center sm:justify-between sm:gap-6">
-            <p className="text-xs text-ivory/70">© 2026 BeyondPink. All rights reserved.</p>
-            <p className="text-xs text-ivory/70">
-              Educational information only. Not a substitute for professional medical advice.
-            </p>
+            <p className="text-xs text-ivory/70">{t("© 2026 BeyondPink. All rights reserved.")}</p>
+            <p className="text-xs text-ivory/70">{t("Educational information only. Not a substitute for professional medical advice.")}</p>
           </div>
         </div>
       </div>

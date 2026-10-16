@@ -1,3 +1,8 @@
+# Landing-page languages
+- [x] Add shared remembered language selection and five local dictionaries.
+- [x] Translate landing-page text and educational dialogs, excluding Bri.
+- [x] Verify selection, refresh, keyboard access, interactions and mobile fit.
+
 # Bri
 - [x] Add floating companion and accessible session-only chat.
 - [x] Connect selected Gemini through Lovable AI with server-side guidance and input checks.

@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import img1 from "@/assets/hero-1-unity.webp.asset.json";
@@ -35,6 +36,7 @@ function Sprig({ className }: { className?: string }) {
 }
 
 export function Hero() {
+  const { t } = useTranslation();
   const [index, setIndex] = useState(0);
   const [paused, setPaused] = useState(false);
   const [reduced, setReduced] = useState(false);
@@ -65,7 +67,7 @@ export function Hero() {
     "flex h-10 w-10 items-center justify-center rounded-full border border-sage/60 bg-background/80 text-foreground backdrop-blur-sm transition hover:border-sage hover:bg-accent";
 
   return (
-    <section id="home" aria-label="Welcome to BeyondPink" className="relative isolate overflow-hidden bg-background">
+    <section id="home" aria-label={t("Welcome to BeyondPink")} className="relative isolate overflow-hidden bg-background">
       {/* soft background accents */}
       <div aria-hidden className="pointer-events-none absolute -left-24 top-10 -z-10 h-72 w-72 rounded-full bg-blush/40 blur-3xl" />
       <div aria-hidden className="pointer-events-none absolute right-1/3 top-0 -z-10 h-64 w-64 rounded-full bg-sage/15 blur-3xl" />
@@ -74,29 +76,18 @@ export function Hero() {
         {/* Text */}
         <div className="relative z-10 max-w-xl">
           <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
-            <span className="h-px w-8 bg-sage" aria-hidden />
-            Breast Health Awareness
-          </p>
-          <h1 className="mt-4 text-[2.6rem] leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-[4.75rem]">
-            Beyond the Pink Ribbon.
-            <span className="mt-1 block italic text-rose">Beyond Awareness.</span>
+            <span className="h-px w-8 bg-sage" aria-hidden />{t("Breast Health Awareness")}</p>
+          <h1 className="mt-4 text-[2.6rem] leading-[1.02] tracking-tight text-foreground sm:text-6xl lg:text-[4.75rem]">{t("Beyond the Pink Ribbon.")}<span className="mt-1 block italic text-rose">{t("Beyond Awareness.")}</span>
           </h1>
-          <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">
-            Breast health is more than a conversation in October. Discover accessible education,
-            compassionate support and a place where everyone belongs.
-          </p>
+          <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">{t("Breast health is more than a conversation in October. Discover accessible education, compassionate support and a place where everyone belongs.")}</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button variant="brea" className="h-[3.25rem] px-7 text-base sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
-              Try Brea
-              <ArrowRight aria-hidden />
+            <Button variant="brea" className="h-[3.25rem] px-7 text-base sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>{t("Try Brea")}<ArrowRight aria-hidden />
             </Button>
             <Button
               variant="outline"
               className="h-12 rounded-full border-sage bg-transparent px-6 text-base text-foreground hover:bg-accent sm:px-7"
               onClick={scrollToAbout}
-            >
-              Learn More
-            </Button>
+            >{t("Learn More")}</Button>
           </div>
         </div>
 
@@ -107,8 +98,8 @@ export function Hero() {
           <div aria-hidden className="absolute -bottom-3 -right-3 h-full w-full border border-rose/50" style={{ borderRadius: FRAME_RADIUS }} />
           <div
             role="region"
-            aria-roledescription="carousel"
-            aria-label="BeyondPink campaign photographs"
+            aria-roledescription={t("carousel")}
+            aria-label={t("BeyondPink campaign photographs")}
             className="relative aspect-[5/4] w-full overflow-hidden bg-charcoal/10 shadow-soft md:aspect-[1/1] lg:aspect-[6/5]"
             style={{ borderRadius: FRAME_RADIUS }}
             onMouseEnter={() => setPaused(true)}
@@ -136,14 +127,14 @@ export function Hero() {
               <div
                 key={s.src}
                 role="group"
-                aria-roledescription="slide"
-                aria-label={`${i + 1} of ${n}: ${s.title}`}
+                aria-roledescription={t("slide")}
+                aria-label={`${i + 1} ${t("of")} ${n}: ${t(s.title)}`}
                 aria-hidden={i !== index}
                 className={cn("absolute inset-0 transition-opacity duration-[1100ms] ease-in-out", i === index ? "opacity-100" : "opacity-0")}
               >
                 <img
                   src={s.src}
-                  alt={s.alt}
+                  alt={t(s.alt)}
                   width={1774}
                   height={887}
                   loading="eager"
@@ -154,12 +145,12 @@ export function Hero() {
                 />
               </div>
             ))}
-            <p className="sr-only" aria-live="polite">{`Photograph ${index + 1} of ${n}: ${SLIDES[index]?.title}`}</p>
+            <p className="sr-only" aria-live="polite">{`${t("Photograph")} ${index + 1} ${t("of")} ${n}: ${t(SLIDES[index]?.title ?? "")}`}</p>
           </div>
 
           {/* Controls */}
           <div className="relative z-10 mt-5 flex items-center justify-center gap-3 md:justify-end md:pr-6">
-            <button type="button" onClick={() => go(index - 1)} aria-label="Previous photograph" className={arrowCls}>
+            <button type="button" onClick={() => go(index - 1)} aria-label={t("Previous photograph")} className={arrowCls}>
               <ChevronLeft className="h-4 w-4" aria-hidden />
             </button>
             <div className="flex items-center">
@@ -168,7 +159,7 @@ export function Hero() {
                   key={s.title}
                   type="button"
                   onClick={() => go(i)}
-                  aria-label={`Show photograph ${i + 1}: ${s.title}`}
+                  aria-label={`${t("Show photograph")} ${i + 1}: ${t(s.title)}`}
                   aria-current={i === index ? "true" : undefined}
                   className="flex h-8 w-7 items-center justify-center"
                 >
@@ -176,7 +167,7 @@ export function Hero() {
                 </button>
               ))}
             </div>
-            <button type="button" onClick={() => go(index + 1)} aria-label="Next photograph" className={arrowCls}>
+            <button type="button" onClick={() => go(index + 1)} aria-label={t("Next photograph")} className={arrowCls}>
               <ChevronRight className="h-4 w-4" aria-hidden />
             </button>
           </div>
