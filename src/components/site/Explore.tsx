@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import knowBodyImg from "@/assets/explore-know-your-body.webp.asset.json";
 import recogniseChangesImg from "@/assets/explore-recognise-changes.webp.asset.json";
 import understandJourneyImg from "@/assets/explore-understand-journey.webp.asset.json";
@@ -123,13 +124,3 @@ export function Explore() {
   );
 }
 
-import { Button } from "@/components/ui/button";
-
-function ButtonBrea({ onClick }: { onClick: () => void }) {
-  return (
-    <Button variant="brea" className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={onClick}>
-      Explore in Brea
-      <ArrowRight aria-hidden />
-    </Button>
-  );
-}
