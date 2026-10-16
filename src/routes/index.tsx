@@ -36,7 +36,7 @@ function Index() {
         <Hero />
         <About />
         <Explore />
-        <PageSection id="support" label="Support" />
+        <Support />
         <PageSection id="resources" label="Resources" />
         <PageSection id="founder" label="Meet the Founder" />
       </main>
