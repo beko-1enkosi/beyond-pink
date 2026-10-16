@@ -4,6 +4,7 @@ import { PageSection } from "@/components/site/PageSection";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Explore } from "@/components/site/Explore";
+import { Support } from "@/components/site/Support";
 
 export const Route = createFileRoute("/")({
   head: () => ({
