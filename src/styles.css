@@ -38,6 +38,8 @@
   --color-rose: var(--rose);
   --color-sage: var(--sage);
   --color-ivory: var(--ivory);
+  --color-mist: var(--mist);
+  --color-mist-deep: var(--mist-deep);
   --shadow-soft: var(--shadow-soft-v);
   --shadow-glow: var(--shadow-glow-v);
   --shadow-glow-strong: var(--shadow-glow-strong-v);
@@ -51,6 +53,9 @@
   --rose: oklch(0.783 0.115 354); /* #F69ABD */
   --sage: oklch(0.743 0.073 120); /* #A8B88A */
   --ivory: oklch(0.959 0.013 75); /* #F6F0E8 */
+  /* Support & inclusion of men */
+  --mist: oklch(0.9524 0.0134 233.7); /* #E7F1F7 */
+  --mist-deep: oklch(0.9046 0.027 234); /* #CFE3EF */
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
