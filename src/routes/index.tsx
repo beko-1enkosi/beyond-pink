@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { Navbar } from "@/components/site/Navbar";
 import { PageSection } from "@/components/site/PageSection";
 import { Hero } from "@/components/site/Hero";
+import { About } from "@/components/site/About";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -31,7 +32,7 @@ function Index() {
       <main>
         {/* Sections are placeholders — content added in later steps */}
         <Hero />
-        <PageSection id="about" label="About" />
+        <About />
         <PageSection id="explore" label="Explore" />
         <PageSection id="support" label="Support" />
         <PageSection id="resources" label="Resources" />
