@@ -86,7 +86,7 @@ export function Hero() {
             compassionate support and a place where everyone belongs.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button variant="brea" className="h-12 px-6 text-base sm:px-7" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
+            <Button variant="brea" className="h-[3.25rem] px-7 text-base shadow-glow-strong sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
               Try Brea
               <ArrowRight aria-hidden />
             </Button>
