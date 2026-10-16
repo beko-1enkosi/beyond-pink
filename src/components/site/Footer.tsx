@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import { ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
 import { Button } from "@/components/ui/button";
@@ -42,7 +43,7 @@ const SOCIALS = [
   },
 ];
 
-function ColHeading({ children }: { children: React.ReactNode }) {
+function ColHeading({ children }: { children: ReactNode }) {
   return (
     <h2 className="flex items-center gap-2 text-[0.68rem] font-semibold uppercase tracking-[0.24em] text-ivory/60">
       <span aria-hidden className="h-px w-5 bg-sage/70" />

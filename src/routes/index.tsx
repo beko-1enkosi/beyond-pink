@@ -42,7 +42,7 @@ function Index() {
         <Resources />
         <Founder />
       </main>
-      <footer id="footer" aria-label="Footer" />
+      <Footer />
     </>
   );
 }
