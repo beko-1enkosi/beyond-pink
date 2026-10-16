@@ -17,8 +17,8 @@ import {
   PromptInputSubmit,
   PromptInputTextarea,
 } from "@/components/ai-elements/prompt-input";
-import { Shimmer } from "@/components/ai-elements/shimmer";
 import { scrollToSection } from "@/lib/section-scroll";
+import { BRI_SUPPORT_CONTACT } from "@/lib/bri/support-contact";
 
 const QUESTIONS = [
   "What is BeyondPink?",
@@ -64,6 +64,7 @@ export function Bri() {
   const [notice, setNotice] = useState("");
   const input = useRef<HTMLTextAreaElement>(null);
   const launcher = useRef<HTMLButtonElement>(null);
+  const panel = useRef<HTMLDivElement>(null);
   const reduced = useReducedMotion();
   const transport = useMemo(() => new DefaultChatTransport({ api: "/api/bri" }), []);
   const { messages, sendMessage, status, stop, setMessages, clearError } = useChat({
@@ -71,18 +72,25 @@ export function Bri() {
     onError: (e) => setNotice(e.message || "Bri couldn’t connect. Please try again later."),
   });
   const busy = status === "submitted" || status === "streaming";
+  const latest = messages.at(-1);
+  const thinking = busy && !(latest?.role === "assistant" && latest.parts.some((p) => p.type === "text" && p.text));
   useEffect(() => {
-    if (!open || busy) return;
-    const active = document.activeElement;
-    if (
-      active instanceof HTMLElement &&
-      active.closest('[role="dialog"]') &&
-      active !== input.current &&
-      ["INPUT", "TEXTAREA"].includes(active.tagName)
-    )
-      return;
-    input.current?.focus();
-  }, [open, busy]);
+    if (!open) return;
+    const viewport = window.visualViewport;
+    const updateViewport = () => {
+      panel.current?.style.setProperty("--bri-viewport-height", `${viewport?.height ?? window.innerHeight}px`);
+      panel.current?.style.setProperty("--bri-viewport-top", `${viewport?.offsetTop ?? 0}px`);
+    };
+    updateViewport();
+    viewport?.addEventListener("resize", updateViewport);
+    viewport?.addEventListener("scroll", updateViewport);
+    window.addEventListener("resize", updateViewport);
+    return () => {
+      viewport?.removeEventListener("resize", updateViewport);
+      viewport?.removeEventListener("scroll", updateViewport);
+      window.removeEventListener("resize", updateViewport);
+    };
+  }, [open]);
   const send = (text: string) => {
     if (busy || !text.trim()) return;
     setNotice("");
@@ -94,7 +102,7 @@ export function Bri() {
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
-      <div className="bri-launcher-wrap fixed bottom-5 right-4 z-[60] flex items-center gap-3 sm:bottom-7 sm:right-7">
+      <div hidden={open} className="bri-launcher-wrap fixed bottom-5 right-4 z-[60] flex items-center gap-3 sm:bottom-7 sm:right-7">
         {!open && (
           <span className="rounded-full border border-sage/40 bg-card px-4 py-2 text-sm font-medium shadow-soft">
             Ask Bri ✨
@@ -113,7 +121,9 @@ export function Bri() {
         </DialogPrimitive.Trigger>
       </div>
       <DialogPrimitive.Portal>
+        <DialogPrimitive.Overlay className="fixed inset-0 z-[60] touch-none" />
         <DialogPrimitive.Content
+          ref={panel}
           aria-describedby="bri-subtitle"
           onOpenAutoFocus={(e) => {
             e.preventDefault();
@@ -163,7 +173,7 @@ export function Bri() {
             </DialogPrimitive.Close>
           </header>
           <Conversation
-            className="min-h-0 flex-1"
+            className="min-h-0 flex-1 overscroll-contain"
             initial={reduced ? "instant" : "smooth"}
             resize={reduced ? "instant" : "smooth"}
           >
@@ -177,7 +187,7 @@ export function Bri() {
                   e.preventDefault();
                   setOpen(false);
                   scrollToSection(href, true);
-                } else if (!EXTERNAL.has(href)) e.preventDefault();
+                } else if (!EXTERNAL.has(href) && href !== BRI_SUPPORT_CONTACT.href) e.preventDefault();
               }}
             >
               <Message from="assistant">
@@ -217,7 +227,11 @@ export function Bri() {
                                 >
                                   {children}
                                 </a>
-                              ) : EXTERNAL.has(href ?? "") ? (
+                               ) : href === BRI_SUPPORT_CONTACT.href ? (
+                                 <a href={href} className="underline decoration-sage underline-offset-4">
+                                   {children}
+                                 </a>
+                               ) : EXTERNAL.has(href ?? "") ? (
                                 <a
                                   href={href}
                                   target="_blank"
@@ -238,15 +252,18 @@ export function Bri() {
                   </MessageContent>
                 </Message>
               ))}
-              {busy &&
-                !(
-                  messages.at(-1)?.role === "assistant" &&
-                  messages.at(-1)?.parts.some((p) => p.type === "text" && p.text)
-                ) && (
-                  <div role="status" className="text-sm text-muted-foreground">
-                    {reduced ? "Bri is thinking…" : <Shimmer>Bri is thinking…</Shimmer>}
-                  </div>
-                )}
+              {thinking && !notice && (
+                <Message from="assistant">
+                  <MessageContent className="rounded-lg bg-accent px-4 py-3">
+                    <div role="status" aria-label="Bri is thinking" className="flex h-4 items-center gap-1.5">
+                      <span className="sr-only">Bri is thinking…</span>
+                      <span aria-hidden className="bri-thinking-dot h-2 w-2 rounded-full bg-sage" />
+                      <span aria-hidden className="bri-thinking-dot h-2 w-2 rounded-full bg-sage" />
+                      <span aria-hidden className="bri-thinking-dot h-2 w-2 rounded-full bg-sage" />
+                    </div>
+                  </MessageContent>
+                </Message>
+              )}
               {notice && (
                 <p
                   role="alert"
@@ -258,7 +275,7 @@ export function Bri() {
             </ConversationContent>
             <ConversationScrollButton aria-label="Latest messages" title="Latest messages" />
           </Conversation>
-          <div className="shrink-0 border-t border-sage/25 px-4 pb-4 pt-3">
+          <div className="bri-composer shrink-0 border-t border-sage/25 px-4 pb-3 pt-2 sm:pb-4 sm:pt-3">
             <PromptInput onSubmit={({ text }) => send(text)}>
               <PromptInputTextarea
                 ref={input}
@@ -267,9 +284,10 @@ export function Bri() {
                 maxLength={1000}
                 aria-label="Message Bri"
                 placeholder="Ask Bri a question…"
-                className="max-h-28 min-h-12 text-sm"
+                rows={1}
+                className="max-h-20 min-h-9 py-2 text-base sm:max-h-28 sm:min-h-12 sm:text-sm"
               />
-              <PromptInputFooter className="justify-between">
+              <PromptInputFooter className="justify-between py-1 sm:py-2">
                 <Leaf className="h-4 w-4 text-sage" aria-hidden />
                 <PromptInputSubmit
                   status={status}
@@ -278,14 +296,14 @@ export function Bri() {
                     setNotice("Bri’s reply was stopped.");
                   }}
                   disabled={!busy && !draft.trim()}
-                  className="bri-mark rounded-full text-ivory"
+                  className="bri-mark h-8 w-8 rounded-full text-ivory sm:h-9 sm:w-9"
                   title={busy ? "Stop reply" : "Send question"}
                 >
                   {!busy && <ArrowUp />}
                 </PromptInputSubmit>
               </PromptInputFooter>
             </PromptInput>
-            <p className="mt-2.5 text-[11px] leading-relaxed text-muted-foreground">
+            <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground sm:mt-2.5 sm:leading-relaxed">
               Bri is an AI assistant for website information only. Please don't share private
               medical details. Bri does not replace professional healthcare advice.
             </p>
