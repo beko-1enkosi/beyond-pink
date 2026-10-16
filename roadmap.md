@@ -29,3 +29,8 @@
 - [x] Replace the small "Tap to Explore" text links with sage pill buttons, olive border, arrow and hover glow.
 - [x] Keep 44px touch targets, identical size and alignment, translated labels and the same preview opening from card or button.
 - [x] Verify clicks, hover glow, translations and fit on desktop, mobile and narrow screens.
+
+# Final visual polish
+- [ ] Reuse the exact Hero waves at section transitions without changing content or spacing.
+- [ ] Repeat statistics only while their cards are visible, with a two-second final-value pause and reduced-motion support.
+- [ ] Verify counter lifecycle and wave transitions on desktop, tablet and mobile.
