@@ -44,6 +44,8 @@
   --shadow-soft: var(--shadow-soft-v);
   --shadow-glow: var(--shadow-glow-v);
   --shadow-glow-strong: var(--shadow-glow-strong-v);
+  --shadow-bri: var(--shadow-bri-v);
+  --shadow-bri-strong: var(--shadow-bri-strong-v);
 }
 
 :root {
@@ -84,6 +86,10 @@
   --shadow-glow-strong-v: 0 0 0 1px color-mix(in oklab, var(--rose) 55%, transparent), 0 10px 32px -6px color-mix(in oklab, var(--rose) 80%, transparent);
   --nav-height: 4.5rem;
   --gradient-brea: linear-gradient(110deg, oklch(0.80 0.11 354) 0%, oklch(0.87 0.06 358) 30%, oklch(0.80 0.11 354) 55%, oklch(0.84 0.06 30) 80%, oklch(0.80 0.08 110) 100%);
+  --bri-olive: oklch(0.45 0.075 120);
+  --gradient-bri: linear-gradient(135deg, var(--sage), var(--bri-olive));
+  --shadow-bri-v: 0 0 0 3px color-mix(in oklab, var(--sage) 25%, transparent), 0 0 22px color-mix(in oklab, var(--sage) 65%, transparent);
+  --shadow-bri-strong-v: 0 0 0 4px color-mix(in oklab, var(--sage) 35%, transparent), 0 0 30px color-mix(in oklab, var(--sage) 80%, transparent);
 }
 
 @layer base {
@@ -110,3 +116,11 @@
 
 .hero-img { object-position: var(--pos-m, 50% 50%); }
 @media (min-width: 768px) { .hero-img { object-position: var(--pos, 50% 50%); } }
+
+.bri-mark, .bri-launcher { background-image: var(--gradient-bri); }
+.bri-launcher { box-shadow: var(--shadow-bri-v); transition: box-shadow .3s; animation: bri-float 4s ease-in-out infinite; }
+.bri-launcher:hover { box-shadow: var(--shadow-bri-strong-v); }
+.bri-panel[hidden] { display: none; }
+@keyframes bri-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+@media (prefers-reduced-motion: reduce) { .bri-launcher { animation: none; } }
+@media (max-height: 500px) { .bri-panel { bottom: 8px; height: calc(100dvh - 16px); } }

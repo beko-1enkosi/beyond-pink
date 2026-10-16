@@ -10,3 +10,7 @@
 <!-- LOVABLE:END -->
 
 Same-page navigation uses the shared section-scroll module, installed by the index page; section buttons call the same helper so easing, sticky-navbar offsets, mobile-menu closure and reduced-motion handling remain consistent.
+
+Bri uses AI Elements and a session-only AI SDK conversation, with model calls and instructions isolated behind a same-origin TanStack server route; this preserves the landing page and prevents client exposure of secrets or stored chat data.
+Bri’s temporary request limiter stores hashed visitor counters only in each server isolate, with a global ceiling; it is best-effort rather than durable protection and resets on restart.
+AI Elements must adapt to existing UI primitive variants rather than changing shared buttons; this avoids altering completed website sections.
