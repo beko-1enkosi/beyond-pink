@@ -84,18 +84,20 @@ export function Support() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:px-10 lg:pb-24 lg:pt-32">
-        <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/80 sm:text-xs sm:tracking-[0.28em]">
-            <span className="h-px w-8 bg-sage" aria-hidden />
-            Support &amp; Community
-            <span className="h-px w-8 bg-sage" aria-hidden />
-          </p>
-          <h2 id="support-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-            No One Should Navigate <span className="italic text-rose">This Alone.</span>
-          </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-foreground/80 sm:text-lg">
-            Whether you&rsquo;re seeking answers, supporting someone you love, or hoping to connect with people who understand, there&rsquo;s a place for you here.
-          </p>
+        <Reveal className="mx-auto max-w-3xl">
+          <div className="rounded-[2.5rem] bg-ivory/55 px-6 py-9 shadow-soft backdrop-blur-md sm:px-10 sm:py-11">
+            <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/80 sm:text-xs sm:tracking-[0.28em]">
+              <span className="h-px w-8 bg-sage" aria-hidden />
+              Support &amp; Community
+              <span className="h-px w-8 bg-sage" aria-hidden />
+            </p>
+            <h2 id="support-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
+              No One Should Navigate <span className="italic text-rose">This Alone.</span>
+            </h2>
+            <p className="mx-auto mt-5 max-w-2xl text-[0.98rem] leading-relaxed text-foreground/85 sm:text-lg">
+              Whether you&rsquo;re seeking answers, supporting someone you love, or hoping to connect with people who understand, there&rsquo;s a place for you here.
+            </p>
+          </div>
         </Reveal>
 
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
