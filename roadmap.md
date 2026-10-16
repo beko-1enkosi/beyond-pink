@@ -11,6 +11,6 @@
 - [x] Verify real responses, error states, scrolling and mobile layout.
 
 # Explore interactions
-- [ ] Add anatomy terms, changes topics and a three-step educational journey.
-- [ ] Open accessible previews from the existing cards without changing the Brea button.
-- [ ] Verify selections, timeline, focus, closing and mobile fit.
+- [x] Add anatomy terms, changes topics and a three-step educational journey.
+- [x] Open accessible previews from the existing cards without changing the Brea button.
+- [x] Verify selections, timeline, focus, closing and mobile fit.
