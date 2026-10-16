@@ -86,7 +86,7 @@ export function Hero() {
             compassionate support and a place where everyone belongs.
           </p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button variant="brea" className="h-12 px-6 text-base sm:px-7" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
+            <Button variant="brea" className="h-[3.25rem] px-7 text-base shadow-glow-strong sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>
               Try Brea
               <ArrowRight aria-hidden />
             </Button>
@@ -109,7 +109,7 @@ export function Hero() {
             role="region"
             aria-roledescription="carousel"
             aria-label="BeyondPink campaign photographs"
-            className="relative aspect-[5/4] w-full overflow-hidden bg-blush shadow-soft md:aspect-[1/1] lg:aspect-[6/5]"
+            className="relative aspect-[5/4] w-full overflow-hidden bg-charcoal/10 shadow-soft md:aspect-[1/1] lg:aspect-[6/5]"
             style={{ borderRadius: FRAME_RADIUS }}
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
@@ -146,10 +146,10 @@ export function Hero() {
                   alt={s.alt}
                   width={1774}
                   height={887}
-                  loading={i === 0 ? "eager" : "lazy"}
+                  loading="eager"
                   fetchPriority={i === 0 ? "high" : "low"}
                   decoding="async"
-                  className="hero-img h-full w-full object-cover"
+                  className="hero-img h-full w-full object-cover text-transparent"
                   style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posMobile }}
                 />
               </div>

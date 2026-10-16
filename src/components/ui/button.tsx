@@ -16,7 +16,7 @@ const buttonVariants = cva(
         secondary: "bg-secondary text-secondary-foreground shadow-sm hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
-        brea: "rounded-full bg-rose text-primary-foreground font-semibold shadow-glow transition-all duration-300 hover:shadow-glow-strong hover:-translate-y-px",
+        brea: "rounded-full bg-[image:var(--gradient-brea)] bg-[length:200%_100%] bg-left text-primary-foreground font-semibold shadow-glow ring-1 ring-inset ring-ivory/50 transition-all duration-500 hover:bg-right hover:shadow-glow-strong hover:-translate-y-px",
       },
       size: {
         default: "h-9 px-4 py-2",
