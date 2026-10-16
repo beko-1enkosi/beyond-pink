@@ -6,6 +6,7 @@ import { Explore } from "@/components/site/Explore";
 import { Support } from "@/components/site/Support";
 import { Resources } from "@/components/site/Resources";
 import { Founder } from "@/components/site/Founder";
+import { Footer } from "@/components/site/Footer";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -41,7 +42,7 @@ function Index() {
         <Resources />
         <Founder />
       </main>
-      <footer id="footer" aria-label="Footer" />
+      <Footer />
     </>
   );
 }

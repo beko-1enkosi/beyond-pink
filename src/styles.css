@@ -34,6 +34,7 @@
   --color-ring: var(--ring);
   --color-ring-offset-background: var(--background);
   --color-charcoal: var(--charcoal);
+  --color-charcoal-deep: var(--charcoal-deep);
   --color-blush: var(--blush);
   --color-rose: var(--rose);
   --color-sage: var(--sage);
@@ -49,6 +50,7 @@
   --radius: 0.875rem;
   /* Brand palette */
   --charcoal: oklch(0.452 0 0); /* #565656 */
+  --charcoal-deep: oklch(0.3307 0.0055 236.7); /* #333638 */
   --blush: oklch(0.900 0.025 5); /* #EED7DA */
   --rose: oklch(0.783 0.115 354); /* #F69ABD */
   --sage: oklch(0.743 0.073 120); /* #A8B88A */
