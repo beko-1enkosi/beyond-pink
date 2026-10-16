@@ -105,7 +105,7 @@ export function Resources() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <Reveal className="mx-auto max-w-3xl text-center">
-          <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
+          <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/75 sm:text-xs sm:tracking-[0.28em]">
             <span className="h-px w-8 bg-sage" aria-hidden />
             Helpful Resources
             <span className="h-px w-8 bg-sage" aria-hidden />
@@ -159,7 +159,7 @@ export function Resources() {
         <Reveal className="mt-12 md:mt-16">
           <div className="mx-auto max-w-3xl rounded-2xl border border-sage/35 bg-card/60 px-6 py-5 text-center sm:px-9 sm:py-6">
             <Sprig className="mx-auto mb-3 h-6 w-12 text-sage/60" />
-            <p className="text-[0.82rem] leading-relaxed text-muted-foreground sm:text-sm">
+            <p className="text-[0.82rem] leading-relaxed text-foreground/75 sm:text-sm">
               BeyondPink provides educational information and resources only. It does not replace professional medical advice, diagnosis or treatment.
             </p>
           </div>
