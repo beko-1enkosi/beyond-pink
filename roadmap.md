@@ -15,6 +15,11 @@
 - [x] Add compassionate health guidance and CANSA support telephone link.
 - [x] Verify real responses, error states, scrolling and mobile layout.
 
+# Bri voice accessibility
+- [ ] Add optional English microphone input with editable drafts and graceful browser/permission fallback.
+- [ ] Add visitor-controlled English read-aloud with pause, resume, stop and close cleanup.
+- [ ] Verify voice lifecycle, privacy, existing chat and compact-screen fit.
+
 # Explore interactions
 - [x] Add anatomy terms, changes topics and a three-step educational journey.
 - [x] Open accessible previews from the existing cards without changing the Brea button.
