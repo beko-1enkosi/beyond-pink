@@ -123,6 +123,7 @@ export function Bri() {
       <DialogPrimitive.Portal>
         <DialogPrimitive.Overlay className="fixed inset-0 z-[60] touch-none" />
         <DialogPrimitive.Content
+          lang="en"
           ref={panel}
           aria-describedby="bri-subtitle"
           onOpenAutoFocus={(e) => {

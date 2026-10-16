@@ -1,5 +1,6 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useState } from "react";
-import { ArrowRight, Check, ChevronDown, Github, Menu, X } from "lucide-react";
+import { ArrowRight, Check, ChevronDown, Github, Globe, Menu } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
 import { Button } from "@/components/ui/button";
 import {
@@ -36,16 +37,17 @@ function useActiveSection() {
 }
 
 function Logo() {
+  const { t } = useTranslation();
   return (
     <a
       href="#home"
-      aria-label="BeyondPink — back to top"
+      aria-label={t("BeyondPink — back to top")}
       className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14 md:h-16 md:w-16"
     >
       {/* Original SVG, scaled within a crop frame to trim its built-in whitespace */}
       <img
         src={logo.url}
-        alt="BeyondPink"
+        alt={t("BeyondPink")}
         className="absolute inset-0 h-full w-full scale-[1.7] object-contain"
         style={{ transformOrigin: "52% 44%" }}
       />
@@ -54,24 +56,25 @@ function Logo() {
 }
 
 function LanguageSelect({ className }: { className?: string }) {
-  const [lang, setLang] = useState<string>("en");
+  const { t, language: lang, setLanguage: setLang } = useTranslation();
   const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label={`Language: ${current.name}`}
+        aria-label={`${t("Language")}: ${current.name}`}
         className={cn(
           "inline-flex h-10 items-center gap-1 rounded-full px-3 text-sm font-medium transition-colors hover:bg-accent",
           className,
         )}
       >
+        <Globe className="h-3.5 w-3.5 shrink-0" aria-hidden />
         {current.short}
         <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="rounded-xl">
         {LANGUAGES.map((l) => (
           <DropdownMenuItem key={l.code} onSelect={() => setLang(l.code)} className="gap-2">
-            {l.name}
+            <span lang={l.code}>{l.name}</span>
             {l.code === lang && <Check className="ml-auto h-4 w-4" aria-hidden />}
           </DropdownMenuItem>
         ))}
@@ -81,20 +84,22 @@ function LanguageSelect({ className }: { className?: string }) {
 }
 
 function GithubLink() {
+  const { t } = useTranslation();
   const base =
     "inline-flex h-10 w-10 items-center justify-center rounded-full transition-colors hover:bg-accent";
   return GITHUB_URL ? (
-    <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label="GitHub repository" className={base}>
+    <a href={GITHUB_URL} target="_blank" rel="noreferrer" aria-label={t("GitHub repository")} className={base}>
       <Github className="h-5 w-5" aria-hidden />
     </a>
   ) : (
-    <span className={cn(base, "cursor-default opacity-80")} title="Repository link coming soon" aria-label="GitHub repository (coming soon)" role="img">
+    <span className={cn(base, "cursor-default opacity-80")} title={t("Repository link coming soon")} aria-label={t("GitHub repository (coming soon)")} role="img">
       <Github className="h-5 w-5" aria-hidden />
     </span>
   );
 }
 
 export function Navbar() {
+  const { t } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
   const [breaOpen, setBreaOpen] = useState(false);
   const active = useActiveSection();
@@ -122,18 +127,18 @@ export function Navbar() {
       )}
     >
       <nav
-        aria-label="Main"
+        aria-label={t("Main")}
         className="mx-auto grid h-[var(--nav-height)] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-1 px-2 sm:gap-2 sm:px-6 md:flex md:justify-between md:gap-3 lg:px-8"
       >
         <Sheet>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label="Open menu">
+            <Button variant="ghost" size="icon" className="rounded-full md:hidden" aria-label={t("Open menu")}>
               <Menu className="!h-5 !w-5" />
             </Button>
           </SheetTrigger>
-          <SheetContent side="left" className="w-[85vw] max-w-sm border-r bg-background p-0">
+          <SheetContent closeLabel={t("Close")} side="left" className="w-[85vw] max-w-sm border-r bg-background p-0">
             <div className="flex h-full flex-col px-6 pb-8 pt-16">
-              <SheetTitle className="font-serif text-2xl font-medium">Menu</SheetTitle>
+              <SheetTitle className="font-serif text-2xl font-medium">{t("Menu")}</SheetTitle>
               <ul className="mt-6 flex flex-col">
                 {NAV_LINKS.map((l) => (
                   <li key={l.href}>
@@ -145,7 +150,7 @@ export function Navbar() {
                           active === l.href ? "text-foreground" : "text-muted-foreground",
                         )}
                       >
-                        {l.label}
+                        {t(l.label)}
                       </a>
                     </SheetClose>
                   </li>
@@ -161,8 +166,7 @@ export function Navbar() {
 
         <div className="flex min-w-0 items-center justify-center gap-1 md:justify-start">
           <Logo />
-          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none sm:text-[1.6rem]">
-            Beyond<span className="text-rose">Pink</span>
+          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none sm:text-[1.6rem]">{t("Beyond")}<span className="text-rose">{t("Pink")}</span>
           </span>
         </div>
 
@@ -179,7 +183,7 @@ export function Navbar() {
                     isActive ? "text-foreground" : "text-muted-foreground hover:text-foreground",
                   )}
                 >
-                  {l.label}
+                  {t(l.label)}
                   <span
                     aria-hidden
                     className={cn(
@@ -199,20 +203,16 @@ export function Navbar() {
             <LanguageSelect />
             <GithubLink />
           </div>
-          <Button variant="brea" className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
-            Try Brea
-            <ArrowRight className="hidden lg:block" aria-hidden />
+          <Button variant="brea" className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>{t("Try Brea")}<ArrowRight className="hidden lg:block" aria-hidden />
           </Button>
         </div>
       </nav>
 
       <Dialog open={breaOpen} onOpenChange={setBreaOpen}>
-        <DialogContent className="rounded-2xl bg-card sm:max-w-md">
+        <DialogContent closeLabel={t("Close")} className="rounded-2xl bg-card sm:max-w-md">
           <DialogHeader>
-            <DialogTitle className="font-serif text-3xl font-medium">Brea demo coming soon</DialogTitle>
-            <DialogDescription className="pt-2 text-base">
-              Brea, our interactive breast-health education and support app, is on its way.
-            </DialogDescription>
+            <DialogTitle className="font-serif text-3xl font-medium">{t("Brea demo coming soon")}</DialogTitle>
+            <DialogDescription className="pt-2 text-base">{t("Brea, our interactive breast-health education and support app, is on its way.")}</DialogDescription>
           </DialogHeader>
         </DialogContent>
       </Dialog>

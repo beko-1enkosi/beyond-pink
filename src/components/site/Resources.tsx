@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -43,6 +44,7 @@ const CARDS: {
 ];
 
 function useInView<T extends Element>() {
+  const { t } = useTranslation();
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -82,6 +84,7 @@ function Sprig({ className }: { className?: string }) {
 }
 
 function ResourceLink({ label, href }: Link) {
+  const { t } = useTranslation();
   return (
     <a
       href={href}
@@ -89,14 +92,15 @@ function ResourceLink({ label, href }: Link) {
       rel="noopener noreferrer"
       className="group/link flex items-center justify-between gap-3 rounded-xl border border-border bg-background/70 px-3.5 py-2.5 text-sm font-medium text-foreground transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-sage hover:bg-card hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0"
     >
-      <span>{label}</span>
+      <span>{t(label)}</span>
       <ArrowUpRight className="h-4 w-4 shrink-0 text-sage transition-transform duration-300 ease-out group-hover/link:-translate-y-0.5 group-hover/link:translate-x-0.5 motion-reduce:transition-none" aria-hidden />
-      <span className="sr-only">(opens in a new tab)</span>
+      <span className="sr-only">{t("(opens in a new tab)")}</span>
     </a>
   );
 }
 
 export function Resources() {
+  const { t } = useTranslation();
   const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
   return (
     <section id="resources" aria-labelledby="resources-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
@@ -106,16 +110,11 @@ export function Resources() {
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <Reveal className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/75 sm:text-xs sm:tracking-[0.28em]">
-            <span className="h-px w-8 bg-sage" aria-hidden />
-            Helpful Resources
-            <span className="h-px w-8 bg-sage" aria-hidden />
+            <span className="h-px w-8 bg-sage" aria-hidden />{t("Helpful Resources")}<span className="h-px w-8 bg-sage" aria-hidden />
           </p>
-          <h2 id="resources-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-            The Right Information. <span className="italic text-rose">The Right Support.</span>
+          <h2 id="resources-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("The Right Information.")} <span className="italic text-rose">{t("The Right Support.")}</span>
           </h2>
-          <p className="mx-auto mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
-            Explore trusted breast-health information, compassionate support services and pathways to care.
-          </p>
+          <p className="mx-auto mt-6 max-w-2xl text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">{t("Explore trusted breast-health information, compassionate support services and pathways to care.")}</p>
         </Reveal>
 
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
@@ -126,9 +125,9 @@ export function Resources() {
                 <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl text-charcoal ring-1 ring-border/60", card.iconBg)}>
                   <card.icon className="h-6 w-6" aria-hidden />
                 </span>
-                <h3 className="mt-5 text-2xl leading-snug text-foreground">{card.title}</h3>
+                <h3 className="mt-5 text-2xl leading-snug text-foreground">{t(card.title)}</h3>
                 <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
-                <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{card.text}</p>
+                <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(card.text)}</p>
 
                 {card.links && (
                   <div className="mt-auto pt-5">
@@ -142,13 +141,9 @@ export function Resources() {
 
                 {card.cta && (
                   <div className="mt-auto pt-5">
-                    <Button variant="brea" className="h-11 w-full px-5 text-sm shadow-glow" onClick={openBrea}>
-                      Find Care in Brea
-                      <ArrowRight aria-hidden />
+                    <Button variant="brea" className="h-11 w-full px-5 text-sm shadow-glow" onClick={openBrea}>{t("Find Care in Brea")}<ArrowRight aria-hidden />
                     </Button>
-                    <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">
-                      The directory is planned, not yet available.
-                    </p>
+                    <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">{t("The directory is planned, not yet available.")}</p>
                   </div>
                 )}
               </article>
@@ -159,9 +154,7 @@ export function Resources() {
         <Reveal className="mt-12 md:mt-16">
           <div className="mx-auto max-w-3xl rounded-2xl border border-sage/35 bg-card/60 px-6 py-5 text-center sm:px-9 sm:py-6">
             <Sprig className="mx-auto mb-3 h-6 w-12 text-sage/60" />
-            <p className="text-[0.82rem] leading-relaxed text-foreground/75 sm:text-sm">
-              BeyondPink provides educational information and resources only. It does not replace professional medical advice, diagnosis or treatment.
-            </p>
+            <p className="text-[0.82rem] leading-relaxed text-foreground/75 sm:text-sm">{t("BeyondPink provides educational information and resources only. It does not replace professional medical advice, diagnosis or treatment.")}</p>
           </div>
         </Reveal>
       </div>

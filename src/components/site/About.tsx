@@ -1,3 +1,4 @@
+import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, Users } from "lucide-react";
 import belongImg from "@/assets/about-belong.webp.asset.json";
@@ -23,6 +24,7 @@ const STATS = [
 ];
 
 function useInView<T extends Element>() {
+  const { t } = useTranslation();
   const ref = useRef<T>(null);
   const [seen, setSeen] = useState(false);
   useEffect(() => {
@@ -81,6 +83,7 @@ function Leaf({ className }: { className?: string }) {
 }
 
 export function About() {
+  const { t } = useTranslation();
   const [statsRef, statsSeen] = useInView<HTMLDivElement>();
   return (
     <section id="about" aria-labelledby="about-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
@@ -91,18 +94,15 @@ export function About() {
         <div className="grid items-center gap-12 md:grid-cols-[1.1fr_1fr] lg:gap-16">
           <Reveal>
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
-              <span className="h-px w-8 bg-sage" aria-hidden />
-              About BeyondPink
-            </p>
-            <h2 id="about-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">
-              Because Awareness Is Only <span className="italic text-rose">the Beginning.</span>
+              <span className="h-px w-8 bg-sage" aria-hidden />{t("About BeyondPink")}</p>
+            <h2 id="about-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("Because Awareness Is Only")} <span className="italic text-rose">{t("the Beginning.")}</span>
             </h2>
             <div className="mt-6 space-y-4 text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
-              <p>Every October, the world turns pink. Ribbons are worn, stories are shared, and conversations begin.</p>
-              <p className="font-serif text-2xl italic text-foreground">But what happens when October ends?</p>
-              <p>The questions, uncertainty, and need for reliable information don't disappear.</p>
-              <p className="font-medium text-foreground">BeyondPink exists to keep that conversation going.</p>
-              <p>We believe everyone deserves accessible breast-health education, compassionate support, and the confidence to better understand their health.</p>
+              <p>{t("Every October, the world turns pink. Ribbons are worn, stories are shared, and conversations begin.")}</p>
+              <p className="font-serif text-2xl italic text-foreground">{t("But what happens when October ends?")}</p>
+              <p>{t("The questions, uncertainty, and need for reliable information don't disappear.")}</p>
+              <p className="font-medium text-foreground">{t("BeyondPink exists to keep that conversation going.")}</p>
+              <p>{t("We believe everyone deserves accessible breast-health education, compassionate support, and the confidence to better understand their health.")}</p>
             </div>
 
             <ul className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -111,8 +111,8 @@ export function About() {
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-foreground ring-1 ring-sage/50">
                     <Icon className="h-5 w-5" aria-hidden />
                   </span>
-                  <h3 className="mt-3 text-xl text-foreground">{title}</h3>
-                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{text}</p>
+                  <h3 className="mt-3 text-xl text-foreground">{t(title)}</h3>
+                  <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t(text)}</p>
                 </li>
               ))}
             </ul>
@@ -122,7 +122,7 @@ export function About() {
             <Leaf className="absolute -left-4 -top-6 z-10 h-14 w-28 text-sage" />
             <div aria-hidden className="absolute -bottom-3 -left-3 h-full w-full border border-sage/60" style={{ borderRadius: FRAME_RADIUS }} />
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-accent shadow-soft" style={{ borderRadius: FRAME_RADIUS }}>
-              <img src={ABOUT_IMAGE.src} alt={ABOUT_IMAGE.alt} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+              <img src={ABOUT_IMAGE.src} alt={t(ABOUT_IMAGE.alt)} loading="lazy" decoding="async" className="h-full w-full object-cover" />
             </div>
             <Leaf className="absolute -bottom-6 right-2 z-10 h-14 w-28 rotate-180 text-rose/70" />
           </Reveal>
@@ -131,9 +131,7 @@ export function About() {
         {/* Statistics */}
         <div ref={statsRef} className="mt-20 lg:mt-24">
           <Reveal>
-            <p className="text-center text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">
-              Historical estimates · GLOBOCAN 2022 · not live figures
-            </p>
+            <p className="text-center text-xs font-medium uppercase tracking-[0.24em] text-muted-foreground">{t("Historical estimates · GLOBOCAN 2022 · not live figures")}</p>
           </Reveal>
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             {STATS.map((s, i) => (
@@ -143,17 +141,14 @@ export function About() {
                     <span aria-hidden><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} start={statsSeen} /></span>
                   </p>
                   <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
-                  <figcaption className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{s.label}</figcaption>
-                  <a href={s.src} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs text-foreground underline decoration-sage underline-offset-4 hover:decoration-rose">
-                    Source: {s.srcLabel}
+                  <figcaption className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(s.label)}</figcaption>
+                  <a href={s.src} target="_blank" rel="noopener noreferrer" className="mt-4 inline-block text-xs text-foreground underline decoration-sage underline-offset-4 hover:decoration-rose">{t("Source:")} {t(s.srcLabel)}
                   </a>
                 </figure>
               </Reveal>
             ))}
           </div>
-          <p className="mt-4 text-center text-xs text-muted-foreground">
-            Source: International Agency for Research on Cancer (IARC), GLOBOCAN 2022.
-          </p>
+          <p className="mt-4 text-center text-xs text-muted-foreground">{t("Source: International Agency for Research on Cancer (IARC), GLOBOCAN 2022.")}</p>
         </div>
 
         {/* Inclusivity */}
@@ -161,14 +156,10 @@ export function About() {
           <div className="relative overflow-hidden rounded-[2rem] border border-mist-deep bg-mist px-6 py-10 text-center sm:px-10 sm:py-12 md:px-14 md:py-14">
             <Leaf className="absolute -right-2 top-2 h-9 w-20 text-sage" />
             <Leaf className="absolute -right-2 bottom-2 h-9 w-20 rotate-180 text-sage" />
-            <h2 className="text-3xl text-foreground sm:text-4xl">Everyone Belongs in This Conversation.</h2>
-            <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-muted-foreground sm:text-lg">
-              Breast cancer affects more than one gender, and its impact extends to families, friends and communities. BeyondPink welcomes women, men, caregivers, loved ones and everyone seeking understanding and support.
-            </p>
+            <h2 className="text-3xl text-foreground sm:text-4xl">{t("Everyone Belongs in This Conversation.")}</h2>
+            <p className="mx-auto mt-4 max-w-3xl leading-relaxed text-muted-foreground sm:text-lg">{t("Breast cancer affects more than one gender, and its impact extends to families, friends and communities. BeyondPink welcomes women, men, caregivers, loved ones and everyone seeking understanding and support.")}</p>
             <p className="mt-5 inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-1.5 text-sm text-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-rose" aria-hidden />
-              Breast cancer can also occur in men.
-            </p>
+              <span className="h-1.5 w-1.5 rounded-full bg-rose" aria-hidden />{t("Breast cancer can also occur in men.")}</p>
           </div>
         </Reveal>
       </div>

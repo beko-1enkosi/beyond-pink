@@ -10,6 +10,7 @@ import { Resources } from "@/components/site/Resources";
 import { Founder } from "@/components/site/Founder";
 import { Footer } from "@/components/site/Footer";
 import { Bri } from "@/components/bri/Bri";
+import { LanguageProvider } from "@/lib/i18n";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -36,6 +37,7 @@ function Index() {
   useEffect(installSectionScrolling, []);
   return (
     <>
+      <LanguageProvider>
       <Navbar />
       <main>
         {/* Sections are placeholders — content added in later steps */}
@@ -47,7 +49,8 @@ function Index() {
         <Founder />
       </main>
       <Footer />
-      <Bri />
+      </LanguageProvider>
+      <div lang="en"><Bri /></div>
     </>
   );
 }
