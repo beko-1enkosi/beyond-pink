@@ -45,7 +45,7 @@ function Logo() {
         history.replaceState(null, "", "#home");
       }}
       aria-label="BeyondPink — back to top"
-      className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-xl md:h-16 md:w-16"
+      className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14 md:h-16 md:w-16"
     >
       {/* Original SVG, scaled within a crop frame to trim its built-in whitespace */}
       <img
@@ -128,7 +128,7 @@ export function Navbar() {
     >
       <nav
         aria-label="Main"
-        className="mx-auto grid h-[var(--nav-height)] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-2 px-3 sm:px-6 md:flex md:justify-between md:gap-3 lg:px-8"
+        className="mx-auto grid h-[var(--nav-height)] max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-1 px-2 sm:gap-2 sm:px-6 md:flex md:justify-between md:gap-3 lg:px-8"
       >
         <Sheet>
           <SheetTrigger asChild>
@@ -164,9 +164,9 @@ export function Navbar() {
           </SheetContent>
         </Sheet>
 
-        <div className="flex min-w-0 items-center justify-center gap-1.5 md:justify-start">
+        <div className="flex min-w-0 items-center justify-center gap-1 md:justify-start">
           <Logo />
-          <span className="truncate font-serif text-[1.45rem] font-medium leading-none sm:text-[1.6rem]">
+          <span className="whitespace-nowrap font-serif text-[1.3rem] font-medium leading-none sm:text-[1.6rem]">
             Beyond<span className="text-rose">Pink</span>
           </span>
         </div>
@@ -199,12 +199,12 @@ export function Navbar() {
         </ul>
 
         <div className="flex items-center gap-0.5 sm:gap-2">
-          <LanguageSelect className="px-2 md:hidden" />
+          <LanguageSelect className="px-1.5 md:hidden" />
           <div className="hidden items-center md:flex">
             <LanguageSelect />
             <GithubLink />
           </div>
-          <Button variant="brea" className="h-9 px-3 text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
+          <Button variant="brea" className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>
             Try Brea
             <ArrowRight className="hidden lg:block" aria-hidden />
           </Button>
