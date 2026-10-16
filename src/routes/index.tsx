@@ -4,6 +4,7 @@ import { PageSection } from "@/components/site/PageSection";
 import { Hero } from "@/components/site/Hero";
 import { About } from "@/components/site/About";
 import { Explore } from "@/components/site/Explore";
+import { Support } from "@/components/site/Support";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -35,7 +36,7 @@ function Index() {
         <Hero />
         <About />
         <Explore />
-        <PageSection id="support" label="Support" />
+        <Support />
         <PageSection id="resources" label="Resources" />
         <PageSection id="founder" label="Meet the Founder" />
       </main>
