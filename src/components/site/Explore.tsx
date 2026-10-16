@@ -5,9 +5,11 @@ import knowBodyImg from "@/assets/explore-know-your-body.webp.asset.json";
 import recogniseChangesImg from "@/assets/explore-recognise-changes.webp.asset.json";
 import understandJourneyImg from "@/assets/explore-understand-journey.webp.asset.json";
 import { cn } from "@/lib/utils";
+import { ExplorePreview } from "./ExplorePreview";
 
 const CARDS = [
   {
+    kind: "anatomy",
     title: "Know Your Body",
     img: knowBodyImg,
     alt: "Illustration of breast anatomy with labelled lymph nodes, fatty tissue, lobules, milk ducts, areola and nipple.",
@@ -15,6 +17,7 @@ const CARDS = [
     imgBg: "bg-blush/45",
   },
   {
+    kind: "changes",
     title: "Recognise the Changes",
     img: recogniseChangesImg,
     alt: "Illustration of a woman with curly hair placing her hands over her chest, practising breast self-awareness.",
@@ -22,13 +25,14 @@ const CARDS = [
     imgBg: "bg-sage/20",
   },
   {
+    kind: "journey",
     title: "Understand Your Journey",
     img: understandJourneyImg,
     alt: "Illustration of a doctor sitting with a patient, explaining breast health using a tablet showing an anatomy diagram.",
     text: "Understand screening, diagnosis and medical terminology through clear, accessible information.",
     imgBg: "bg-ivory",
   },
-];
+] as const;
 
 function useInView<T extends Element>() {
   const ref = useRef<T>(null);
@@ -94,7 +98,8 @@ export function Explore() {
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
           {CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 120} className="h-full">
-              <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0">
+              <ExplorePreview kind={card.kind} title={card.title} img={card.img.url} alt={card.alt}>
+              <article className="group flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft transition-all duration-300 ease-out group-hover/explore-card:-translate-y-2 group-hover/explore-card:shadow-soft motion-reduce:transition-none motion-reduce:group-hover/explore-card:translate-y-0">
                 <div className={cn("relative flex aspect-[4/3] items-center justify-center overflow-hidden p-6 sm:p-8", card.imgBg)}>
                   <Sprig className="absolute -left-2 top-2 h-8 w-16 text-sage/50" />
                   <img
@@ -102,15 +107,17 @@ export function Explore() {
                     alt={card.alt}
                     loading="lazy"
                     decoding="async"
-                    className="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+                    className="max-h-full max-w-full object-contain transition-transform duration-500 ease-out group-hover/explore-card:scale-[1.03] motion-reduce:transition-none motion-reduce:group-hover/explore-card:scale-100"
                   />
                 </div>
                 <div className="flex flex-1 flex-col p-6 sm:p-7">
                   <h3 className="text-2xl leading-snug text-foreground">{card.title}</h3>
                   <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
                   <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{card.text}</p>
+                  <p className="mt-auto flex items-center gap-2 pt-5 text-xs font-medium text-foreground">Tap to Explore <ArrowRight className="h-3.5 w-3.5 text-sage" aria-hidden /></p>
                 </div>
               </article>
+              </ExplorePreview>
             </Reveal>
           ))}
         </div>
