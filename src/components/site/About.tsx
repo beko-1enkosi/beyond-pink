@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, Users, ImageIcon } from "lucide-react";
+import belongImg from "@/assets/about-belong.webp.asset.json";
 import { cn } from "@/lib/utils";
 
 /** Replace with the supplied About photograph (e.g. an asset pointer's .url). */
@@ -162,17 +163,30 @@ export function About() {
 
         {/* Inclusivity */}
         <Reveal className="mt-16 lg:mt-20">
-          <div className="relative overflow-hidden rounded-[2rem] bg-accent px-6 py-10 text-center sm:px-12 sm:py-14">
-            <Leaf className="absolute -left-2 top-4 h-12 w-24 text-sage" />
-            <Leaf className="absolute -right-2 bottom-4 h-12 w-24 rotate-180 text-sage" />
-            <h2 className="text-3xl text-foreground sm:text-4xl">Everyone Belongs in This Conversation.</h2>
-            <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground sm:text-lg">
-              Breast cancer affects more than one gender, and its impact extends to families, friends and communities. BeyondPink welcomes women, men, caregivers, loved ones and everyone seeking understanding and support.
-            </p>
-            <p className="mx-auto mt-5 inline-flex items-center gap-2 rounded-full bg-background/70 px-4 py-1.5 text-sm text-foreground">
-              <span className="h-1.5 w-1.5 rounded-full bg-rose" aria-hidden />
-              Breast cancer can also occur in men.
-            </p>
+          <div className="relative overflow-hidden rounded-[2rem] border border-mist-deep bg-mist">
+            <Leaf className="absolute -right-2 top-2 h-9 w-20 text-sage" />
+            <Leaf className="absolute -right-2 bottom-2 h-9 w-20 rotate-180 text-sage" />
+            <div className="grid items-stretch md:grid-cols-[minmax(0,0.46fr)_minmax(0,1fr)]">
+              <div className="relative min-h-[17rem] overflow-hidden rounded-t-[2rem] sm:min-h-[20rem] md:min-h-[22rem] md:rounded-l-[2rem] md:rounded-tr-none">
+                <img
+                  src={belongImg.url}
+                  alt="Illustration of a diverse crowd of people with eyes closed, pink breast-cancer awareness ribbons among them."
+                  loading="lazy"
+                  decoding="async"
+                  className="absolute inset-0 h-full w-full object-cover"
+                />
+              </div>
+              <div className="flex flex-col justify-center px-6 py-10 text-center sm:px-10 sm:py-12 md:px-12 md:py-14 md:pr-16 md:text-left">
+                <h2 className="text-3xl text-foreground sm:text-4xl">Everyone Belongs in This Conversation.</h2>
+                <p className="mx-auto mt-4 max-w-2xl leading-relaxed text-muted-foreground sm:text-lg md:mx-0">
+                  Breast cancer affects more than one gender, and its impact extends to families, friends and communities. BeyondPink welcomes women, men, caregivers, loved ones and everyone seeking understanding and support.
+                </p>
+                <p className="mx-auto mt-5 inline-flex items-center gap-2 self-center rounded-full bg-background/70 px-4 py-1.5 text-sm text-foreground md:mx-0 md:self-start">
+                  <span className="h-1.5 w-1.5 rounded-full bg-rose" aria-hidden />
+                  Breast cancer can also occur in men.
+                </p>
+              </div>
+            </div>
           </div>
         </Reveal>
       </div>
