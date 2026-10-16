@@ -67,7 +67,7 @@ export function Hero() {
           if (e.key === "ArrowRight") go(index + 1);
         }}
         onTouchStart={(e) => {
-          touchX.current = e.touches[0].clientX;
+          touchX.current = e.touches[0]?.clientX ?? null;
           setPaused(true);
         }}
         onTouchEnd={(e) => {
@@ -75,7 +75,7 @@ export function Hero() {
           touchX.current = null;
           setPaused(false);
           if (start == null) return;
-          const dx = e.changedTouches[0].clientX - start;
+          const dx = (e.changedTouches[0]?.clientX ?? start) - start;
           if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
         }}
       >
@@ -183,7 +183,7 @@ export function Hero() {
           </button>
         </div>
         <p className="sr-only" aria-live="polite">
-          {`Photograph ${index + 1} of ${n}: ${SLIDES[index].title}`}
+          {`Photograph ${index + 1} of ${n}: ${SLIDES[index]?.title}`}
         </p>
       </div>
 
