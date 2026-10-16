@@ -8,5 +8,4 @@ export const NAV_LINKS = [
 
 export const LANGUAGES = [{ code: "en", short: "EN", name: "English" }] as const;
 
-/** Set once the repository URL is provided. */
-export const GITHUB_URL: string | null = null;
+export const GITHUB_URL = "https://github.com/beko-1enkosi";
