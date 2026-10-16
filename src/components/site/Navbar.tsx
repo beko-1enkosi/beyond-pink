@@ -105,6 +105,12 @@ export function Navbar() {
   const active = useActiveSection();
 
   useEffect(() => {
+    const open = () => setBreaOpen(true);
+    window.addEventListener("beyondpink:open-brea", open);
+    return () => window.removeEventListener("beyondpink:open-brea", open);
+  }, []);
+
+  useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
