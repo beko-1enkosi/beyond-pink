@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import founderImg from "@/assets/founder-portrait.webp.asset.json";
+import { Linkedin } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
 const PORTRAIT = {
@@ -98,6 +100,25 @@ export function Founder() {
                 At 25, I wanted to take initiative and build something meaningful. With my BSc Life Sciences background, along with my Software Development skills, I saw an opportunity to bring science and technology together to turn awareness into understanding, education and support.
               </p>
             </div>
+
+            <p className="mt-8 font-serif text-lg italic leading-snug text-foreground/80 sm:mt-10 sm:text-xl">
+              Let&rsquo;s connect and keep building meaningful health innovation.
+            </p>
+
+            <Button
+              asChild
+              className="mt-4 h-12 w-full gap-2.5 rounded-full border border-sage/50 bg-blush/60 px-7 text-[0.95rem] font-semibold text-foreground shadow-soft transition-all duration-300 ease-out hover:-translate-y-0.5 hover:border-rose/70 hover:bg-blush hover:shadow-glow motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:mt-5 sm:w-auto"
+            >
+              <a
+                href="https://www.linkedin.com/in/thobeka-nkosi-217640293"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Connect with Thobeka Nkosi on LinkedIn (opens in a new tab)"
+              >
+                <Linkedin aria-hidden />
+                Connect on LinkedIn
+              </a>
+            </Button>
           </Reveal>
         </div>
       </div>
