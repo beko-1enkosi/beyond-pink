@@ -45,7 +45,7 @@ function Logo() {
         history.replaceState(null, "", "#home");
       }}
       aria-label="BeyondPink — back to top"
-      className="relative block h-14 w-14 shrink-0 overflow-hidden rounded-xl"
+      className="relative block h-12 w-12 shrink-0 overflow-hidden rounded-xl sm:h-14 sm:w-14"
     >
       {/* Original SVG, scaled within a crop frame to trim its built-in whitespace */}
       <img
