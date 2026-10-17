@@ -27,7 +27,7 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
     void import("leaflet").then((module) => {
       if (cancelled || !container.current) return;
       const L = module.default;
-      instance = L.map(container.current, { scrollWheelZoom: false, zoomAnimation: !window.matchMedia("(prefers-reduced-motion: reduce)").matches }).setView([-28.5, 25], 5);
+      instance = L.map(container.current, { scrollWheelZoom: false, zoomAnimation: !window.matchMedia("(prefers-reduced-motion: reduce)").matches }).fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5 });
       map.current = instance;
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors' });
       tiles.on("tileerror", () => { if (!cancelled) setTileFailed(true); });
@@ -65,11 +65,11 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
         marker.getElement()?.classList.toggle("brea-care-pin-selected", facility.id === selected);
       });
       if (location) instance.setView([location.latitude, location.longitude], 7, { animate: false });
-      else if (facilities.length === 14) instance.setView([-28.5, 25], 5, { animate: false });
+      else if (facilities.length === 14) instance.fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5, animate: false });
       else {
         const points = facilities.flatMap((facility) => facility.coordinates ? [[facility.coordinates[0], facility.coordinates[1]] as [number, number]] : []);
         if (points.length) instance.fitBounds(points, { padding: [45, 45], maxZoom: 11, animate: false });
-        else instance.setView([-28.5, 25], 5, { animate: false });
+        else instance.fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5, animate: false });
       }
     });
     return () => { cancelled = true; };
@@ -88,6 +88,6 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
       {status !== "ready" && <div role="status" className="absolute inset-0 z-[1000] flex flex-col items-center justify-center gap-3 bg-brea-ivory p-6 text-center text-sm"><p>{status === "loading" ? "Loading South Africa’s care map…" : "The map couldn’t load. All directory listings are still available below."}</p>{status === "failed" && <LearnButton onClick={() => setAttempt((value) => value + 1)}><RefreshCw /> Retry Map</LearnButton>}</div>}
     </div>
     {tileFailed && <p role="status" className="mt-3 text-sm text-brea-rose-deep">Some map tiles couldn’t load. You can still search the listings below. <LearnButton className="min-h-0 px-2 py-1 text-xs" onClick={() => setAttempt((value) => value + 1)}>Retry Map</LearnButton></p>}
-    <div className="mt-3 flex flex-wrap items-center justify-between gap-3"><div aria-label="Map legend" className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-brea-sage-deep">{Object.entries(CARE_TYPES).map(([type, label]) => <span key={type} className="flex items-center gap-2"><span className={`brea-care-legend brea-care-pin-${type}`} />{label}</span>)}</div><LearnButton className="px-3 py-2 text-xs" onClick={() => map.current?.setView([-28.5, 25], 5, { animate: false })}><Maximize className="h-4 w-4" /> South Africa View</LearnButton></div>
+    <div className="mt-3 flex flex-wrap items-center justify-between gap-3"><div aria-label="Map legend" className="flex flex-wrap gap-x-4 gap-y-2 text-xs text-brea-sage-deep">{Object.entries(CARE_TYPES).map(([type, label]) => <span key={type} className="flex items-center gap-2"><span className={`brea-care-legend brea-care-pin-${type}`} />{label}</span>)}</div><LearnButton className="px-3 py-2 text-xs" onClick={() => map.current?.fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5, animate: false })}><Maximize className="h-4 w-4" /> South Africa View</LearnButton></div>
   </section>;
 }
