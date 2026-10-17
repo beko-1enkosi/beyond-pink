@@ -44,17 +44,66 @@ const INTEREST_ICONS = {
 type Step = "splash" | "welcome" | "name" | "greeting" | "journey";
 const STEP_ORDER: Step[] = ["splash", "welcome", "name", "greeting", "journey"];
 
-function BotanicalCorner({ className }: { className?: string }) {
+// Delicate illustrated vine with leaves, tendrils and blush blossoms.
+function BotanicalVine({ className }: { className?: string }) {
   return (
-    <svg viewBox="0 0 120 120" fill="none" aria-hidden className={className}>
-      <path d="M8 112 C30 90 40 60 38 20" stroke="var(--brea-sage)" strokeWidth="2" strokeLinecap="round" opacity="0.7" />
-      <path d="M38 60 C24 56 14 46 12 32 C26 34 36 44 38 60 Z" fill="var(--brea-sage)" opacity="0.45" />
-      <path d="M40 38 C52 34 60 26 62 14 C50 16 42 26 40 38 Z" fill="var(--brea-sage-deep)" opacity="0.4" />
-      <circle cx="40" cy="24" r="5" fill="var(--brea-blush)" opacity="0.7" />
-      <circle cx="20" cy="78" r="4" fill="var(--brea-blush)" opacity="0.5" />
+    <svg viewBox="0 0 160 160" fill="none" aria-hidden className={className}>
+      {/* main stem */}
+      <path
+        d="M10 150 C38 122 52 88 50 40 C50 30 52 20 58 12"
+        stroke="var(--brea-sage)"
+        strokeWidth="1.6"
+        strokeLinecap="round"
+        opacity="0.75"
+      />
+      {/* curling tendril */}
+      <path
+        d="M50 84 C70 80 84 68 88 50 C89 44 86 40 81 41 C77 42 76 47 80 49"
+        stroke="var(--brea-sage)"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        opacity="0.55"
+      />
+      {/* leaves */}
+      <path d="M50 96 C32 92 20 80 18 62 C36 64 48 78 50 96 Z" fill="var(--brea-sage)" opacity="0.5" />
+      <path d="M52 62 C68 58 78 46 80 30 C64 32 54 46 52 62 Z" fill="var(--brea-sage-deep)" opacity="0.42" />
+      <path d="M46 122 C34 120 26 112 24 100 C36 102 44 110 46 122 Z" fill="var(--brea-sage)" opacity="0.38" />
+      {/* five-petal blossom */}
+      <g transform="translate(60 14)" opacity="0.85">
+        <ellipse cx="0" cy="-7" rx="3.4" ry="6" fill="var(--brea-blush)" />
+        <ellipse cx="6.7" cy="-2.2" rx="3.4" ry="6" fill="var(--brea-blush)" transform="rotate(72 6.7 -2.2)" />
+        <ellipse cx="4.1" cy="5.7" rx="3.4" ry="6" fill="var(--brea-blush)" transform="rotate(144 4.1 5.7)" />
+        <ellipse cx="-4.1" cy="5.7" rx="3.4" ry="6" fill="var(--brea-blush)" transform="rotate(216 -4.1 5.7)" />
+        <ellipse cx="-6.7" cy="-2.2" rx="3.4" ry="6" fill="var(--brea-blush)" transform="rotate(288 -6.7 -2.2)" />
+        <circle r="2.6" fill="var(--brea-sage-deep)" opacity="0.8" />
+      </g>
+      {/* small buds */}
+      <circle cx="90" cy="52" r="3" fill="var(--brea-blush)" opacity="0.6" />
+      <circle cx="24" cy="132" r="2.4" fill="var(--brea-blush)" opacity="0.5" />
     </svg>
   );
 }
+
+// Small sprig accent for quiet corners of a screen.
+function BotanicalSprig({ className }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 80 80" fill="none" aria-hidden className={className}>
+      <path
+        d="M40 72 C38 54 39 38 46 22"
+        stroke="var(--brea-sage)"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        opacity="0.7"
+      />
+      <path d="M43 44 C33 42 27 35 26 25 C35 27 41 34 43 44 Z" fill="var(--brea-sage)" opacity="0.5" />
+      <path d="M44 32 C52 30 57 24 58 15 C50 17 45 23 44 32 Z" fill="var(--brea-sage-deep)" opacity="0.4" />
+      <circle cx="46" cy="20" r="3.2" fill="var(--brea-blush)" opacity="0.75" />
+    </svg>
+  );
+}
+
+const primaryButton =
+  "inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-brea-sage-deep text-base font-semibold tracking-wide text-brea-ivory shadow-[0_14px_30px_-12px_var(--brea-sage-deep)] transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brea-sage-deep";
 
 function BreaOnboarding() {
   const navigate = useNavigate();
@@ -115,37 +164,35 @@ function BreaOnboarding() {
     <div lang="en" className="min-h-dvh bg-brea-ivory font-[family-name:var(--font-brea-body)] text-brea-charcoal">
       {step === "splash" && (
         <div className="flex min-h-dvh items-center justify-center bg-brea-sage" aria-label="Brea">
-          <div className="brea-splash-logo flex flex-col items-center gap-3">
+          <div className="brea-splash-logo flex flex-col items-center gap-4">
             <BreaSymbol className="h-24 w-24" />
-            <span className="font-[family-name:var(--font-brea-display)] text-4xl font-semibold tracking-tight text-brea-ivory">
+            <span className="font-[family-name:var(--font-brea-display)] text-5xl font-medium tracking-wide text-brea-ivory">
               Brea
             </span>
-            <span aria-hidden className="mt-1 h-1.5 w-1.5 rounded-full bg-brea-blush" />
+            <span aria-hidden className="h-1.5 w-1.5 rounded-full bg-brea-blush" />
           </div>
         </div>
       )}
 
       {step === "welcome" && (
         <div className="relative flex min-h-dvh flex-col overflow-hidden px-6 py-8">
-          <BotanicalCorner className="pointer-events-none absolute -left-4 -top-4 h-32 w-32 sm:h-44 sm:w-44" />
-          <BotanicalCorner className="pointer-events-none absolute -bottom-4 -right-4 h-32 w-32 rotate-180 sm:h-44 sm:w-44" />
-          <BotanicalCorner className="pointer-events-none absolute -right-6 top-1/4 hidden h-28 w-28 -scale-x-100 md:block" />
-          <BotanicalCorner className="pointer-events-none absolute -left-6 bottom-1/4 hidden h-28 w-28 rotate-90 md:block" />
+          {/* asymmetrical botanical frame */}
+          <BotanicalVine className="pointer-events-none absolute -left-6 -top-6 h-40 w-40 sm:h-56 sm:w-56" />
+          <BotanicalVine className="pointer-events-none absolute -bottom-6 -right-6 h-44 w-44 rotate-180 sm:h-60 sm:w-60" />
+          <BotanicalSprig className="pointer-events-none absolute -right-3 top-1/3 hidden h-24 w-24 -scale-x-100 md:block" />
+          <BotanicalSprig className="pointer-events-none absolute -left-3 bottom-1/4 hidden h-20 w-20 rotate-90 md:block" />
           <div className="brea-fade-in mx-auto flex w-full max-w-md flex-1 flex-col items-center">
             <BreaWordmark className="mt-2" />
             <div className="flex flex-1 flex-col items-center justify-center text-center">
-              <h1 className="font-[family-name:var(--font-brea-display)] text-4xl font-bold leading-tight sm:text-5xl">
-                Hi, I’m Brea.
+              <h1 className="font-[family-name:var(--font-brea-display)] text-5xl font-medium leading-[1.05] tracking-tight sm:text-6xl">
+                Hi, I’m <em className="italic text-brea-sage-deep">Brea</em>.
               </h1>
-              <p className="mt-4 max-w-sm text-base leading-relaxed text-brea-charcoal/75 sm:text-lg">
+              <span aria-hidden className="mt-5 h-px w-16 bg-brea-blush" />
+              <p className="mt-5 max-w-sm text-base leading-relaxed text-brea-charcoal/75 sm:text-lg">
                 Your breast health companion. A safe space to learn, explore and feel supported.
               </p>
             </div>
-            <button
-              type="button"
-              onClick={() => setStep("name")}
-              className="mb-4 inline-flex h-14 w-full max-w-xs items-center justify-center gap-2 rounded-full bg-brea-sage-deep font-[family-name:var(--font-brea-display)] text-lg font-semibold text-brea-ivory shadow-lg transition hover:brightness-110 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-brea-sage-deep"
-            >
+            <button type="button" onClick={() => setStep("name")} className={cn(primaryButton, "mb-4 max-w-xs")}>
               Get Started <ArrowRight className="h-5 w-5" aria-hidden />
             </button>
           </div>
@@ -153,7 +200,8 @@ function BreaOnboarding() {
       )}
 
       {step === "name" && (
-        <div className="relative flex min-h-dvh flex-col px-6 py-6">
+        <div className="relative flex min-h-dvh flex-col overflow-hidden px-6 py-6">
+          <BotanicalSprig className="pointer-events-none absolute -bottom-4 -right-4 h-28 w-28 opacity-80 sm:h-36 sm:w-36" />
           <div className="brea-fade-in mx-auto flex w-full max-w-md flex-1 flex-col">
             <div className="flex items-center justify-between">
               <button
@@ -173,14 +221,14 @@ function BreaOnboarding() {
               </button>
             </div>
             <div className="flex flex-1 flex-col justify-center">
-              <p className="text-sm font-medium uppercase tracking-[0.18em] text-brea-sage-deep">
+              <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brea-sage-deep">
                 Let’s get to know each other.
               </p>
-              <h1 className="mt-3 font-[family-name:var(--font-brea-display)] text-3xl font-bold leading-tight sm:text-4xl">
+              <h1 className="mt-3 font-[family-name:var(--font-brea-display)] text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
                 What should Brea call you?
               </h1>
               <form
-                className="mt-8"
+                className="mt-9"
                 onSubmit={(e) => {
                   e.preventDefault();
                   submitName(false);
@@ -202,8 +250,8 @@ function BreaOnboarding() {
                   placeholder="Your first name"
                   aria-invalid={nameError}
                   className={cn(
-                    "h-16 w-full rounded-2xl border-2 bg-white/80 px-5 text-lg shadow-sm outline-none transition placeholder:text-brea-charcoal/40 focus:border-brea-sage-deep",
-                    nameError ? "border-brea-blush" : "border-brea-sage/40",
+                    "h-16 w-full rounded-2xl border bg-white/80 px-5 text-lg shadow-[0_8px_24px_-14px_var(--brea-sage-deep)] outline-none transition placeholder:text-brea-charcoal/40 focus:border-brea-sage-deep",
+                    nameError ? "border-brea-blush" : "border-brea-sage/35",
                   )}
                 />
                 {nameError && (
@@ -211,10 +259,7 @@ function BreaOnboarding() {
                     Please enter a name, or choose Skip to continue without one.
                   </p>
                 )}
-                <button
-                  type="submit"
-                  className="mt-6 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-brea-sage-deep font-[family-name:var(--font-brea-display)] text-lg font-semibold text-brea-ivory shadow-lg transition hover:brightness-110"
-                >
+                <button type="submit" className={cn(primaryButton, "mt-6")}>
                   Continue <ArrowRight className="h-5 w-5" aria-hidden />
                 </button>
               </form>
@@ -224,13 +269,22 @@ function BreaOnboarding() {
       )}
 
       {step === "greeting" && (
-        <div className="flex min-h-dvh items-center justify-center px-6">
+        <div className="relative flex min-h-dvh items-center justify-center overflow-hidden px-6">
+          <BotanicalSprig className="pointer-events-none absolute -left-5 top-10 h-24 w-24 -scale-x-100 opacity-70" />
+          <BotanicalSprig className="pointer-events-none absolute -right-5 bottom-10 h-24 w-24 rotate-180 opacity-70" />
           <div className="brea-fade-in flex flex-col items-center text-center">
             <BreaSymbol className="h-20 w-20" />
-            <h1 className="mt-6 font-[family-name:var(--font-brea-display)] text-3xl font-bold leading-tight sm:text-4xl">
-              {displayName ? `Nice to meet you, ${displayName}!` : "Lovely to meet you!"}
+            <h1 className="mt-7 font-[family-name:var(--font-brea-display)] text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
+              {displayName ? (
+                <>
+                  Nice to meet you, <em className="italic text-brea-sage-deep">{displayName}</em>!
+                </>
+              ) : (
+                "Lovely to meet you!"
+              )}
             </h1>
-            <p className="mt-3 max-w-sm text-base text-brea-charcoal/75">
+            <span aria-hidden className="mt-5 h-px w-14 bg-brea-blush" />
+            <p className="mt-4 max-w-sm text-base text-brea-charcoal/75">
               Let’s make your experience feel a little more personal.
             </p>
           </div>
@@ -238,7 +292,8 @@ function BreaOnboarding() {
       )}
 
       {step === "journey" && (
-        <div className="flex min-h-dvh flex-col px-6 py-6">
+        <div className="relative flex min-h-dvh flex-col overflow-hidden px-6 py-6">
+          <BotanicalSprig className="pointer-events-none absolute -right-5 -top-4 h-24 w-24 rotate-180 opacity-60" />
           <div className="brea-fade-in mx-auto flex w-full max-w-lg flex-1 flex-col">
             <button
               type="button"
@@ -248,13 +303,13 @@ function BreaOnboarding() {
             >
               <ArrowLeft className="h-5 w-5" aria-hidden />
             </button>
-            <h1 className="mt-4 font-[family-name:var(--font-brea-display)] text-3xl font-bold leading-tight sm:text-4xl">
+            <h1 className="mt-4 font-[family-name:var(--font-brea-display)] text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
               What brings you to Brea today?
             </h1>
             <p className="mt-3 text-base text-brea-charcoal/75">
               Choose what you’d like to explore first. You can always discover more later.
             </p>
-            <div role="radiogroup" aria-label="Choose your journey" className="mt-6 grid flex-1 content-start gap-4">
+            <div role="radiogroup" aria-label="Choose your journey" className="mt-7 grid flex-1 content-start gap-3.5">
               {BREA_INTERESTS.map((item) => {
                 const Icon = INTEREST_ICONS[item.id];
                 const selected = interest === item.id;
@@ -266,33 +321,39 @@ function BreaOnboarding() {
                     aria-checked={selected}
                     onClick={() => setInterest(item.id)}
                     className={cn(
-                      "flex min-h-11 w-full items-start gap-4 rounded-3xl border-2 p-5 text-left shadow-sm transition",
+                      "flex min-h-11 w-full items-center gap-4 rounded-[1.75rem] border p-4 pl-5 text-left transition duration-300",
                       selected
-                        ? "border-brea-sage-deep bg-brea-sage/15 shadow-md"
-                        : "border-brea-sage/30 bg-white/70 hover:border-brea-sage/60",
+                        ? "border-brea-sage-deep/70 bg-brea-sage/12 shadow-[0_14px_30px_-16px_var(--brea-sage-deep)]"
+                        : "border-brea-sage/25 bg-white/60 shadow-[0_6px_18px_-14px_var(--brea-sage-deep)] hover:border-brea-sage/50 hover:bg-white/80",
                     )}
                   >
                     <span
                       className={cn(
-                        "flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl",
-                        selected ? "bg-brea-sage-deep text-brea-ivory" : "bg-brea-sage/20 text-brea-sage-deep",
+                        "flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors",
+                        selected ? "bg-brea-sage-deep text-brea-ivory" : "bg-brea-sage/15 text-brea-sage-deep",
                       )}
                     >
-                      <Icon className="h-6 w-6" aria-hidden />
+                      <Icon className="h-5 w-5" aria-hidden />
                     </span>
                     <span className="min-w-0 flex-1">
-                      <span className="block font-[family-name:var(--font-brea-display)] text-base font-semibold">
+                      <span className="block font-[family-name:var(--font-brea-display)] text-xl font-medium leading-snug">
                         {item.title}
                       </span>
-                      <span className="mt-1 block text-sm leading-relaxed text-brea-charcoal/70">
+                      <span className="mt-0.5 block text-sm leading-relaxed text-brea-charcoal/65">
                         {item.description}
                       </span>
                     </span>
-                    {selected && (
-                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-brea-sage-deep text-brea-ivory">
-                        <Check className="h-4 w-4" aria-hidden />
-                      </span>
-                    )}
+                    <span
+                      aria-hidden
+                      className={cn(
+                        "flex h-6 w-6 shrink-0 items-center justify-center rounded-full border transition",
+                        selected
+                          ? "border-brea-sage-deep bg-brea-sage-deep text-brea-ivory"
+                          : "border-brea-sage/40 text-transparent",
+                      )}
+                    >
+                      <Check className="h-3.5 w-3.5" aria-hidden />
+                    </span>
                   </button>
                 );
               })}
@@ -301,7 +362,7 @@ function BreaOnboarding() {
               type="button"
               onClick={finish}
               disabled={!interest}
-              className="mb-4 mt-6 inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-brea-sage-deep font-[family-name:var(--font-brea-display)] text-lg font-semibold text-brea-ivory shadow-lg transition enabled:hover:brightness-110 disabled:cursor-not-allowed disabled:opacity-40"
+              className={cn(primaryButton, "mb-4 mt-6 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none")}
             >
               Continue <ArrowRight className="h-5 w-5" aria-hidden />
             </button>
