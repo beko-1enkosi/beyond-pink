@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { BreaSymbol } from "@/components/brea/BreaLogo";
 import { cn } from "@/lib/utils";
-import { BotanicalBackdrop, BreaWaves, DisclaimerCapsule } from "./BreaDecor";
+import { BotanicalBackdrop, DisclaimerCapsule } from "./BreaDecor";
 export function LearnButton({ className, variant = "ghost", ...props }: ButtonProps) {
   return <Button variant={variant} className={cn("min-h-11 h-auto rounded-full border border-brea-sage/30 px-5 py-3 whitespace-normal text-brea-sage-deep hover:bg-brea-sage/15 focus-visible:ring-brea-sage-deep", className)} {...props} />;
 }
