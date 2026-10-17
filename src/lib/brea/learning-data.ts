@@ -1,21 +1,24 @@
 import { CANCER_GLOSSARY } from "./cancer-data";
 import { BREAST_CANCER_GLOSSARY } from "./breast-cancer-data";
+import { SCREENING_GLOSSARY } from "./screening-data";
 export const LESSON_ID = "meet-your-breasts";
 export const LESSON2_ID = "breasts-hormones";
 export const LESSON3_ID = "what-is-cancer";
 export const LESSON4_ID = "understanding-breast-cancer";
+export const LESSON5_ID = "screening";
 export const BADGE4_ID = "breast-health-advocate";
 export const BADGE3_ID = "cell-detective";
 export const BADGE_ID = "anatomy-explorer";
 export const BADGE2_ID = "hormone-helper";
+export const BADGE5_ID = "screening-smart";
 export const LESSONS = [
   { id: LESSON_ID, title: "Meet Your Breasts" },
   { id: LESSON2_ID, title: "Breasts & Hormones" },
   { id: LESSON3_ID, title: "What Is Cancer?" },
   { id: LESSON4_ID, title: "Understanding Breast Cancer" },
-  { id: "screening", title: "Mammograms, Ultrasounds & Screening" },
+  { id: LESSON5_ID, title: "Mammograms, Ultrasounds & Screening" },
 ] as const;
-export const LESSON_BADGES: Record<string, string> = { [LESSON_ID]: BADGE_ID, [LESSON2_ID]: BADGE2_ID, [LESSON3_ID]: BADGE3_ID, [LESSON4_ID]: BADGE4_ID };
+export const LESSON_BADGES: Record<string, string> = { [LESSON_ID]: BADGE_ID, [LESSON2_ID]: BADGE2_ID, [LESSON3_ID]: BADGE3_ID, [LESSON4_ID]: BADGE4_ID, [LESSON5_ID]: BADGE5_ID };
 export const ANATOMY = [
   { id: "nipple", name: "Nipple", text: "The nipple is where milk can leave the breast through small openings connected to milk ducts.", x: 344, y: 245 },
   { id: "areola", name: "Areola", text: "The areola is the darker or more pigmented area of skin surrounding the nipple.", x: 314, y: 268 },
@@ -43,6 +46,7 @@ export const LIFE_STAGES = [
 ] as const;
 export type LifeStageId = (typeof LIFE_STAGES)[number]["id"];
 export const GLOSSARY = [
+  ...SCREENING_GLOSSARY,
   ...BREAST_CANCER_GLOSSARY,
   ...CANCER_GLOSSARY,
   { term: "Lobule", definition: "A small group of glands in the breast that can make milk during lactation (breastfeeding)." },
