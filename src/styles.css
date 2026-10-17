@@ -330,6 +330,7 @@
 .tour-button-glow { box-shadow: var(--tour-cta-shadow); }
 .brea-tour .tour-button-glow { padding: 16px 36px; font-size: 16px; }
 .tour-skip, .tour-back { color: var(--charcoal); white-space: normal; height: auto; }
+.tour-skip { min-height: 44px; }
 /* Current-page marker: a soft blush capsule that reads as "you are here", not a second CTA. */
 .tour-current-page { display: none; }
 @media (min-width: 768px) {
