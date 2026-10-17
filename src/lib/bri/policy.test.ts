@@ -4,6 +4,25 @@ const question = (text: string, role: "user" | "assistant" = "user") => ({
   messages: [{ id: "test", role, parts: [{ type: "text", text }] }],
 });
 describe("Bri privacy and request rules", () => {
+  it.each([
+    "What are the symptoms of breast cancer?",
+    "Teach me Python.",
+    "What is the difference between a mammogram and an ultrasound?",
+    "I found a lump. Can you tell me if it's cancer?",
+    "What is Brea?",
+    "What is a variable in Python?",
+  ])("accepts educational and general questions without topic filtering: %s", (text) => {
+    expect(requestSchema.safeParse(question(text)).success).toBe(true);
+  });
+  it("preserves general-topic conversation history for follow-up questions", () => {
+    const result = requestSchema.safeParse({ messages: [
+      { ...question("Teach me Python.").messages[0], id: "intro" },
+      { ...question('A variable stores a value, such as name = "Bri".', "assistant").messages[0], id: "reply" },
+      { ...question("Can I change its value?").messages[0], id: "follow-up" },
+    ] });
+    expect(result.success).toBe(true);
+    if (result.success) expect(result.data.messages).toHaveLength(3);
+  });
   it("keeps the user-selected Gemini model", () =>
     expect(BRI_MODEL).toBe("google/gemini-3.1-flash-lite"));
   it("accepts 1,000 characters but rejects 1,001", () => {

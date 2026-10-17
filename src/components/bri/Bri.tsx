@@ -31,8 +31,9 @@ const QUESTIONS = [
   "How does Find Care work?",
 ];
 const WELCOME =
-  "Hi! I'm Bri 💚 I'm here to help you explore BeyondPink and Brea. What would you like to know?";
+  "Hi! I'm Bri 💚 Your companion for learning, exploring and asking questions, with a special interest in breast health, BeyondPink and Brea. What would you like to know?";
 const ANCHORS = new Set(["#home", "#about", "#explore", "#support", "#resources", "#founder"]);
+const BREA_LINKS = new Set(["/how-brea-works", "/brea", "/brea/home", "/brea/learn", "/brea/breast-changes", "/brea/support", "/brea/support/community", "/brea/find-care"]);
 const EXTERNAL = new Set([
   "https://www.who.int/news-room/fact-sheets/detail/breast-cancer",
   "https://cansa.org.za/breast-cancer/",
@@ -194,7 +195,7 @@ export function Bri() {
                   e.preventDefault();
                   setOpen(false);
                   scrollToSection(href, true);
-                } else if (!EXTERNAL.has(href) && href !== BRI_SUPPORT_CONTACT.href) e.preventDefault();
+                } else if (!EXTERNAL.has(href) && !BREA_LINKS.has(href) && href !== BRI_SUPPORT_CONTACT.href) e.preventDefault();
               }}
             >
               <Message from="assistant">
@@ -228,7 +229,7 @@ export function Bri() {
                           isAnimating={status === "streaming" && m.id === messages.at(-1)?.id}
                           components={{
                             a: ({ href, children }) =>
-                              ANCHORS.has(href ?? "") ? (
+                               ANCHORS.has(href ?? "") || BREA_LINKS.has(href ?? "") ? (
                                 <a
                                   href={href}
                                   className="underline decoration-sage underline-offset-4"
@@ -326,8 +327,9 @@ export function Bri() {
             </PromptInput>
             {voice.voiceNotice && <p role="status" className="mt-1 text-[11px] leading-snug text-foreground">{voice.voiceNotice}</p>}
             <p className="mt-1.5 text-[11px] leading-snug text-muted-foreground sm:mt-2.5 sm:leading-relaxed">
-              Bri is an AI assistant for website information only. Please don't share private
-              medical details. Bri does not replace professional healthcare advice.
+              Bri is your friendly AI companion for learning, exploring and asking questions,
+              with a special focus on breast-health education. Bri does not replace professional
+              medical advice. Please don't share sensitive personal or medical information.
               {voice.recognitionSupported && " Voice input may use your browser’s online speech service. BeyondPink does not store audio."}
             </p>
           </div>
