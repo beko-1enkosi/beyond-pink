@@ -1,16 +1,18 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Sparkles, BookOpen, Sprout } from "lucide-react";
 import { BreaSymbol } from "@/components/brea/BreaLogo";
-import { LESSONS, LESSON_ID, LESSON2_ID, LESSON3_ID } from "@/lib/brea/learning-data";
+import { LESSONS, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID } from "@/lib/brea/learning-data";
 import { learningSummary, useLearning, type LearningState } from "@/lib/brea/learning";
-import { AnatomyBadge, HormoneBadge, CellBadge, LearnButton, LearnShell, PrimaryButton, ProgressBar } from "./LearnPrimitives";
+import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, LearnButton, LearnShell, PrimaryButton, ProgressBar } from "./LearnPrimitives";
 import { LearningProfile, MedDecode } from "./LearnPanels";
 import { CellIntro } from "./CellExplorers";
 import { BreastIllustration } from "./AnatomyExplorer";
+import { BreastCancerIntro } from "./BreastCancerExplorers";
 const IMPLEMENTED = [
   { id: LESSON_ID, number: "01", title: "Meet Your Breasts", blurb: "Discover the fascinating anatomy of your breasts through an interactive learning experience.", to: "/brea/learn/meet-your-breasts" as const, started: (s: LearningState) => s.started },
   { id: LESSON2_ID, number: "02", title: "Breasts & Hormones", blurb: "Discover the invisible messengers behind many of your body’s natural changes.", to: "/brea/learn/breasts-and-hormones" as const, started: (s: LearningState) => s.started2 },
   { id: LESSON3_ID, number: "03", title: "What Is Cancer?", blurb: "Understanding the story of our cells.", to: "/brea/learn/what-is-cancer" as const, started: (s: LearningState) => s.started3 },
+  { id: LESSON4_ID, number: "04", title: "Understanding Breast Cancer", blurb: "Understanding the condition, the science and the journey toward care.", to: "/brea/learn/understanding-breast-cancer" as const, started: (s: LearningState) => s.started4 },
 ];
 function LessonCard({ lesson, state, featured }: { lesson: (typeof IMPLEMENTED)[number]; state: LearningState; featured: boolean }) {
   const done = state.completed.includes(lesson.id);
