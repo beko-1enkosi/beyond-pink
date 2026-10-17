@@ -11,7 +11,9 @@ describe("quiz completion and bounded celebrations", () => {
     vi.useFakeTimers(); const result = vi.fn();
     render(<LessonQuiz onResult={result} onClose={vi.fn()} />);
     [a, b, c].forEach((answer, index) => {
-      fireEvent.click(screen.getByRole("button", { name: new RegExp(QUIZ[index].answers[answer].replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) }));
+      const text = QUIZ[index]?.answers[answer];
+      if (!text) throw new Error("Missing test answer");
+      fireEvent.click(screen.getByRole("button", { name: new RegExp(text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")) }));
       fireEvent.click(screen.getByRole("button", { name: "Check Answer" }));
       fireEvent.click(screen.getByRole("button", { name: index === 2 ? "See My Score" : "Next Question" }));
     });
