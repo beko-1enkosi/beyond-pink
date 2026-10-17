@@ -1,3 +1,4 @@
+import { Confetti } from "./Celebration";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Flower2, Check, Sprout } from "lucide-react";

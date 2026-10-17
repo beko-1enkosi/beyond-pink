@@ -216,8 +216,12 @@
 .brea-anatomy-tooltip { position: absolute; z-index: 1; transform: translate(-50%, -100%); max-width: 155px; padding: 6px 10px; border-radius: 8px; background: var(--brea-sage-deep); color: var(--brea-ivory); font-size: 12px; line-height: 1.3; text-align: center; pointer-events: none; box-shadow: var(--shadow-brea-soft-v); }
 .brea-badge-bloom { animation: brea-bloom .8s ease-out both; }
 .brea-confetti i { position: absolute; top: -15px; width: 7px; height: 12px; background: var(--brea-sage); border-radius: 2px; animation: brea-confetti 2.8s ease-out both; }
-.brea-confetti i:nth-child(3n) { background: var(--brea-blush); }
-.brea-confetti i:nth-child(4n) { background: var(--brea-gold); }
+.brea-confetti i:nth-child(5n+1) { background: #B65F7B; }
+.brea-confetti i:nth-child(5n+2) { background: #E5A1AF; }
+.brea-confetti i:nth-child(5n+3) { background: #91A58F; }
+.brea-confetti i:nth-child(5n+4) { background: #425C4B; }
+.brea-confetti i:nth-child(5n) { background: #E8D3A2; }
+.brea-confetti-quiz i { width: 5px; height: 9px; animation-duration: 1.6s; }
 @keyframes brea-bloom { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
 @keyframes brea-confetti { 0% { opacity: 0; translate: 0 -10px; rotate: 0deg; } 12% { opacity: .85; } 100% { opacity: 0; translate: 22px 390px; rotate: 230deg; } }
 @media (max-width: 639px) {

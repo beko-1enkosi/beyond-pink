@@ -1,3 +1,4 @@
+import { Confetti } from "@/components/brea/learn/Celebration";
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, Eye, Flower2, Hand, Info, Stethoscope } from "lucide-react";
