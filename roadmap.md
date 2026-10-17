@@ -19,10 +19,10 @@
 - [x] Verify completion, resume, existing progress, accessibility and compact-screen fit.
 
 # Brea Phase 5 — Lesson 4
-- [ ] Add sourced breast-cancer data, glossary, preserved local progress and rule tests.
-- [ ] Build four guided sections with anatomy, invasion, subtype and care-journey interactions.
-- [ ] Integrate route, fourth badge, quiz, dashboard/profile and comfortable mobile badge layout.
-- [ ] Verify personalization, persistence, completion, quiz, keyboard interactions and mobile fit.
+- [x] Add sourced breast-cancer data, glossary, preserved local progress and rule tests.
+- [x] Build four guided sections with anatomy, invasion, subtype and care-journey interactions.
+- [x] Integrate route, fourth badge, quiz, dashboard/profile and comfortable mobile badge layout.
+- [x] Verify personalization, persistence, completion, quiz, keyboard interactions and mobile fit.
 
 - [x] Add shared remembered language selection and five local dictionaries.
 - [x] Translate landing-page text and educational dialogs, excluding Bri.
