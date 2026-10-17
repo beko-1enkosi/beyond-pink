@@ -8,6 +8,7 @@ import img4 from "@/assets/hero-4-men.webp.asset.json";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { scrollToSection } from "@/lib/section-scroll";
+import { SectionWaves } from "./SectionWaves";
 
 export const OPEN_BREA_EVENT = "beyondpink:open-brea";
 
@@ -175,12 +176,7 @@ export function Hero() {
       </div>
 
       {/* Waves */}
-      <svg aria-hidden viewBox="0 0 1440 140" preserveAspectRatio="none" className="pointer-events-none absolute inset-x-0 bottom-0 h-16 w-full sm:h-24 lg:h-32">
-        <path d="M0 70 C240 20 420 120 720 80 C1000 42 1200 110 1440 60 L1440 140 L0 140Z" fill="var(--blush)" opacity="0.75" />
-        <path d="M0 96 C260 60 480 130 760 104 C1040 78 1220 126 1440 92 L1440 140 L0 140Z" fill="var(--sage)" opacity="0.45" />
-        <path d="M0 84 C300 52 520 118 800 92" stroke="var(--sage)" strokeWidth="1.5" fill="none" />
-        <path d="M0 118 C280 96 520 140 820 122 C1080 106 1260 136 1440 116 L1440 140 L0 140Z" fill="var(--ivory)" />
-      </svg>
+      <SectionWaves className="h-16 sm:h-24 lg:h-32" />
     </section>
   );
 }
