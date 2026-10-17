@@ -193,7 +193,7 @@ function PostCard({ post, state, onReact, onComment, onReport, onDelete }: {
   };
 
   return (
-    <article className={cn(card, "brea-fade-in p-5 sm:p-6")} aria-label={`Post by ${post.name}`}>
+    <article className={cn(card, "brea-fade-in p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-brea-lift-hover motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-6")} aria-label={`Post by ${post.name}`}>
       <div className="flex items-start gap-3">
         <GardenAvatar index={post.avatar} />
         <div className="min-w-0 flex-1">
@@ -216,19 +216,64 @@ function PostCard({ post, state, onReact, onComment, onReport, onDelete }: {
       </div>
       <p className="mt-4 whitespace-pre-line text-sm leading-relaxed">{post.text}</p>
       <PostImage post={post} />
-      <div className="mt-4 flex items-center gap-2 border-t border-brea-sage/15 pt-3">
-        <button
-          type="button"
-          aria-pressed={supported}
-          aria-label={supported ? `Remove your support from this post (${post.support} supporters)` : `Send support to this post (${post.support} supporters)`}
-          onClick={onSupport}
-          className={cn("flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none", supported ? "border-brea-rose/60 bg-brea-blush/30 text-brea-rose-deep" : "border-brea-sage/30 text-brea-sage-deep hover:bg-brea-blush/15")}
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-brea-sage/15 pt-3">
+        <div
+          ref={pickerRef}
+          className="relative"
+          onMouseEnter={() => setHoverOpen(true)}
+          onMouseLeave={() => setHoverOpen(false)}
+          onKeyDown={(e) => { if (e.key === "Escape" && pickerOpen) { setPinned(false); setHoverOpen(false); triggerRef.current?.focus(); } }}
         >
-          <HeartHandshake aria-hidden className="h-5 w-5" />
-          <span>{supported ? "Supported" : "Support"} · {post.support}</span>
-        </button>
+          <button
+            ref={triggerRef}
+            type="button"
+            aria-pressed={mine !== null}
+            aria-haspopup="menu"
+            aria-expanded={pickerOpen}
+            aria-label={mine ? `You reacted with ${mine.label}. Change or remove your reaction (${post.total} hearts)` : `Send a heart of support to this post (${post.total} hearts)`}
+            onClick={() => setPinned((p) => !p)}
+            className={cn("flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none", mine ? "border-brea-rose/60 bg-brea-blush/30 text-brea-rose-deep" : "border-brea-sage/30 text-brea-sage-deep hover:bg-brea-blush/15")}
+          >
+            <Heart aria-hidden className="h-5 w-5" style={mine ? { color: mine.color, fill: mine.color } : undefined} />
+            <span>{mine ? mine.label : "Support"} · {post.total}</span>
+          </button>
+          {burst && (
+            <Heart aria-hidden className="brea-heart-float absolute -top-1 left-5 h-5 w-5" style={{ color: HEART_REACTIONS.find((r) => r.id === burst)!.color, fill: HEART_REACTIONS.find((r) => r.id === burst)!.color }} />
+          )}
+          {pickerOpen && (
+            <div role="menu" aria-label="Choose a heart reaction" className="brea-fade-in absolute bottom-full left-0 z-20 mb-2 flex gap-1 rounded-2xl border border-brea-blush/50 bg-brea-cream p-2 shadow-brea-lift">
+              {HEART_REACTIONS.map((r) => {
+                const active = post.myReaction === r.id;
+                return (
+                  <button
+                    key={r.id}
+                    role="menuitemradio"
+                    aria-checked={active}
+                    aria-label={`React with ${r.label}`}
+                    type="button"
+                    onClick={() => choose(r.id)}
+                    className={cn("flex min-h-11 min-w-12 flex-col items-center justify-center gap-0.5 rounded-xl px-1.5 py-1.5 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none motion-reduce:hover:scale-100", active ? "bg-brea-blush/25" : "hover:bg-brea-blush/15")}
+                  >
+                    <Heart aria-hidden className={cn("h-6 w-6", active && "brea-heart-pop")} style={{ color: r.color, fill: r.color }} />
+                    <span className="text-[10px] leading-none text-brea-sage-deep">{r.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
         <span className="flex min-h-11 items-center gap-2 px-2 text-sm text-brea-sage-deep"><MessageCircle aria-hidden className="h-5 w-5" />{hiddenComments.length} {hiddenComments.length === 1 ? "comment" : "comments"}</span>
       </div>
+      {post.total > 0 && (
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1" aria-label={`Heart reactions: ${HEART_REACTIONS.filter((r) => post.counts[r.id] > 0).map((r) => `${r.label} ${post.counts[r.id]}`).join(", ")}`}>
+          {HEART_REACTIONS.filter((r) => post.counts[r.id] > 0).map((r) => (
+            <span key={r.id} aria-hidden className="flex items-center gap-1 text-xs text-brea-sage-deep">
+              <Heart className={cn("h-3.5 w-3.5", post.myReaction === r.id && "brea-heart-pop")} style={{ color: r.color, fill: r.color }} />
+              {post.counts[r.id]}
+            </span>
+          ))}
+        </div>
+      )}
       {shown.length > 0 && (
         <ul className="mt-3 space-y-2.5">
           {shown.map((c) => (
