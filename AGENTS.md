@@ -26,3 +26,5 @@ Homepage sharing metadata and canonical live only in the leaf route head; its sh
 Brea lives under src/routes/brea/ as folder routes (index.tsx = onboarding, home.tsx = home); a flat brea.tsx plus brea.home.tsx makes brea a layout parent and breaks /brea/home. Brea is English-only, outside the landing LanguageProvider, with its own tokens (--brea-*) in src/styles.css and demo personalization (name, interest, onboarded flag) in src/lib/brea/onboarding.ts via localStorage only.
 
 Subdirectories have their own AGENTS.md (e.g. src/lib/brea/) to read before changing files there.
+
+- Sitemap: router-derived via src/lib/sitemap.ts + src/routes/sitemap[.]xml.ts at https://beyond-pink.lovable.app; every route must set staticData.sitemap (true/false/"exclude-subtree"). GSC meta verification tag lives in src/routes/index.tsx head.
