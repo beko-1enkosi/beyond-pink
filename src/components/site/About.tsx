@@ -1,9 +1,17 @@
 import { useTranslation } from "@/lib/i18n";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, Users } from "lucide-react";
+import belongImg from "@/assets/about-belong.webp.asset.json";
 import { cn } from "@/lib/utils";
 import { SectionWaves } from "./SectionWaves";
 import { useVisibleCount } from "./use-visible-count";
+
+const ABOUT_IMAGE = {
+  src: belongImg.url,
+  alt: "Illustration of a diverse crowd of people with eyes closed, pink breast-cancer awareness ribbons among them.",
+};
+
+const FRAME_RADIUS = "46% 54% 52% 48% / 54% 46% 54% 46%";
 
 const PILLARS = [
   { icon: BookOpen, title: "Education", text: "Making breast-health information easier to understand." },
@@ -71,24 +79,18 @@ export function About() {
       <div aria-hidden className="pointer-events-none absolute -left-20 bottom-40 -z-10 h-64 w-64 rounded-full bg-blush/40 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="relative">
-          <Leaf className="pointer-events-none absolute -right-2 -top-8 h-14 w-28 text-sage" />
-          <Leaf className="pointer-events-none absolute -bottom-8 -left-4 h-14 w-28 rotate-180 text-sage" />
+        <div className="grid items-center gap-12 md:grid-cols-[1.1fr_1fr] lg:gap-16">
           <Reveal>
-            <div className="grid gap-6 md:grid-cols-[1fr_1.2fr] md:gap-10 lg:gap-16">
-            <div>
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />{t("About BeyondPink")}</p>
             <h2 id="about-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("Because Awareness Is Only")} <span className="italic text-rose">{t("the Beginning.")}</span>
             </h2>
-            </div>
-            <div className="space-y-4 text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
+            <div className="mt-6 space-y-4 text-[0.98rem] leading-relaxed text-muted-foreground sm:text-lg">
               <p>{t("Every October, the world turns pink. Ribbons are worn, stories are shared, and conversations begin.")}</p>
               <p className="font-serif text-2xl italic text-foreground">{t("But what happens when October ends?")}</p>
               <p>{t("The questions, uncertainty, and need for reliable information don't disappear.")}</p>
               <p className="font-medium text-foreground">{t("BeyondPink exists to keep that conversation going.")}</p>
               <p>{t("We believe everyone deserves accessible breast-health education, compassionate support, and the confidence to better understand their health.")}</p>
-            </div>
             </div>
 
             <ul className="mt-8 grid gap-4 sm:grid-cols-3">
@@ -102,6 +104,15 @@ export function About() {
                 </li>
               ))}
             </ul>
+          </Reveal>
+
+          <Reveal delay={150} className="relative mx-auto w-full max-w-md md:max-w-none">
+            <Leaf className="absolute -left-4 -top-6 z-10 h-14 w-28 text-sage" />
+            <div aria-hidden className="absolute -bottom-3 -left-3 h-full w-full border border-sage/60" style={{ borderRadius: FRAME_RADIUS }} />
+            <div className="relative aspect-[4/5] w-full overflow-hidden bg-accent shadow-soft" style={{ borderRadius: FRAME_RADIUS }}>
+              <img src={ABOUT_IMAGE.src} alt={t(ABOUT_IMAGE.alt)} loading="lazy" decoding="async" className="h-full w-full object-cover" />
+            </div>
+            <Leaf className="absolute -bottom-6 right-2 z-10 h-14 w-28 rotate-180 text-rose/70" />
           </Reveal>
         </div>
 

@@ -6,7 +6,6 @@ import img1 from "@/assets/hero-1-unity.webp.asset.json";
 import img2 from "@/assets/hero-2-diversity.webp.asset.json";
 import img3 from "@/assets/hero-3-care.webp.v2.asset.json";
 import img4 from "@/assets/hero-4-men.webp.asset.json";
-import belongImg from "@/assets/about-belong.webp.asset.json";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { scrollToSection } from "@/lib/section-scroll";
@@ -17,7 +16,6 @@ const SLIDES = [
   { src: img2.url, alt: "A multigenerational group of women smiling together, wearing pink ribbons", title: "Diversity & Inclusion", pos: "62% 35%", posMobile: "60% 38%" },
   { src: img3.url, alt: "Three smiling women in head coverings sitting together on a sofa", title: "Care & Support", pos: "58% 30%", posMobile: "56% 30%" },
   { src: img4.url, alt: "Two men and a woman walking outdoors wearing pink awareness clothing", title: "Men in the Conversation", pos: "58% 38%", posMobile: "56% 35%" },
-  { src: belongImg.url, alt: "Illustration of a diverse crowd of people with eyes closed, pink breast-cancer awareness ribbons among them.", title: "Everyone Belongs in This Conversation.", pos: "50% 50%", posMobile: "50% 50%" },
 ] as const;
 
 const INTERVAL = 3000;
@@ -138,12 +136,12 @@ export function Hero() {
                 <img
                   src={s.src}
                   alt={t(s.alt)}
-                  width={s.src === belongImg.url ? 1080 : 1774}
-                  height={s.src === belongImg.url ? 1350 : 887}
+                  width={1774}
+                  height={887}
                   loading="eager"
                   fetchPriority={i === 0 ? "high" : "low"}
                   decoding="async"
-                  className={cn("hero-img h-full w-full text-transparent", s.src === belongImg.url ? "bg-blush/40 object-contain p-[8%]" : "object-cover")}
+                  className="hero-img h-full w-full object-cover text-transparent"
                   style={{ ["--pos" as string]: s.pos, ["--pos-m" as string]: s.posMobile }}
                 />
               </div>
