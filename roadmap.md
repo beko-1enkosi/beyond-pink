@@ -1,10 +1,10 @@
 # Landing-page languages
 # Brea Phase 2
-- [ ] Add local learning state, accurate lesson/glossary data and rule tests.
-- [ ] Build personalized Learn dashboard, profile and lightweight Brea overview navigation.
-- [ ] Build layered interactive anatomy, guided Lesson 1 and floating MedDecode.
-- [ ] Add first-completion badge, celebration and optional quiz.
-- [ ] Verify onboarding-to-Learn, resume, completion, quiz and mobile/desktop accessibility.
+- [x] Add local learning state, accurate lesson/glossary data and rule tests.
+- [x] Build personalized Learn dashboard, profile and lightweight Brea overview navigation.
+- [x] Build layered interactive anatomy, guided Lesson 1 and floating MedDecode.
+- [x] Add first-completion badge, celebration and optional quiz.
+- [x] Verify onboarding-to-Learn, resume, completion, quiz and mobile/desktop accessibility.
 
 - [x] Add shared remembered language selection and five local dictionaries.
 - [x] Translate landing-page text and educational dialogs, excluding Bri.
