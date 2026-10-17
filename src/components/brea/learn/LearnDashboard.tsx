@@ -1,11 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, ArrowRight, Check, Sparkles, BookOpen, Sprout } from "lucide-react";
+import { ArrowLeft, ArrowRight, Check, Sparkles, Sprout } from "lucide-react";
 import { BreaSymbol } from "@/components/brea/BreaLogo";
 import { LESSONS, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSON5_ID } from "@/lib/brea/learning-data";
 import { learningSummary, useLearning, type LearningState } from "@/lib/brea/learning";
 import { useChanges } from "@/lib/brea/changes";
+import { useSupport } from "@/lib/brea/support";
 import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, ScreeningBadge, LearnButton, LearnShell, PrimaryButton, ProgressBar } from "./LearnPrimitives";
-import { LearningProfile, MedDecode } from "./LearnPanels";
+import { BreaHeader, MedDecode } from "./LearnPanels";
 import { CellIntro } from "./CellExplorers";
 import { BreastIllustration } from "./AnatomyExplorer";
 import { BreastCancerIntro } from "./BreastCancerExplorers";
