@@ -42,6 +42,14 @@
   --color-ivory: var(--ivory);
   --color-mist: var(--mist);
   --color-mist-deep: var(--mist-deep);
+  /* Brea app palette */
+  --color-brea-sage: var(--brea-sage);
+  --color-brea-sage-deep: var(--brea-sage-deep);
+  --color-brea-blush: var(--brea-blush);
+  --color-brea-ivory: var(--brea-ivory);
+  --color-brea-charcoal: var(--brea-charcoal);
+  --font-brea-display: "Poppins", system-ui, sans-serif;
+  --font-brea-body: "Inter", system-ui, sans-serif;
   --shadow-soft: var(--shadow-soft-v);
   --shadow-glow: var(--shadow-glow-v);
   --shadow-glow-strong: var(--shadow-glow-strong-v);
