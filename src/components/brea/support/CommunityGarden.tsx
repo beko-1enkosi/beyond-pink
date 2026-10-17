@@ -54,7 +54,7 @@ function GardenIllustration() {
 
 type FeedPost = {
   id: string; name: string; avatar: number; when: string; text: string;
-  image?: string; imageId?: string; imageAlt?: string; support: number; own: boolean;
+  image?: string | undefined; imageId?: string | undefined; imageAlt?: string | undefined; support: number; own: boolean;
   comments: { id: string; name: string; text: string; when: string }[];
 };
 
@@ -118,7 +118,7 @@ function ReportDialog({ target, onDone, onClose }: { target: { id: string; kind:
 
 function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
   post: FeedPost; state: CommunityState;
-  onSupport: () => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: () => void;
+  onSupport: () => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: (() => void) | undefined;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
