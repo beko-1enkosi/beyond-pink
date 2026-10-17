@@ -3,6 +3,7 @@ import { ArrowLeft, ArrowRight, Check, Sparkles, BookOpen, Sprout } from "lucide
 import { BreaSymbol } from "@/components/brea/BreaLogo";
 import { LESSONS, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSON5_ID } from "@/lib/brea/learning-data";
 import { learningSummary, useLearning, type LearningState } from "@/lib/brea/learning";
+import { useChanges } from "@/lib/brea/changes";
 import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, ScreeningBadge, LearnButton, LearnShell, PrimaryButton, ProgressBar } from "./LearnPrimitives";
 import { LearningProfile, MedDecode } from "./LearnPanels";
 import { CellIntro } from "./CellExplorers";
@@ -21,6 +22,7 @@ function LessonCard({ lesson, state, featured }: { lesson: (typeof IMPLEMENTED)[
 }
 export function LearnDashboard() {
   const { state, name, storageNotice } = useLearning();
+  const changes = useChanges();
   const summary = learningSummary(state);
   const done1 = state.completed.includes(LESSON_ID);
   const done3 = state.completed.includes(LESSON3_ID);
@@ -29,7 +31,7 @@ export function LearnDashboard() {
   const done5 = state.completed.includes(LESSON5_ID);
   const featured = IMPLEMENTED.find((lesson) => !state.completed.includes(lesson.id));
   const others = IMPLEMENTED.filter((lesson) => lesson !== featured);
-  return <LearnShell><header className="flex items-center justify-between"><LearnButton asChild className="border-0 px-0"><Link to="/brea/home"><ArrowLeft /> Explore Brea</Link></LearnButton><LearningProfile state={state} name={name} /></header>
+  return <LearnShell><header className="flex items-center justify-between"><LearnButton asChild className="border-0 px-0"><Link to="/brea/home"><ArrowLeft /> Explore Brea</Link></LearnButton><LearningProfile state={state} name={name} changes={changes.state} /></header>
     <section className="relative pb-7 pt-10 sm:pt-14"><BreaSymbol className="absolute right-0 top-8 hidden h-28 w-28 opacity-40 sm:block" /><p className="text-xs uppercase text-brea-sage-deep">Brea · The learning garden</p><h1 className="mt-3 max-w-2xl break-words text-4xl leading-[1.05] sm:text-6xl">Let’s grow your <em className="brea-em">knowledge</em>{name ? <>, <em className="brea-em">{name}</em></> : ""}.</h1><p className="mt-4 text-sm text-brea-sage-deep sm:text-base">Discover your body, one little lesson at a time.</p></section>
     {storageNotice && <p role="status" className="mb-4 text-sm">Your browser cannot save progress right now. You can still keep learning.</p>}
     <section aria-label="Your learning journey" className="grid min-w-0 gap-5 rounded-2xl border border-brea-sage/20 bg-brea-sage/15 p-5 sm:p-6"><div className="min-w-0 flex-1"><h2 className="text-2xl sm:text-3xl">Your learning journey</h2><div className="mt-2 flex flex-wrap justify-between gap-2 text-xs text-brea-sage-deep"><span>{summary.completed} of 5 lessons completed</span><span>{summary.badges} {summary.badges === 1 ? "badge" : "badges"} earned</span></div><ProgressBar percent={summary.percent} /><p className="mt-3 text-xs text-brea-sage-deep">{done1 ? "A beautiful beginning. Keep your curiosity growing." : "Your first badge is waiting for you!"}</p></div><div aria-label="Your earned badges" className="grid grid-cols-[repeat(auto-fit,64px)] gap-4">{done1 && <AnatomyBadge earned />}{done2 && <HormoneBadge earned />}{done3 && <CellBadge earned />}{done4 && <AdvocateBadge earned />}{done5 && <ScreeningBadge earned />}{!done1 && !done2 && !done3 && !done4 && !done5 && <AnatomyBadge />}</div></section>
