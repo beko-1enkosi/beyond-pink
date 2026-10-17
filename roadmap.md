@@ -1,3 +1,6 @@
+# Landing animation restoration
+- [ ] Restore carousel, reveals, counters and Bri idle cycle without changing content.
+- [ ] Verify actual desktop/mobile motion, controls, reduced motion and errors.
 # Landing-page languages
 # Bri — Intelligence and conversations
 - [x] Broaden general educational conversations and update verified Brea demo knowledge and outdated descriptions.
