@@ -384,7 +384,7 @@
   .tour-step-heading { font-size: 44px; }
   .tour-phone-pair { gap: 12px; }
   .tour-phone-pair .tour-phone-figure { width: 155px; }
-  .tour-hero-botanical { width: 120px; right: 10px; opacity: .5; }
+  .tour-hero-botanical { width: 120px; right: 40px; opacity: .5; }
 }
 @media (max-width: 767px) {
   .tour-navigation > div { justify-content: center; }
