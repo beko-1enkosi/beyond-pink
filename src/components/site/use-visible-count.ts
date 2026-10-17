@@ -2,38 +2,27 @@ import { useEffect, useRef, useState } from "react";
 
 const COUNT_DURATION = 3000;
 
-/**
- * Count up once per page load, only while the actual number is at least half
- * visible; the final value then stays on screen until a full page reload.
- */
+/** SSR finals stay readable; enhanced counters start once their own card enters view. */
 export function useVisibleCount(value: number) {
   const ref = useRef<HTMLSpanElement>(null);
   const [count, setCount] = useState(value);
 
   useEffect(() => {
     const element = ref.current;
-    if (!element) return;
+    if (!element || typeof IntersectionObserver === "undefined") return;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    let visible = false;
-    let played = false;
+    if (motion.matches) return;
     let frame = 0;
     let disposed = false;
-
-    const stop = () => {
-      window.cancelAnimationFrame(frame);
-      frame = 0;
-    };
-    const showFinal = () => {
+    let played = false;
+    const stop = () => { window.cancelAnimationFrame(frame); frame = 0; };
+    const showFinal = () => { stop(); played = true; setCount(value); };
+    const target = element.closest("figure") ?? element;
+    const observer = new IntersectionObserver((entries) => {
+      if (played || !entries.some((entry) => entry.isIntersecting && entry.intersectionRatio >= 0.2)) return;
       played = true;
-      setCount(value);
-    };
-    const animate = () => {
-      if (disposed) return;
-      played = true;
-      if (motion.matches) {
-        showFinal();
-        return;
-      }
+      observer.disconnect();
+      if (motion.matches) { showFinal(); return; }
       setCount(0);
       const started = performance.now();
       const tick = (now: number) => {
@@ -44,39 +33,17 @@ export function useVisibleCount(value: number) {
         else frame = 0;
       };
       frame = window.requestAnimationFrame(tick);
-    };
-
-    // Discount the sticky navigation area so covered numbers don't start early.
-    const observer = new IntersectionObserver(([entry]) => {
-      const next = Boolean(entry?.isIntersecting && entry.intersectionRatio >= 0.5);
-      if (next === visible) return;
-      visible = next;
-      if (next && !played) animate();
-      else if (!next && frame) {
-        // Leaving mid-count: settle on the final value instead of a partial number.
-        stop();
-        showFinal();
-      }
-    }, { threshold: [0, 0.5], rootMargin: "-72px 0px 0px 0px" });
-
-    const sync = () => {
-      if (motion.matches) {
-        stop();
-        showFinal();
-      } else if (!document.hidden && visible && !played) {
-        animate();
-      }
-    };
-
-    observer.observe(element);
+    }, { threshold: [0, 0.2], rootMargin: "-72px 0px -24px 0px" });
+    // Only prepare zero after successful observer setup; unsupported browsers keep finals.
+    observer.observe(target);
+    setCount(0);
+    const sync = () => { if (motion.matches) showFinal(); };
     motion.addEventListener("change", sync);
-    document.addEventListener("visibilitychange", sync);
     return () => {
       disposed = true;
       stop();
       observer.disconnect();
       motion.removeEventListener("change", sync);
-      document.removeEventListener("visibilitychange", sync);
     };
   }, [value]);
 

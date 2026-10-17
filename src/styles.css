@@ -175,15 +175,12 @@
 .bri-thinking-dot:nth-of-type(4) { animation-delay: .36s; }
 @keyframes bri-think { 0%, 100% { opacity: .45; transform: scale(.85); } 50% { opacity: 1; transform: scale(1); } }
 @keyframes bri-float-bounce {
-  /* Two gentle bounces, then a soft floating rest (~5s of the 8s cycle). */
-  0%, 3%, 11%, 19%, 27%, 100% { transform: translateY(0); }
-  7% { transform: translateY(-8px); }
-  15% { transform: translateY(-6px); }
-  23% { transform: translateY(-3px); }
-  45% { transform: translateY(-4px); }
-  62% { transform: translateY(0); }
-  80% { transform: translateY(-4px); }
+  /* Two bounces in three seconds, then five seconds at rest. */
+  0%, 18.75%, 37.5%, 100% { transform: translateY(0); }
+  9.375% { transform: translateY(-8px); }
+  28.125% { transform: translateY(-6px); }
 }
+.bri-launcher-wrap[hidden], .bri-launcher-wrap[hidden] .bri-launcher { animation-play-state: paused; }
 @keyframes bri-glow {
   0%, 100% { box-shadow: var(--shadow-bri-v); }
   50% { box-shadow: var(--shadow-bri-v), 0 0 18px 2px color-mix(in oklab, var(--sage) 45%, transparent); }

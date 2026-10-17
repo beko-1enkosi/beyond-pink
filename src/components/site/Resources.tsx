@@ -1,6 +1,6 @@
 import { useTranslation } from "@/lib/i18n";
 import { Link as RouterLink } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Reveal } from "./Reveal";
 import { BookOpen, HeartHandshake, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -45,35 +45,6 @@ const CARDS: {
   },
 ];
 
-function useInView<T extends Element>() {
-  const { t } = useTranslation();
-  const ref = useRef<T>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || seen) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e?.isIntersecting) { setSeen(true); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [seen]);
-  return [ref, seen] as const;
-}
-
-function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const [ref, seen] = useInView<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn("transition-all duration-700 ease-out motion-reduce:transition-none", seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100", className)}
-    >
-      {children}
-    </div>
-  );
-}
-
 function Sprig({ className }: { className?: string }) {
   return (
     <svg viewBox="0 0 120 60" fill="none" aria-hidden className={className}>
@@ -109,7 +80,7 @@ export function Resources() {
       <div aria-hidden className="pointer-events-none absolute -left-24 bottom-28 -z-10 h-64 w-64 rounded-full bg-sage/15 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <Reveal className="mx-auto max-w-3xl text-center">
+        <Reveal contents className="mx-auto max-w-3xl text-center">
           <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/75 sm:text-xs sm:tracking-[0.28em]">
             <span className="h-px w-8 bg-sage" aria-hidden />{t("Helpful Resources")}<span className="h-px w-8 bg-sage" aria-hidden />
           </p>

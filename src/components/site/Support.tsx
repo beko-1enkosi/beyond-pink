@@ -1,6 +1,6 @@
 import { useTranslation } from "@/lib/i18n";
 import { Link } from "@tanstack/react-router";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Reveal } from "./Reveal";
 import { HeartHandshake, HandHeart, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import supportImg from "@/assets/support-community.webp.asset.json";
@@ -27,35 +27,6 @@ const CARDS = [
     iconBg: "bg-ivory",
   },
 ];
-
-function useInView<T extends Element>() {
-  const { t } = useTranslation();
-  const ref = useRef<T>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || seen) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e?.isIntersecting) { setSeen(true); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [seen]);
-  return [ref, seen] as const;
-}
-
-function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const [ref, seen] = useInView<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn("transition-all duration-700 ease-out motion-reduce:transition-none", seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100", className)}
-    >
-      {children}
-    </div>
-  );
-}
 
 function Sprig({ className }: { className?: string }) {
   return (
@@ -88,7 +59,7 @@ export function Support() {
       </div>
 
       <div className="mx-auto max-w-7xl px-5 pb-16 pt-20 sm:px-8 sm:pb-20 sm:pt-24 lg:px-10 lg:pb-24 lg:pt-32">
-        <Reveal className="mx-auto max-w-3xl">
+        <Reveal contents className="mx-auto max-w-3xl">
           <div className="rounded-[2.5rem] bg-ivory/45 px-6 py-9 shadow-soft backdrop-blur-sm sm:px-10 sm:py-11">
             <p className="flex items-center justify-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-foreground/80 sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />{t("Support & Community")}<span className="h-px w-8 bg-sage" aria-hidden />

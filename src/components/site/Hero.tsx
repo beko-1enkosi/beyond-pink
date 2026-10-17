@@ -18,7 +18,7 @@ const SLIDES = [
   { src: img4.url, alt: "Two men and a woman walking outdoors wearing pink awareness clothing", title: "Men in the Conversation", pos: "58% 38%", posMobile: "56% 35%" },
 ] as const;
 
-const INTERVAL = 3000;
+const INTERVAL = 2000;
 const FRAME_RADIUS = "58% 42% 46% 54% / 46% 52% 48% 54%";
 
 function Sprig({ className }: { className?: string }) {
@@ -38,12 +38,15 @@ function Sprig({ className }: { className?: string }) {
 export function Hero() {
   const { t } = useTranslation();
   const [index, setIndex] = useState(0);
-  const [paused, setPaused] = useState(false);
+  const [timerReset, setTimerReset] = useState(0);
   const [reduced, setReduced] = useState(false);
   const touchX = useRef<number | null>(null);
   const n = SLIDES.length;
 
-  const go = useCallback((i: number) => setIndex(((i % n) + n) % n), [n]);
+  const go = useCallback((i: number) => {
+    setIndex(((i % n) + n) % n);
+    setTimerReset((reset) => reset + 1);
+  }, [n]);
 
   useEffect(() => {
     const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -54,10 +57,10 @@ export function Hero() {
   }, []);
 
   useEffect(() => {
-    if (paused || reduced) return;
+    if (reduced) return;
     const t = window.setTimeout(() => setIndex((i) => (i + 1) % n), INTERVAL);
     return () => window.clearTimeout(t);
-  }, [index, paused, reduced, n]);
+  }, [index, timerReset, reduced, n]);
 
   const scrollToAbout = () => {
     scrollToSection("#about");
@@ -103,22 +106,16 @@ export function Hero() {
             aria-label={t("BeyondPink campaign photographs")}
             className="relative aspect-[5/4] w-full overflow-hidden bg-charcoal/10 shadow-soft md:aspect-[1/1] lg:aspect-[6/5]"
             style={{ borderRadius: FRAME_RADIUS }}
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-            onFocus={() => setPaused(true)}
-            onBlur={() => setPaused(false)}
             onKeyDown={(e) => {
               if (e.key === "ArrowLeft") go(index - 1);
               if (e.key === "ArrowRight") go(index + 1);
             }}
             onTouchStart={(e) => {
               touchX.current = e.touches[0]?.clientX ?? null;
-              setPaused(true);
             }}
             onTouchEnd={(e) => {
               const start = touchX.current;
               touchX.current = null;
-              setPaused(false);
               if (start == null) return;
               const dx = (e.changedTouches[0]?.clientX ?? start) - start;
               if (Math.abs(dx) > 40) go(index + (dx < 0 ? 1 : -1));
@@ -131,7 +128,7 @@ export function Hero() {
                 aria-roledescription={t("slide")}
                 aria-label={`${i + 1} ${t("of")} ${n}: ${t(s.title)}`}
                 aria-hidden={i !== index}
-                className={cn("absolute inset-0 transition-opacity duration-[1100ms] ease-in-out", i === index ? "opacity-100" : "opacity-0")}
+                className={cn("absolute inset-0 transition-opacity duration-700 ease-in-out motion-reduce:transition-none", i === index ? "opacity-100" : "opacity-0")}
               >
                 <img
                   src={s.src}

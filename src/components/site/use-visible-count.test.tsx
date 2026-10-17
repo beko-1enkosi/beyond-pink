@@ -47,11 +47,11 @@ beforeEach(() => {
 afterEach(() => { cleanup(); vi.restoreAllMocks(); vi.unstubAllGlobals(); vi.useRealTimers(); });
 
 describe("viewport-bound About statistics", () => {
-  it("does not start until the actual number is at least half visible", () => {
+  it("does not start until the card is at least one fifth visible", () => {
     render(<Probe />);
-    visibility(0.2);
+    visibility(0.1);
     expect(frames.size).toBe(0);
-    visibility(0.5);
+    visibility(0.2);
     expect(current).toBe(0);
     frameAt(900);
     expect(current).toBeGreaterThan(0);
@@ -80,15 +80,21 @@ describe("viewport-bound About statistics", () => {
     act(() => vi.advanceTimersByTime(5000));
     expect(current).toBe(14712);
   });
-  it("cancels an in-progress count on exit and settles on the final value", () => {
+  it("finishes its single run even when scrolled away mid-count", () => {
     render(<Probe />);
     visibility(1); frameAt(900); visibility(0);
-    expect(frames.size).toBe(0);
+    expect(current).toBeGreaterThan(0);
+    expect(current).toBeLessThan(14712);
+    frameAt(3000);
     expect(current).toBe(14712);
     visibility(1);
     expect(frames.size).toBe(0);
-    act(() => vi.advanceTimersByTime(5000));
+  });
+  it("keeps readable final values when observers are unavailable", () => {
+    vi.stubGlobal("IntersectionObserver", undefined);
+    render(<Probe />);
     expect(current).toBe(14712);
+    expect(frames.size).toBe(0);
   });
   it("shows final values without animation for reduced motion", () => {
     reduced = true;
