@@ -6,7 +6,7 @@ import { GuideFlower } from "@/components/brea/support/SupportIllustrations";
 import { useLearning } from "@/lib/brea/learning";
 import { useChanges } from "@/lib/brea/changes";
 import { useSupport } from "@/lib/brea/support";
-import { SUPPORT_PATHWAYS } from "@/lib/brea/support-data";
+import { COMPANION_BADGE, SUPPORT_BADGE, SUPPORT_PATHWAYS } from "@/lib/brea/support-data";
 
 export const Route = createFileRoute("/brea/support/")({
   staticData: { sitemap: true },
@@ -43,8 +43,8 @@ function SupportHome() {
             <p className="mt-2 text-xs leading-relaxed text-brea-sage-deep">A gentle record of the supportive guidance you’ve explored — never a measure of how you’re feeling.</p>
           </div>
           <div aria-label="Your support badges" className="grid grid-cols-[repeat(auto-fit,64px)] gap-4">
-            <SupportBadge earned={support.badges.includes("support-pathfinder")} />
-            <CompanionBadge earned={support.badges.includes("compassionate-companion")} />
+            <SupportBadge earned={support.badges.includes(SUPPORT_BADGE)} />
+            <CompanionBadge earned={support.badges.includes(COMPANION_BADGE)} />
           </div>
         </section>
         <article className="relative flex flex-col gap-6 overflow-hidden rounded-3xl border border-brea-rose/25 bg-brea-blush/25 p-7 shadow-brea-soft sm:flex-row sm:items-center sm:p-9">
