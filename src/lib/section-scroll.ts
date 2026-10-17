@@ -39,7 +39,7 @@ export function scrollToSection(hash: string, waitForMenu = false) {
       frame = requestAnimationFrame(start);
       return;
     }
-    const navbarHeight = document.querySelector('header nav[aria-label="Main"]')?.getBoundingClientRect().height ?? 72;
+    const navbarHeight = document.querySelector('header nav')?.getBoundingClientRect().height ?? 72;
     const from = window.scrollY;
     // Layout offsets ignore entrance-animation transforms on the section.
     let layoutTop = 0;
