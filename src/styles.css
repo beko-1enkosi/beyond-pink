@@ -164,6 +164,13 @@
   50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--blush) 90%, transparent), 0 8px 26px -6px color-mix(in oklab, var(--sage) 85%, transparent), 0 0 20px color-mix(in oklab, var(--blush) 80%, transparent); }
 }
 @media (prefers-reduced-motion: reduce) { .bri-launcher-wrap, .bri-thinking-dot, .explore-pill, .explore-pill:hover { animation: none; } }
+
+/* Brea app animations */
+.brea-fade-in { animation: brea-fade-in 0.6s ease-out both; }
+.brea-splash-logo { animation: brea-breathe 1.5s ease-in-out both; }
+@keyframes brea-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes brea-breathe { 0% { opacity: 0; transform: scale(0.92); } 40% { opacity: 1; transform: scale(1.02); } 70% { transform: scale(0.99); } 100% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .brea-fade-in, .brea-splash-logo { animation: none; } }
 @media (max-width: 767px), (max-height: 500px) {
   .bri-panel {
     top: calc(var(--bri-viewport-top, 0px) + 8px + env(safe-area-inset-top, 0px));
