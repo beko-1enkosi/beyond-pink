@@ -71,6 +71,12 @@
   /* Support & inclusion of men */
   --mist: oklch(0.9524 0.0134 233.7); /* #E7F1F7 */
   --mist-deep: oklch(0.9046 0.027 234); /* #CFE3EF */
+  /* Brea app palette */
+  --brea-sage: oklch(0.701 0.049 152); /* #91A58F */
+  --brea-sage-deep: oklch(0.419 0.045 156); /* #425C4B */
+  --brea-blush: oklch(0.763 0.089 6); /* #E5A1AF */
+  --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
+  --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
