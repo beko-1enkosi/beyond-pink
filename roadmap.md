@@ -1,4 +1,8 @@
 # Landing-page languages
+# BeyondPink Phase 16 — How Brea Works
+- [x] Add the illustrated four-step introduction with five replaceable botanical phone placeholders and sketch arrows.
+- [x] Connect landing Brea entry links and integrate all five languages without changing Brea sessions.
+- [x] Verify navigation, saved progress, scrolling, translations and desktop/tablet/mobile layouts.
 # Brea Phase 15 — Fresh demo and navigation
 - [x] Add confirmed complete Brea-only reset, including community images; retain normal persistence.
 - [x] Add accessible single starting-pathway selection and direct destinations.

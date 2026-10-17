@@ -31,3 +31,5 @@ Find Care uses browser-safe curated facility data and pure filtering/distance he
 Find Care shares ribbon geometry between React legends and Leaflet icons, with a separate map-focus request counter for repeated card selections; this keeps marker identity consistent and reopens closed popups without changing facility data.
 
 - Sitemap: router-derived via src/lib/sitemap.ts + src/routes/sitemap[.]xml.ts at https://beyond-pink.lovable.app; every route must set staticData.sitemap (true/false/"exclude-subtree"). GSC meta verification tag lives in src/routes/index.tsx head.
+
+How Brea Works is an isolated website leaf with the shared LanguageProvider and language selector; tour data, approved screenshot slots and source-key translations stay browser-safe and separate from Brea storage, so introductory navigation cannot reset or gate app sessions.

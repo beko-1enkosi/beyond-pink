@@ -49,7 +49,7 @@ function Logo() {
   );
 }
 
-function LanguageSelect({ className }: { className?: string }) {
+export function LanguageSelect({ className }: { className?: string }) {
   const { t, language: lang, setLanguage: setLang } = useTranslation();
   const current = LANGUAGES.find((l) => l.code === lang) ?? LANGUAGES[0];
   return (
@@ -191,7 +191,7 @@ export function Navbar() {
             <GithubLink />
           </div>
           <Button variant="brea" asChild className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base">
-            <Link to="/brea">{t("Try Brea")}<ArrowRight className="hidden lg:block" aria-hidden /></Link>
+            <Link to="/how-brea-works">{t("Try Brea")}<ArrowRight className="hidden lg:block" aria-hidden /></Link>
           </Button>
         </div>
       </nav>

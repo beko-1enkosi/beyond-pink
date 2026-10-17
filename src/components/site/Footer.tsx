@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
@@ -56,8 +56,6 @@ function ColHeading({ children }: { children: ReactNode }) {
 
 export function Footer() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const openBrea = () => navigate({ to: "/brea" });
 
   return (
     <footer
@@ -145,9 +143,9 @@ export function Footer() {
             <div className="mt-3.5">
               <Button
                 variant="brea"
+                asChild
                 className="h-9 px-4 text-[0.85rem] shadow-glow"
-                onClick={openBrea}
-              >{t("Try Brea")}<ArrowRight aria-hidden />
+              ><Link to="/how-brea-works">{t("Try Brea")}<ArrowRight aria-hidden /></Link>
               </Button>
             </div>
           </div>

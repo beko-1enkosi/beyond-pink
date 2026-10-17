@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -79,8 +79,6 @@ function Sprig({ className }: { className?: string }) {
 
 export function Explore() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const openBrea = () => navigate({ to: "/brea" });
   return (
     <section id="explore" aria-labelledby="explore-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
       <div aria-hidden className="pointer-events-none absolute -left-28 top-32 -z-10 h-72 w-72 rounded-full bg-blush/35 blur-3xl" />
@@ -130,7 +128,7 @@ export function Explore() {
 
         <Reveal className="mt-12 text-center md:mt-16">
           <p className="text-xs uppercase tracking-[0.2em] text-muted-foreground">{t("Educational preview · Brea is on its way")}</p>
-          <Button variant="brea" className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>{t("Explore in Brea")}<ArrowRight aria-hidden />
+          <Button variant="brea" asChild className="mt-5 h-[3.25rem] px-8 text-base shadow-glow-strong"><Link to="/how-brea-works">{t("Explore in Brea")}<ArrowRight aria-hidden /></Link>
           </Button>
         </Reveal>
       </div>
