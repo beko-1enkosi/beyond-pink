@@ -34,3 +34,4 @@ Find Care shares ribbon geometry between React legends and Leaflet icons, with a
 - Sitemap: router-derived via src/lib/sitemap.ts + src/routes/sitemap[.]xml.ts at https://beyond-pink.lovable.app; every route must set staticData.sitemap (true/false/"exclude-subtree"). GSC meta verification tag lives in src/routes/index.tsx head.
 
 How Brea Works is an isolated website leaf with the shared LanguageProvider and language selector; tour data, approved screenshot slots and source-key translations stay browser-safe and separate from Brea storage, so introductory navigation cannot reset or gate app sessions.
+Vite pre-bundles @tanstack/react-query alongside React (vite.config.ts optimizeDeps.include) so the preview never pairs it with a React copy from a different optimizer run, which blanks the page with a null-hook error.

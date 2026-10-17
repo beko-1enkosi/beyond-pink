@@ -12,4 +12,9 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
+  vite: {
+    // Pre-bundle React Query with React up front so the browser never pairs it
+    // with a React copy from a different optimizer run.
+    optimizeDeps: { include: ["@tanstack/react-query"] },
+  },
 });
