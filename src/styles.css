@@ -182,7 +182,9 @@
 .brea-splash-logo { animation: brea-breathe 1.5s ease-in-out both; }
 @keyframes brea-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes brea-breathe { 0% { opacity: 0; transform: scale(0.92); } 40% { opacity: 1; transform: scale(1.02); } 70% { transform: scale(0.99); } 100% { opacity: 1; transform: scale(1); } }
-@media (prefers-reduced-motion: reduce) { .brea-fade-in, .brea-splash-logo { animation: none; } }
+@keyframes brea-quadrant-glow { 0%, 100% { opacity: .6; } 50% { opacity: .85; } }
+.brea-quadrant-glow { animation: brea-quadrant-glow 2.4s ease-in-out infinite; }
+@media (prefers-reduced-motion: reduce) { .brea-fade-in, .brea-splash-logo, .brea-quadrant-glow { animation: none; } }
 @media (max-width: 767px), (max-height: 500px) {
   .bri-panel {
     top: calc(var(--bri-viewport-top, 0px) + 8px + env(safe-area-inset-top, 0px));
