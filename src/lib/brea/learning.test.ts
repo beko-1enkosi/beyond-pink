@@ -1,11 +1,48 @@
 import { beforeEach, describe, expect, it } from "vitest";
 import { addExplored, addHormone, completeLesson, emptyLearning, LEARNING_KEY, learningSummary, normalizeLearning, readLearning } from "./learning";
 import { ANATOMY, findGlossaryTerm, HORMONES, LESSON_ID, LESSON2_ID, QUIZ, QUIZ2, quizScore } from "./learning-data";
-import { BREA_INTERESTS, restartBreaDemo } from "./onboarding";
-import { LESSON3_ID } from "./learning-data";
+import { BREA_INTERESTS, restartBreaDemo, saveBreaName, getBreaName } from "./onboarding";
+import { LESSON3_ID, LESSON4_ID } from "./learning-data";
 import { QUIZ3 } from "./cancer-data";
+import { QUIZ4 } from "./breast-cancer-data";
 beforeEach(() => localStorage.clear());
 describe("Brea learning rules", () => {
+  it("four completions yield 80 percent and four distinct badges", () => {
+    let state = emptyLearning();
+    for (const id of [LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID]) state = completeLesson(state, id).state;
+    expect(learningSummary(state)).toEqual({ completed: 4, remaining: 1, percent: 80, badges: 4 });
+    expect(state.badges).toEqual(["anatomy-explorer", "hormone-helper", "cell-detective", "breast-health-advocate"]);
+    expect(completeLesson(state, LESSON4_ID).firstCompletion).toBe(false);
+  });
+  it("Lesson 4 is independent and never requires exploration or quiz", () => {
+    const result = completeLesson(emptyLearning(), LESSON4_ID);
+    expect(result.state.completed).toEqual(["understanding-breast-cancer"]);
+    expect(result.state.position4).toBe(3);
+    expect(result.state.origins).toEqual([]);
+    expect(result.state.quiz4Result).toBeNull();
+    expect(result.state.badges).toEqual(["breast-health-advocate"]);
+  });
+  it("legacy progress and all quiz scores survive Lesson 4 and refresh", () => {
+    const old = { ...emptyLearning(), completed: [LESSON_ID, LESSON2_ID, LESSON3_ID], quizResult: 2, quiz2Result: 3, quiz3Result: 1 };
+    const state = completeLesson(normalizeLearning(old), LESSON4_ID).state;
+    localStorage.setItem(LEARNING_KEY, JSON.stringify({ ...state, quiz4Result: 0 }));
+    expect(readLearning()).toMatchObject({ quizResult: 2, quiz2Result: 3, quiz3Result: 1, quiz4Result: 0 });
+    expect(readLearning().badges).toHaveLength(4);
+  });
+  it("Lesson 4 bounds saved position and deduplicates valid origin discoveries", () => {
+    expect(normalizeLearning({ position4: 99, origins: ["ducts", "ducts", "lobules", "invalid"] })).toMatchObject({ position4: 3, origins: ["ducts", "lobules"] });
+  });
+  it("Lesson 4 quiz answers are B, A, C", () => {
+    expect(QUIZ4.map((q) => q.correct)).toEqual([1, 0, 2]);
+    expect(quizScore([1, 0, 2], QUIZ4)).toBe(3);
+  });
+  it("saved onboarding name is trimmed and skipped name stays empty", () => {
+    saveBreaName("  Thobeka  ");
+    expect(getBreaName()).toBe("Thobeka");
+    saveBreaName("");
+    expect(getBreaName()).toBe("");
+  });
+
   it("three lessons yield 60 percent and all three distinct badges", () => {
     let state = completeLesson(emptyLearning()).state;
     state = completeLesson(state, LESSON2_ID).state;
@@ -51,8 +88,7 @@ describe("Brea learning rules", () => {
     expect(state.quiz3Result).toBe(0);
     expect(state.badges).toEqual(["cell-detective"]);
   });
-  it("Lessons 4 and 5 cannot earn completion or badges yet", () => {
-    expect(completeLesson(emptyLearning(), "understanding-breast-cancer").state.completed).toEqual([]);
+  it("Lesson 5 cannot earn completion or badges yet", () => {
     expect(completeLesson(emptyLearning(), "screening").state.badges).toEqual([]);
   });
   it("starts with zero of five lessons and zero badges", () => {
