@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Flag, HeartHandshake, ImagePlus, MessageCircle, MoreHorizontal, PenLine, Trash2, X } from "lucide-react";
+import { ArrowLeft, Flag, Heart, ImagePlus, MessageCircle, MoreHorizontal, PenLine, Trash2, X } from "lucide-react";
 import { BreaWordmark } from "@/components/brea/BreaLogo";
 import { LearnButton, LearnShell, PrimaryButton } from "@/components/brea/learn/LearnPrimitives";
 import { LearningProfile } from "@/components/brea/learn/LearnPanels";
@@ -9,12 +9,12 @@ import { useLearning } from "@/lib/brea/learning";
 import { useChanges } from "@/lib/brea/changes";
 import { useSupport } from "@/lib/brea/support";
 import {
-  addComment, deletePost, imagesSupported, makePost, removeImage, reportItem, saveImage, toggleSupport, useCommunity, useStoredImage, type CommunityState, type GardenPost,
+  addComment, deletePost, imagesSupported, makePost, removeImage, reportItem, saveImage, setReaction, useCommunity, useStoredImage, type CommunityState, type GardenPost,
 } from "@/lib/brea/community";
-import { COMMENT_LIMIT, COMMUNITY_GUIDELINES, IMAGE_MAX_BYTES, IMAGE_TYPES, POST_LIMIT, REPORT_REASONS, SEED_POSTS, type ReportReasonId, type SeedPost } from "@/lib/brea/community-data";
+import { COMMENT_LIMIT, COMMUNITY_GUIDELINES, HEART_REACTIONS, IMAGE_MAX_BYTES, IMAGE_TYPES, POST_LIMIT, REPORT_REASONS, SEED_POSTS, type HeartReactionId, type ReportReasonId, type SeedPost } from "@/lib/brea/community-data";
 import { cn } from "@/lib/utils";
 
-const card = "rounded-2xl border border-brea-sage/25 bg-brea-paper shadow-brea-soft";
+const card = "rounded-2xl border border-brea-blush/45 bg-brea-cream shadow-brea-lift";
 const AVATAR_FILLS = ["var(--brea-blush)", "var(--brea-sage)", "var(--brea-gold)", "var(--brea-rose)", "var(--brea-sage-deep)", "var(--brea-anatomy)", "var(--brea-blush)"];
 
 /** Small circular botanical avatar — a simple flower, varied by palette index. */
@@ -54,20 +54,46 @@ function GardenIllustration() {
 
 type FeedPost = {
   id: string; name: string; avatar: number; when: string; text: string;
-  image?: string | undefined; imageId?: string | undefined; imageAlt?: string | undefined; support: number; own: boolean;
+  image?: string | undefined; imageId?: string | undefined; imageAlt?: string | undefined;
+  counts: Record<HeartReactionId, number>; total: number; myReaction: HeartReactionId | null; own: boolean;
   comments: { id: string; name: string; text: string; when: string }[];
 };
 
+/** Deterministically spreads a seed post's fictional support total across the five hearts. */
+const BASE_WEIGHTS = [5, 4, 2, 3, 4];
+function seedCounts(total: number, seedIndex: number): Record<HeartReactionId, number> {
+  const weights = BASE_WEIGHTS.map((_, i) => BASE_WEIGHTS[(i + seedIndex) % BASE_WEIGHTS.length]!);
+  const sum = weights.reduce((a, b) => a + b, 0);
+  const counts = {} as Record<HeartReactionId, number>;
+  let assigned = 0;
+  HEART_REACTIONS.forEach((r, i) => {
+    const n = i === HEART_REACTIONS.length - 1 ? total - assigned : Math.round((total * weights[i]!) / sum);
+    counts[r.id] = n;
+    assigned += n;
+  });
+  return counts;
+}
+
 function toFeed(state: CommunityState): FeedPost[] {
-  const seeds: FeedPost[] = SEED_POSTS.map((s: SeedPost) => ({
-    id: s.id, name: s.name, avatar: s.avatar, when: s.when, text: s.text, image: s.image, imageAlt: s.imageAlt,
-    support: s.support + (state.supported.includes(s.id) ? 1 : 0), own: false,
-    comments: [...s.comments, ...(state.comments[s.id] ?? [])],
-  }));
-  const own: FeedPost[] = state.posts.map((p: GardenPost) => ({
-    id: p.id, name: p.name, avatar: p.avatar, when: p.when, text: p.text, imageId: p.imageId, imageAlt: p.imageAlt,
-    support: state.supported.includes(p.id) ? 1 : 0, own: true, comments: state.comments[p.id] ?? [],
-  }));
+  const seeds: FeedPost[] = SEED_POSTS.map((s: SeedPost, i) => {
+    const counts = seedCounts(s.support, i);
+    const mine = state.reactions[s.id] ?? null;
+    if (mine) counts[mine] += 1;
+    return {
+      id: s.id, name: s.name, avatar: s.avatar, when: s.when, text: s.text, image: s.image, imageAlt: s.imageAlt,
+      counts, total: s.support + (mine ? 1 : 0), myReaction: mine, own: false,
+      comments: [...s.comments, ...(state.comments[s.id] ?? [])],
+    };
+  });
+  const own: FeedPost[] = state.posts.map((p: GardenPost) => {
+    const counts = Object.fromEntries(HEART_REACTIONS.map((r) => [r.id, 0])) as Record<HeartReactionId, number>;
+    const mine = state.reactions[p.id] ?? null;
+    if (mine) counts[mine] = 1;
+    return {
+      id: p.id, name: p.name, avatar: p.avatar, when: p.when, text: p.text, imageId: p.imageId, imageAlt: p.imageAlt,
+      counts, total: mine ? 1 : 0, myReaction: mine, own: true, comments: state.comments[p.id] ?? [],
+    };
+  });
   return [...own, ...seeds].filter((p) => !state.hidden.includes(p.id));
 }
 
@@ -116,16 +142,22 @@ function ReportDialog({ target, onDone, onClose }: { target: { id: string; kind:
   );
 }
 
-function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
+function PostCard({ post, state, onReact, onComment, onReport, onDelete }: {
   post: FeedPost; state: CommunityState;
-  onSupport: () => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: (() => void) | undefined;
+  onReact: (reaction: HeartReactionId | null) => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: (() => void) | undefined;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
+  const [pinned, setPinned] = useState(false);
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const [burst, setBurst] = useState<HeartReactionId | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const supported = state.supported.includes(post.id);
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const pickerOpen = pinned || hoverOpen;
+  const mine = post.myReaction ? HEART_REACTIONS.find((r) => r.id === post.myReaction) : null;
   const hiddenComments = post.comments.filter((c) => !state.hidden.includes(c.id));
   const shown = (expanded ? hiddenComments : hiddenComments.slice(0, 2));
 
@@ -136,6 +168,23 @@ function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
     return () => document.removeEventListener("mousedown", close);
   }, [menuOpen]);
 
+  useEffect(() => {
+    if (!pinned) return;
+    const close = (e: MouseEvent) => { if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPinned(false); };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [pinned]);
+
+  const choose = (id: HeartReactionId) => {
+    const removing = post.myReaction === id;
+    onReact(removing ? null : id);
+    if (!removing) {
+      setBurst(id);
+      window.setTimeout(() => setBurst(null), 850);
+    }
+    setPinned(false); setHoverOpen(false);
+  };
+
   const submit = () => {
     const text = draft.trim();
     if (!text) { setError("Please write a few kind words first."); return; }
@@ -144,7 +193,7 @@ function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
   };
 
   return (
-    <article className={cn(card, "brea-fade-in p-5 sm:p-6")} aria-label={`Post by ${post.name}`}>
+    <article className={cn(card, "brea-fade-in p-5 transition-[transform,box-shadow] duration-300 hover:-translate-y-0.5 hover:shadow-brea-lift-hover motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-6")} aria-label={`Post by ${post.name}`}>
       <div className="flex items-start gap-3">
         <GardenAvatar index={post.avatar} />
         <div className="min-w-0 flex-1">
@@ -167,19 +216,64 @@ function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
       </div>
       <p className="mt-4 whitespace-pre-line text-sm leading-relaxed">{post.text}</p>
       <PostImage post={post} />
-      <div className="mt-4 flex items-center gap-2 border-t border-brea-sage/15 pt-3">
-        <button
-          type="button"
-          aria-pressed={supported}
-          aria-label={supported ? `Remove your support from this post (${post.support} supporters)` : `Send support to this post (${post.support} supporters)`}
-          onClick={onSupport}
-          className={cn("flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none", supported ? "border-brea-rose/60 bg-brea-blush/30 text-brea-rose-deep" : "border-brea-sage/30 text-brea-sage-deep hover:bg-brea-blush/15")}
+      <div className="mt-4 flex flex-wrap items-center gap-2 border-t border-brea-sage/15 pt-3">
+        <div
+          ref={pickerRef}
+          className="relative"
+          onMouseEnter={() => setHoverOpen(true)}
+          onMouseLeave={() => setHoverOpen(false)}
+          onKeyDown={(e) => { if (e.key === "Escape" && pickerOpen) { setPinned(false); setHoverOpen(false); triggerRef.current?.focus(); } }}
         >
-          <HeartHandshake aria-hidden className="h-5 w-5" />
-          <span>{supported ? "Supported" : "Support"} · {post.support}</span>
-        </button>
+          <button
+            ref={triggerRef}
+            type="button"
+            aria-pressed={mine !== null}
+            aria-haspopup="menu"
+            aria-expanded={pickerOpen}
+            aria-label={mine ? `You reacted with ${mine.label}. Change or remove your reaction (${post.total} hearts)` : `Send a heart of support to this post (${post.total} hearts)`}
+            onClick={() => setPinned((p) => !p)}
+            className={cn("flex min-h-11 items-center gap-2 rounded-full border px-4 text-sm transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none", mine ? "border-brea-rose/60 bg-brea-blush/30 text-brea-rose-deep" : "border-brea-sage/30 text-brea-sage-deep hover:bg-brea-blush/15")}
+          >
+            <Heart aria-hidden className="h-5 w-5" style={mine ? { color: mine.color, fill: mine.color } : undefined} />
+            <span>{mine ? mine.label : "Support"} · {post.total}</span>
+          </button>
+          {burst && (
+            <Heart aria-hidden className="brea-heart-float absolute -top-1 left-5 h-5 w-5" style={{ color: HEART_REACTIONS.find((r) => r.id === burst)!.color, fill: HEART_REACTIONS.find((r) => r.id === burst)!.color }} />
+          )}
+          {pickerOpen && (
+            <div role="menu" aria-label="Choose a heart reaction" className="brea-fade-in absolute bottom-full left-0 z-20 mb-2 flex gap-1 rounded-2xl border border-brea-blush/50 bg-brea-cream p-2 shadow-brea-lift">
+              {HEART_REACTIONS.map((r) => {
+                const active = post.myReaction === r.id;
+                return (
+                  <button
+                    key={r.id}
+                    role="menuitemradio"
+                    aria-checked={active}
+                    aria-label={`React with ${r.label}`}
+                    type="button"
+                    onClick={() => choose(r.id)}
+                    className={cn("flex min-h-11 min-w-12 flex-col items-center justify-center gap-0.5 rounded-xl px-1.5 py-1.5 transition-transform hover:scale-110 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brea-rose-deep motion-reduce:transition-none motion-reduce:hover:scale-100", active ? "bg-brea-blush/25" : "hover:bg-brea-blush/15")}
+                  >
+                    <Heart aria-hidden className={cn("h-6 w-6", active && "brea-heart-pop")} style={{ color: r.color, fill: r.color }} />
+                    <span className="text-[10px] leading-none text-brea-sage-deep">{r.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+          )}
+        </div>
         <span className="flex min-h-11 items-center gap-2 px-2 text-sm text-brea-sage-deep"><MessageCircle aria-hidden className="h-5 w-5" />{hiddenComments.length} {hiddenComments.length === 1 ? "comment" : "comments"}</span>
       </div>
+      {post.total > 0 && (
+        <div className="mt-2.5 flex flex-wrap items-center gap-x-3 gap-y-1" aria-label={`Heart reactions: ${HEART_REACTIONS.filter((r) => post.counts[r.id] > 0).map((r) => `${r.label} ${post.counts[r.id]}`).join(", ")}`}>
+          {HEART_REACTIONS.filter((r) => post.counts[r.id] > 0).map((r) => (
+            <span key={r.id} aria-hidden className="flex items-center gap-1 text-xs text-brea-sage-deep">
+              <Heart className={cn("h-3.5 w-3.5", post.myReaction === r.id && "brea-heart-pop")} style={{ color: r.color, fill: r.color }} />
+              {post.counts[r.id]}
+            </span>
+          ))}
+        </div>
+      )}
       {shown.length > 0 && (
         <ul className="mt-3 space-y-2.5">
           {shown.map((c) => (
@@ -365,7 +459,7 @@ export function CommunityGarden() {
               key={post.id}
               post={post}
               state={state}
-              onSupport={() => update((s) => toggleSupport(s, post.id))}
+              onReact={(reaction) => update((s) => setReaction(s, post.id, reaction))}
               onComment={(text) => update((s) => addComment(s, post.id, text))}
               onReport={(id, kind) => setReportTarget({ id, kind })}
               onDelete={post.own ? () => { if (post.imageId) void removeImage(post.imageId); update((s) => deletePost(s, post.id)); } : undefined}

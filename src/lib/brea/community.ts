@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BOTANICAL_NAMES, COMMENT_LIMIT, POST_LIMIT, type ReportReasonId, type SeedComment } from "./community-data";
+import { BOTANICAL_NAMES, COMMENT_LIMIT, HEART_REACTIONS, POST_LIMIT, type HeartReactionId, type ReportReasonId, type SeedComment } from "./community-data";
 
 // The Brea Garden is a browser-only community demo. Its record (brea-community-v1)
 // is deliberately separate from lesson, badge and support progress, and stores only
@@ -24,7 +24,7 @@ export type CommunityState = {
   visitorName: string;
   visitorAvatar: number;
   posts: GardenPost[];
-  supported: string[];
+  reactions: Record<string, HeartReactionId>; // one active heart reaction per post
   comments: Record<string, GardenComment[]>;
   hidden: string[];
   reported: Record<string, ReportReasonId>;
@@ -33,7 +33,7 @@ export type CommunityState = {
 function pick<T>(list: readonly T[], rand: () => number): T { return list[Math.floor(rand() * list.length)]!; }
 
 export function emptyCommunity(rand: () => number = Math.random): CommunityState {
-  return { version: 1, visitorName: pick(BOTANICAL_NAMES, rand), visitorAvatar: Math.floor(rand() * BOTANICAL_NAMES.length), posts: [], supported: [], comments: {}, hidden: [], reported: {} };
+  return { version: 1, visitorName: pick(BOTANICAL_NAMES, rand), visitorAvatar: Math.floor(rand() * BOTANICAL_NAMES.length), posts: [], reactions: {}, comments: {}, hidden: [], reported: {} };
 }
 
 export function normalizeCommunity(input: unknown, rand: () => number = Math.random): CommunityState {
@@ -73,12 +73,22 @@ export function normalizeCommunity(input: unknown, rand: () => number = Math.ran
   if (v.reported && typeof v.reported === "object") {
     for (const [id, reason] of Object.entries(v.reported)) if (typeof reason === "string") reported[id] = reason as ReportReasonId;
   }
+  const reactionIds = new Set<string>(HEART_REACTIONS.map((r) => r.id));
+  const reactions: Record<string, HeartReactionId> = {};
+  if (v.reactions && typeof v.reactions === "object") {
+    for (const [postId, reaction] of Object.entries(v.reactions)) if (typeof reaction === "string" && reactionIds.has(reaction)) reactions[postId] = reaction as HeartReactionId;
+  }
+  // Migrate the original single Support toggle: each supported post becomes a Care heart.
+  const legacySupported = (v as { supported?: unknown }).supported;
+  if (Array.isArray(legacySupported)) {
+    for (const id of legacySupported) if (typeof id === "string" && !reactions[id]) reactions[id] = "care";
+  }
   return {
     version: 1,
     visitorName: typeof v.visitorName === "string" && v.visitorName.startsWith("Anonymous") ? v.visitorName : base.visitorName,
     visitorAvatar: typeof v.visitorAvatar === "number" ? v.visitorAvatar : base.visitorAvatar,
     posts,
-    supported: Array.isArray(v.supported) ? v.supported.filter((s): s is string => typeof s === "string") : [],
+    reactions,
     comments,
     hidden: Array.isArray(v.hidden) ? v.hidden.filter((s): s is string => typeof s === "string") : [],
     reported,
@@ -100,9 +110,12 @@ export function makePost(state: CommunityState, text: string, imageId?: string, 
   return normalizeCommunity({ ...state, posts: [post, ...state.posts] });
 }
 
-export function toggleSupport(state: CommunityState, postId: string): CommunityState {
-  const supported = state.supported.includes(postId) ? state.supported.filter((id) => id !== postId) : [...state.supported, postId];
-  return normalizeCommunity({ ...state, supported });
+/** Set, change or clear (null) the visitor's heart reaction on a post — one active reaction per post. */
+export function setReaction(state: CommunityState, postId: string, reaction: HeartReactionId | null): CommunityState {
+  const reactions = { ...state.reactions };
+  if (reaction === null) delete reactions[postId];
+  else reactions[postId] = reaction;
+  return normalizeCommunity({ ...state, reactions });
 }
 
 export function addComment(state: CommunityState, postId: string, text: string): CommunityState {
@@ -118,7 +131,9 @@ export function reportItem(state: CommunityState, id: string, reason: ReportReas
 export function deletePost(state: CommunityState, postId: string): CommunityState {
   const comments = { ...state.comments };
   delete comments[postId];
-  return normalizeCommunity({ ...state, posts: state.posts.filter((p) => p.id !== postId), comments, supported: state.supported.filter((id) => id !== postId), hidden: state.hidden.filter((id) => id !== postId) });
+  const reactions = { ...state.reactions };
+  delete reactions[postId];
+  return normalizeCommunity({ ...state, posts: state.posts.filter((p) => p.id !== postId), comments, reactions, hidden: state.hidden.filter((id) => id !== postId) });
 }
 
 export function useCommunity() {

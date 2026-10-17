@@ -49,12 +49,15 @@
   --color-brea-ivory: var(--brea-ivory);
   --color-brea-charcoal: var(--brea-charcoal);
   --color-brea-paper: var(--brea-paper);
+  --color-brea-cream: var(--brea-cream);
   --color-brea-gold: var(--brea-gold);
   --color-brea-anatomy: var(--brea-anatomy);
   --color-brea-rose: var(--brea-rose);
   --color-brea-rose-deep: var(--brea-rose-deep);
   --color-brea-sage-deeper: var(--brea-sage-deeper);
   --shadow-brea-soft: var(--shadow-brea-soft-v);
+  --shadow-brea-lift: var(--shadow-brea-lift-v);
+  --shadow-brea-lift-hover: var(--shadow-brea-lift-hover-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
   --shadow-soft: var(--shadow-soft-v);
@@ -85,12 +88,15 @@
   --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
   --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
   --brea-paper: oklch(0.996 0.002 95);
+  --brea-cream: oklch(0.988 0.008 90); /* warm cream-white for community cards above the ivory page */
   --brea-gold: oklch(0.76 0.075 86);
   --brea-anatomy: oklch(0.905 0.032 15);
   --brea-rose: oklch(0.552 0.122 356); /* #B65F7B editorial dusty rose */
   --brea-sage-deeper: oklch(0.36 0.045 156); /* hover shade of sage-deep */
   --brea-rose-deep: #A64D6E; /* darker dusty rose for initials/text on blush */
   --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
+  --shadow-brea-lift-v: 0 16px 40px -22px color-mix(in oklab, var(--brea-sage-deep) 42%, transparent), 0 3px 10px -6px color-mix(in oklab, var(--brea-rose) 25%, transparent);
+  --shadow-brea-lift-hover-v: 0 22px 48px -22px color-mix(in oklab, var(--brea-sage-deep) 50%, transparent), 0 5px 14px -6px color-mix(in oklab, var(--brea-rose) 32%, transparent);
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -203,6 +209,15 @@
 .brea-learning h1, .brea-learning h2, .brea-learning h3 { font-family: var(--font-brea-display); font-weight: 500; letter-spacing: 0; }
 /* Reusable editorial emphasis: one meaningful word per headline in dusty rose. */
 .brea-em { color: var(--brea-rose); font-style: italic; }
+/* Brea Garden heart reactions */
+@keyframes brea-heart-pop { 0% { transform: scale(.55); } 60% { transform: scale(1.28); } 100% { transform: scale(1); } }
+@keyframes brea-heart-float { 0% { opacity: 1; transform: translateY(0) scale(1); } 100% { opacity: 0; transform: translateY(-30px) scale(1.25); } }
+.brea-heart-pop { animation: brea-heart-pop .35s ease-out; }
+.brea-heart-float { animation: brea-heart-float .8s ease-out forwards; pointer-events: none; }
+@media (prefers-reduced-motion: reduce) {
+  .brea-heart-pop { animation: none; }
+  .brea-heart-float { display: none; }
+}
 .brea-progress { appearance: none; background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); color: var(--brea-sage-deep); }
 .brea-progress::-webkit-progress-bar { background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); border-radius: 999px; }
 .brea-progress::-webkit-progress-value { background: var(--brea-sage-deep); border-radius: 999px; transition: width .35s ease; }

@@ -103,6 +103,16 @@ export const REPORT_REASONS = [
 ] as const;
 export type ReportReasonId = (typeof REPORT_REASONS)[number]["id"];
 
+/** Heart-only Support reactions. Hearts may be brighter than Brea's palette; the surrounding UI stays sage/ivory. */
+export const HEART_REACTIONS = [
+  { id: "care", label: "Care", color: "#B65F7B" },
+  { id: "love", label: "Love", color: "#C73E54" },
+  { id: "strength", label: "Strength", color: "#6D4A72" },
+  { id: "hugs", label: "Hugs", color: "#9A8AC4" },
+  { id: "encouragement", label: "Encouragement", color: "#E5658F" },
+] as const;
+export type HeartReactionId = (typeof HEART_REACTIONS)[number]["id"];
+
 export const POST_LIMIT = 280;
 export const COMMENT_LIMIT = 200;
 export const IMAGE_TYPES = ["image/jpeg", "image/png", "image/webp"];
