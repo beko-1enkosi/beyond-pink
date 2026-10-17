@@ -333,7 +333,7 @@
 .tour-skip { min-height: 44px; }
 /* Current-page marker: a soft blush capsule that reads as "you are here", not a second CTA. */
 .tour-current-page { display: none; }
-@media (min-width: 768px) {
+@media (min-width: 1024px) {
   .tour-current-page {
     display: inline-flex; align-items: center; justify-content: center; gap: 9px;
     min-height: 44px; padding: 10px 20px; border-radius: 999px; white-space: nowrap;
@@ -445,6 +445,8 @@
   .tour-phone-pair { flex-direction: column; align-items: center; gap: 24px; }
   .tour-phone-pair .tour-phone-figure { width: 190px; }
   .tour-phone-pair .tour-phone-figure:last-of-type { transform: rotate(3deg); }
+}
+@media (max-width: 374px) {
   /* Narrow phones: every navbar control stays on one readable row. */
   .tour-navigation { gap: 4px; padding-left: 12px; padding-right: 12px; }
   .tour-navigation > div { gap: 5px; }
