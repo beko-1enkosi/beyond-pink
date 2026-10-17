@@ -1,4 +1,5 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getBreaName } from "./onboarding";
 import { ANATOMY, BADGE_ID, LESSON_ID, LESSONS, type AnatomyId } from "./learning-data";
 export const LEARNING_KEY = "brea-learning-v1";
 const CHANGE_EVENT = "brea-learning-changed";
@@ -46,21 +47,23 @@ export function addExplored(state: LearningState, id: AnatomyId): LearningState 
 }
 export function useLearning() {
   const [state, setState] = useState<LearningState>(emptyLearning);
+  const currentState = useRef(state);
   const [name, setName] = useState("");
   const [ready, setReady] = useState(false);
   const [storageNotice, setStorageNotice] = useState(false);
   useEffect(() => {
-    const load = () => { setState(readLearning()); };
+    const load = () => { const saved = readLearning(); currentState.current = saved; setState(saved); };
     load();
     // Reuse onboarding’s display-name storage, not another personalization key.
-    import("./onboarding").then(({ getBreaName }) => setName(getBreaName()));
+    setName(getBreaName());
     setReady(true);
     window.addEventListener("storage", load);
     window.addEventListener(CHANGE_EVENT, load);
     return () => { window.removeEventListener("storage", load); window.removeEventListener(CHANGE_EVENT, load); };
   }, []);
   const update = (transform: (current: LearningState) => LearningState) => {
-    const next = normalizeLearning(transform(state));
+    const next = normalizeLearning(transform(currentState.current));
+    currentState.current = next;
     setState(next);
     try {
       window.localStorage.setItem(LEARNING_KEY, JSON.stringify(next));
