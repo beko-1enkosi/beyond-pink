@@ -13,8 +13,8 @@ export default defineConfig({
     server: { entry: "server" },
   },
   vite: {
-    // Pre-bundle React together up front so browsers never mix React copies
-    // from different optimizer runs (also rotates the cached-deps version hash).
-    optimizeDeps: { include: ["react", "react-dom", "react-dom/client", "react/jsx-runtime", "react/jsx-dev-runtime"] },
+    // Pre-bundle React Query with React up front so the browser never pairs it
+    // with a React copy from a different optimizer run.
+    optimizeDeps: { include: ["@tanstack/react-query"] },
   },
 });
