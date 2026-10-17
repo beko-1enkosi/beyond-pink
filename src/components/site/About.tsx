@@ -95,9 +95,9 @@ export function About() {
 
             <ul className="mt-8 grid gap-4 sm:grid-cols-3">
               {PILLARS.map(({ icon: Icon, title, text }) => (
-                <li key={title} className="rounded-2xl border border-sage/40 bg-card/70 p-4 transition hover:border-sage hover:shadow-soft">
+                <li key={title} className="bp-card rounded-2xl border border-sage/40 bg-card/70 p-4">
                   <span className="flex h-10 w-10 items-center justify-center rounded-full bg-accent text-foreground ring-1 ring-sage/50">
-                    <Icon className="h-5 w-5" aria-hidden />
+                     <Icon className="bp-card-icon h-5 w-5" aria-hidden />
                   </span>
                   <h3 className="mt-3 text-xl text-foreground">{t(title)}</h3>
                   <p className="mt-1 text-sm leading-relaxed text-muted-foreground">{t(text)}</p>
@@ -124,7 +124,7 @@ export function About() {
           <div className="mt-6 grid gap-5 md:grid-cols-3">
             {STATS.map((s, i) => (
               <Reveal key={s.label} delay={i * 120}>
-                <figure className="h-full rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-7">
+                <figure className="bp-card h-full rounded-3xl border border-border bg-card p-6 shadow-soft sm:p-7">
                   <p className="font-serif text-5xl text-foreground sm:text-6xl" aria-label={`${s.value.toLocaleString("en-US")}${s.suffix}`}>
                     <span aria-hidden><CountUp value={s.value} decimals={s.decimals} suffix={s.suffix} /></span>
                   </p>
