@@ -10,7 +10,7 @@ import type { SupportState } from "@/lib/brea/support";
 import { CompanionBadge, SupportBadge, SupportPetals } from "./LearnPrimitives";
 import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, ScreeningBadge, AwarenessBadge, QuadrantBadge, LearnButton, PrimaryButton, ProgressBar } from "./LearnPrimitives";
 import { BreaWordmark } from "@/components/brea/BreaLogo";
-export function BreaHeader({ state, name, changes, support }: { state: LearningState; name: string; changes?: ChangesState; support?: SupportState }) {
+export function BreaHeader({ state, name, changes, support }: { state: LearningState; name: string; changes?: ChangesState | undefined; support?: SupportState | undefined }) {
   return <header className="flex items-center justify-between gap-3"><BreaWordmark symbolClassName="h-8 w-8" textClassName="text-2xl" /><LearningProfile state={state} name={name} changes={changes} support={support} /></header>;
 }
 export function Avatar({ name }: { name: string }) {
