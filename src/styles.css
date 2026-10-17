@@ -480,3 +480,38 @@
   .tour-language { padding-left: 8px; padding-right: 8px; font-size: 13px; }
 }
 @media (prefers-reduced-motion: reduce) { .tour-reveal, .tour-reveal[data-visible="false"] { opacity: 1; translate: none; transition: none; } .tour-reveal[data-visible="true"] .tour-drawn { animation: none; stroke-dashoffset: 0; } }
+
+/* ============= Unified elegant card hover (About, Explore, Support, Resources) ============= */
+.bp-card {
+  transition: transform 350ms ease-out, box-shadow 350ms ease-out, border-color 350ms ease-out;
+}
+.bp-card-icon {
+  transition: transform 350ms ease-out;
+}
+.bp-card:active {
+  transform: translateY(-2px);
+  transition-duration: 150ms;
+}
+@media (hover: hover) {
+  .bp-card:hover {
+    transform: translateY(-6px);
+    border-color: color-mix(in oklab, var(--sage) 60%, var(--blush));
+    box-shadow:
+      var(--shadow-soft-v),
+      0 0 0 1px color-mix(in oklab, var(--sage) 40%, transparent),
+      0 0 20px color-mix(in oklab, var(--sage) 30%, transparent);
+  }
+  .bp-card:hover .bp-card-icon {
+    transform: scale(1.1);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bp-card,
+  .bp-card-icon {
+    transition: none;
+  }
+  .bp-card:hover,
+  .bp-card:active {
+    transform: none;
+  }
+}
