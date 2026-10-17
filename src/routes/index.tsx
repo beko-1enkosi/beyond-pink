@@ -20,10 +20,10 @@ const SOCIAL_DESCRIPTION = "Beyond the Pink Ribbon. Beyond Awareness. Empowering
 
 export const Route = createFileRoute("/")({
   staticData: { sitemap: true },
-  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "BeyondPink | Beyond the Pink Ribbon. Beyond Awareness." },
+      { name: "google-site-verification", content: "Gz26dgqhDEPMUQrL6JpVz49UVnxePW_khropKyugGEA" },
       {
         name: "description",
         content:
