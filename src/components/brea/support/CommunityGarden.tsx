@@ -54,20 +54,46 @@ function GardenIllustration() {
 
 type FeedPost = {
   id: string; name: string; avatar: number; when: string; text: string;
-  image?: string | undefined; imageId?: string | undefined; imageAlt?: string | undefined; support: number; own: boolean;
+  image?: string | undefined; imageId?: string | undefined; imageAlt?: string | undefined;
+  counts: Record<HeartReactionId, number>; total: number; myReaction: HeartReactionId | null; own: boolean;
   comments: { id: string; name: string; text: string; when: string }[];
 };
 
+/** Deterministically spreads a seed post's fictional support total across the five hearts. */
+const BASE_WEIGHTS = [5, 4, 2, 3, 4];
+function seedCounts(total: number, seedIndex: number): Record<HeartReactionId, number> {
+  const weights = BASE_WEIGHTS.map((_, i) => BASE_WEIGHTS[(i + seedIndex) % BASE_WEIGHTS.length]!);
+  const sum = weights.reduce((a, b) => a + b, 0);
+  const counts = {} as Record<HeartReactionId, number>;
+  let assigned = 0;
+  HEART_REACTIONS.forEach((r, i) => {
+    const n = i === HEART_REACTIONS.length - 1 ? total - assigned : Math.round((total * weights[i]!) / sum);
+    counts[r.id] = n;
+    assigned += n;
+  });
+  return counts;
+}
+
 function toFeed(state: CommunityState): FeedPost[] {
-  const seeds: FeedPost[] = SEED_POSTS.map((s: SeedPost) => ({
-    id: s.id, name: s.name, avatar: s.avatar, when: s.when, text: s.text, image: s.image, imageAlt: s.imageAlt,
-    support: s.support + (state.supported.includes(s.id) ? 1 : 0), own: false,
-    comments: [...s.comments, ...(state.comments[s.id] ?? [])],
-  }));
-  const own: FeedPost[] = state.posts.map((p: GardenPost) => ({
-    id: p.id, name: p.name, avatar: p.avatar, when: p.when, text: p.text, imageId: p.imageId, imageAlt: p.imageAlt,
-    support: state.supported.includes(p.id) ? 1 : 0, own: true, comments: state.comments[p.id] ?? [],
-  }));
+  const seeds: FeedPost[] = SEED_POSTS.map((s: SeedPost, i) => {
+    const counts = seedCounts(s.support, i);
+    const mine = state.reactions[s.id] ?? null;
+    if (mine) counts[mine] += 1;
+    return {
+      id: s.id, name: s.name, avatar: s.avatar, when: s.when, text: s.text, image: s.image, imageAlt: s.imageAlt,
+      counts, total: s.support + (mine ? 1 : 0), myReaction: mine, own: false,
+      comments: [...s.comments, ...(state.comments[s.id] ?? [])],
+    };
+  });
+  const own: FeedPost[] = state.posts.map((p: GardenPost) => {
+    const counts = Object.fromEntries(HEART_REACTIONS.map((r) => [r.id, 0])) as Record<HeartReactionId, number>;
+    const mine = state.reactions[p.id] ?? null;
+    if (mine) counts[mine] = 1;
+    return {
+      id: p.id, name: p.name, avatar: p.avatar, when: p.when, text: p.text, imageId: p.imageId, imageAlt: p.imageAlt,
+      counts, total: mine ? 1 : 0, myReaction: mine, own: true, comments: state.comments[p.id] ?? [],
+    };
+  });
   return [...own, ...seeds].filter((p) => !state.hidden.includes(p.id));
 }
 
