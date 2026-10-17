@@ -74,6 +74,7 @@
 :root {
   --radius: 0.875rem;
   --tour-rose: oklch(0.595487 0.116116 0.737971); /* #B65F7B */
+  --tour-rose-deep: oklch(0.505 0.112 0.738); /* #9E4A64 — readable dusty rose for small capsule text */
   --tour-phone-shadow: 0 22px 42px -22px color-mix(in oklab, var(--charcoal) 38%, transparent), 0 3px 8px color-mix(in oklab, var(--charcoal) 10%, transparent);
   --tour-cta-shadow: 0 5px 24px -8px color-mix(in oklab, var(--tour-rose) 58%, transparent);
   /* Brand palette */
@@ -329,6 +330,25 @@
 .tour-button-glow { box-shadow: var(--tour-cta-shadow); }
 .brea-tour .tour-button-glow { padding: 16px 36px; font-size: 16px; }
 .tour-skip, .tour-back { color: var(--charcoal); white-space: normal; height: auto; }
+/* Current-page marker: a soft blush capsule that reads as "you are here", not a second CTA. */
+.tour-current-page { display: none; }
+@media (min-width: 1024px) {
+  .tour-current-page {
+    display: inline-flex; align-items: center; justify-content: center; gap: 9px;
+    min-height: 44px; padding: 10px 22px; border-radius: 999px; white-space: nowrap;
+    border: 1px solid color-mix(in oklab, var(--tour-rose) 55%, var(--ivory));
+    background: color-mix(in oklab, var(--blush) 40%, var(--ivory));
+    color: var(--tour-rose-deep); font-size: 15px; font-weight: 600; line-height: 1.3;
+    box-shadow: 0 1px 2px color-mix(in oklab, var(--charcoal) 7%, transparent);
+    transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
+  }
+}
+@media (min-width: 1280px) { .tour-current-page { font-size: 16px; } }
+.tour-current-page-icon { width: 17px; height: 17px; flex-shrink: 0; }
+.tour-current-page:hover { background: color-mix(in oklab, var(--blush) 60%, var(--ivory)); border-color: var(--tour-rose); color: var(--tour-rose-deep); box-shadow: 0 9px 22px -14px color-mix(in oklab, var(--tour-rose) 75%, transparent); }
+.tour-current-page:active { background: color-mix(in oklab, var(--blush) 70%, var(--ivory)); color: var(--tour-rose-deep); }
+.tour-current-page:focus-visible { outline: 2px solid var(--tour-rose-deep); outline-offset: 3px; }
+@media (prefers-reduced-motion: reduce) { .tour-current-page { transition: none; } }
 .tour-hero { padding-top: 42px; padding-bottom: 25px; }
 .tour-hero-symbol { width: 180px; height: 112px; position: relative; display: grid; place-items: center; }
 .tour-hero-symbol > svg:last-child { position: absolute; inset: 0; width: 100%; height: 100%; }
