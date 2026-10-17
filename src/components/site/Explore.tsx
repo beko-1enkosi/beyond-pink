@@ -98,7 +98,7 @@ export function Explore() {
           {CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 120} className="h-full">
               <ExplorePreview kind={card.kind} title={card.title} img={card.img.url} alt={card.alt}>
-              <article className="group bp-card flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft">
+              <article className="group bp-card flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card shadow-soft group-hover/explore-card:-translate-y-2 motion-reduce:transition-none motion-reduce:group-hover/explore-card:translate-y-0">
                 <div className={cn("relative flex aspect-[4/3] items-center justify-center overflow-hidden p-6 sm:p-8", card.imgBg)}>
                   <Sprig className="absolute -left-2 top-2 h-8 w-16 text-sage/50" />
                   <img

@@ -501,6 +501,15 @@
       0 0 0 1px color-mix(in oklab, var(--sage) 40%, transparent),
       0 0 20px color-mix(in oklab, var(--sage) 30%, transparent);
   }
+  /* Explore cards: the invisible modal trigger overlays the card, so hover is
+     driven by the wrapper. The wrapper handles no styling of its own. */
+  .bp-card-host:hover .bp-card {
+    border-color: color-mix(in oklab, var(--sage) 60%, var(--blush));
+    box-shadow:
+      var(--shadow-soft-v),
+      0 0 0 1px color-mix(in oklab, var(--sage) 40%, transparent),
+      0 0 20px color-mix(in oklab, var(--sage) 30%, transparent);
+  }
   .bp-card:hover .bp-card-icon {
     transform: scale(1.1);
   }
