@@ -16,7 +16,7 @@ export function BreaHeader({ state, name, changes, support }: { state: LearningS
 export function Avatar({ name }: { name: string }) {
   return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brea-rose/40 bg-brea-blush/40 text-brea-rose-deep shadow-brea-soft" aria-hidden={!name}>{name ? <span className="font-[family-name:var(--font-brea-display)] text-lg italic leading-none">{Array.from(name)[0]?.toUpperCase()}</span> : <UserRound className="h-5 w-5 text-brea-rose-deep/80" />}</span>;
 }
-export function LearningProfile({ state, name, changes, support }: { state: LearningState; name: string; changes?: ChangesState; support?: SupportState }) {
+export function LearningProfile({ state, name, changes, support }: { state: LearningState; name: string; changes?: ChangesState | undefined; support?: SupportState | undefined }) {
   const summary = learningSummary(state);
   const done1 = state.completed.includes(LESSON_ID);
   const done2 = state.completed.includes(LESSON2_ID);
