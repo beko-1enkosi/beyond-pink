@@ -259,7 +259,7 @@ function Composer({ open, onClose, state, onPublish }: { open: boolean; onClose:
       const saved = await saveImage(imageId, file);
       if (!saved) { setImageNotice(true); imageId = undefined; }
     }
-    onPublish(message, imageId, message.slice(0, 120), file ?? undefined);
+    onPublish(message, imageId, message.slice(0, 120));
     onClose();
   };
 
