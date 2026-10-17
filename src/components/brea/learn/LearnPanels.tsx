@@ -9,6 +9,10 @@ import { CHANGES_LESSON1_ID, CHANGES_LESSON2_ID, CHANGES_LESSONS } from "@/lib/b
 import type { SupportState } from "@/lib/brea/support";
 import { CompanionBadge, SupportBadge, SupportPetals } from "./LearnPrimitives";
 import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, ScreeningBadge, AwarenessBadge, QuadrantBadge, LearnButton, PrimaryButton, ProgressBar } from "./LearnPrimitives";
+import { BreaWordmark } from "@/components/brea/BreaLogo";
+export function BreaHeader({ state, name, changes, support }: { state: LearningState; name: string; changes?: ChangesState; support?: SupportState }) {
+  return <header className="flex items-center justify-between gap-3"><BreaWordmark symbolClassName="h-8 w-8" textClassName="text-2xl" /><LearningProfile state={state} name={name} changes={changes} support={support} /></header>;
+}
 export function Avatar({ name }: { name: string }) {
   return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brea-rose/40 bg-brea-blush/40 text-brea-rose-deep shadow-brea-soft" aria-hidden={!name}>{name ? <span className="font-[family-name:var(--font-brea-display)] text-lg italic leading-none">{Array.from(name)[0]?.toUpperCase()}</span> : <UserRound className="h-5 w-5 text-brea-rose-deep/80" />}</span>;
 }
