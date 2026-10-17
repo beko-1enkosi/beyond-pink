@@ -142,16 +142,22 @@ function ReportDialog({ target, onDone, onClose }: { target: { id: string; kind:
   );
 }
 
-function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
+function PostCard({ post, state, onReact, onComment, onReport, onDelete }: {
   post: FeedPost; state: CommunityState;
-  onSupport: () => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: (() => void) | undefined;
+  onReact: (reaction: HeartReactionId | null) => void; onComment: (text: string) => void; onReport: (id: string, kind: "post" | "comment") => void; onDelete?: (() => void) | undefined;
 }) {
   const [expanded, setExpanded] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [draft, setDraft] = useState("");
   const [error, setError] = useState("");
+  const [pinned, setPinned] = useState(false);
+  const [hoverOpen, setHoverOpen] = useState(false);
+  const [burst, setBurst] = useState<HeartReactionId | null>(null);
   const menuRef = useRef<HTMLDivElement>(null);
-  const supported = state.supported.includes(post.id);
+  const pickerRef = useRef<HTMLDivElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const pickerOpen = pinned || hoverOpen;
+  const mine = post.myReaction ? HEART_REACTIONS.find((r) => r.id === post.myReaction) : null;
   const hiddenComments = post.comments.filter((c) => !state.hidden.includes(c.id));
   const shown = (expanded ? hiddenComments : hiddenComments.slice(0, 2));
 
@@ -161,6 +167,23 @@ function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
     document.addEventListener("mousedown", close);
     return () => document.removeEventListener("mousedown", close);
   }, [menuOpen]);
+
+  useEffect(() => {
+    if (!pinned) return;
+    const close = (e: MouseEvent) => { if (pickerRef.current && !pickerRef.current.contains(e.target as Node)) setPinned(false); };
+    document.addEventListener("mousedown", close);
+    return () => document.removeEventListener("mousedown", close);
+  }, [pinned]);
+
+  const choose = (id: HeartReactionId) => {
+    const removing = post.myReaction === id;
+    onReact(removing ? null : id);
+    if (!removing) {
+      setBurst(id);
+      window.setTimeout(() => setBurst(null), 850);
+    }
+    setPinned(false); setHoverOpen(false);
+  };
 
   const submit = () => {
     const text = draft.trim();
