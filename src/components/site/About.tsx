@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Reveal } from "./Reveal";
 import { BookOpen, HeartHandshake, Users } from "lucide-react";
 import belongImg from "@/assets/about-belong.webp.asset.json";
 import { cn } from "@/lib/utils";
@@ -24,35 +24,6 @@ const STATS = [
   { value: 14712, decimals: 0, suffix: "", label: "Estimated new breast cancer cases among South African women in 2022.", src: "https://gco.iarc.who.int/media/globocan/factsheets/populations/710-south-africa-fact-sheet.pdf", srcLabel: "IARC GLOBOCAN 2022 — South Africa fact sheet" },
   { value: 25, decimals: 0, suffix: "%", label: "Share of new cancer cases among South African women that were breast cancer in 2022.", src: "https://gco.iarc.who.int/media/globocan/factsheets/populations/710-south-africa-fact-sheet.pdf", srcLabel: "IARC GLOBOCAN 2022 — South Africa fact sheet" },
 ];
-
-function useInView<T extends Element>() {
-  const { t } = useTranslation();
-  const ref = useRef<T>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || seen) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e?.isIntersecting) { setSeen(true); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [seen]);
-  return [ref, seen] as const;
-}
-
-function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const [ref, seen] = useInView<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn("transition-all duration-700 ease-out motion-reduce:transition-none", seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100", className)}
-    >
-      {children}
-    </div>
-  );
-}
 
 function CountUp({ value, decimals, suffix }: { value: number; decimals: number; suffix: string }) {
   const { ref, count } = useVisibleCount(value);
@@ -80,7 +51,7 @@ export function About() {
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr] lg:gap-16">
-          <Reveal className="md:order-2">
+          <Reveal contents className="md:order-2">
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />{t("About BeyondPink")}</p>
             <h2 id="about-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("Because Awareness Is Only")} <span className="italic text-rose">{t("the Beginning.")}</span>

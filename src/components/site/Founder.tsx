@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { Reveal } from "./Reveal";
 import founderImg from "@/assets/founder-portrait.webp.asset.json";
 import { Linkedin } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -9,35 +9,6 @@ const PORTRAIT = {
   src: founderImg.url,
   alt: "Portrait of the BeyondPink founder in her graduation gown and cap, seated on a bench in a garden.",
 };
-
-function useInView<T extends Element>() {
-  const { t } = useTranslation();
-  const ref = useRef<T>(null);
-  const [seen, setSeen] = useState(false);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el || seen) return;
-    const io = new IntersectionObserver(([e]) => {
-      if (e?.isIntersecting) { setSeen(true); io.disconnect(); }
-    }, { threshold: 0.2 });
-    io.observe(el);
-    return () => io.disconnect();
-  }, [seen]);
-  return [ref, seen] as const;
-}
-
-function Reveal({ children, className, delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
-  const [ref, seen] = useInView<HTMLDivElement>();
-  return (
-    <div
-      ref={ref}
-      style={{ transitionDelay: `${delay}ms` }}
-      className={cn("transition-all duration-700 ease-out motion-reduce:transition-none", seen ? "translate-y-0 opacity-100" : "translate-y-6 opacity-0 motion-reduce:translate-y-0 motion-reduce:opacity-100", className)}
-    >
-      {children}
-    </div>
-  );
-}
 
 function Leaf({ className }: { className?: string }) {
   return (
@@ -84,7 +55,7 @@ export function Founder() {
           </Reveal>
 
           {/* Story */}
-          <Reveal delay={150}>
+          <Reveal contents delay={150}>
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />{t("Meet the Founder")}</p>
             <h2 id="founder-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("The Heart Behind")} <span className="italic text-rose">{t("BeyondPink.")}</span>
