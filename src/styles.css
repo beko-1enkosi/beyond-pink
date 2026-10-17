@@ -49,6 +49,7 @@
   --color-brea-ivory: var(--brea-ivory);
   --color-brea-charcoal: var(--brea-charcoal);
   --color-brea-paper: var(--brea-paper);
+  --color-brea-cream: var(--brea-cream);
   --color-brea-gold: var(--brea-gold);
   --color-brea-anatomy: var(--brea-anatomy);
   --color-brea-rose: var(--brea-rose);
@@ -85,12 +86,15 @@
   --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
   --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
   --brea-paper: oklch(0.996 0.002 95);
+  --brea-cream: oklch(0.988 0.008 90); /* warm cream-white for community cards above the ivory page */
   --brea-gold: oklch(0.76 0.075 86);
   --brea-anatomy: oklch(0.905 0.032 15);
   --brea-rose: oklch(0.552 0.122 356); /* #B65F7B editorial dusty rose */
   --brea-sage-deeper: oklch(0.36 0.045 156); /* hover shade of sage-deep */
   --brea-rose-deep: #A64D6E; /* darker dusty rose for initials/text on blush */
   --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
+  --shadow-brea-lift-v: 0 16px 40px -22px color-mix(in oklab, var(--brea-sage-deep) 42%, transparent), 0 3px 10px -6px color-mix(in oklab, var(--brea-rose) 25%, transparent);
+  --shadow-brea-lift-hover-v: 0 22px 48px -22px color-mix(in oklab, var(--brea-sage-deep) 50%, transparent), 0 5px 14px -6px color-mix(in oklab, var(--brea-rose) 32%, transparent);
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
