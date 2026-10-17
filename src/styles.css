@@ -322,7 +322,7 @@
 .tour-logo-frame { width: 42px; height: 42px; overflow: hidden; }
 .tour-logo-frame img { transform: scale(1.7); transform-origin: 52% 44%; }
 .brea-tour .tour-button { min-height: 48px; height: auto; max-width: 100%; padding: 12px 24px; border-radius: 999px; font-size: 14px; white-space: normal; border: 1px solid var(--border); }
-.brea-tour .tour-button-rose { background: var(--tour-rose); border-color: var(--tour-rose); color: var(--brea-paper); }
+.brea-tour .tour-button-rose { background: var(--brea-rose-deep); border-color: var(--tour-rose); color: var(--brea-paper); }
 .brea-tour .tour-button-rose:hover { background: var(--brea-rose-deep); color: var(--brea-paper); }
 .brea-tour .tour-button-sage { background: var(--brea-sage-deep); color: var(--brea-paper); border-color: var(--brea-sage-deep); }
 .brea-tour .tour-button-sage:hover { background: var(--brea-sage-deeper); color: var(--brea-paper); }
