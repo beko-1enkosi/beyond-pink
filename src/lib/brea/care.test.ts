@@ -40,7 +40,9 @@ describe("Find Care directory rules", () => {
     const base = CARE_FACILITIES[0];
     if (!base) throw new Error("Missing facility");
     const location = { latitude: -25, longitude: 28 };
-    const records = [{ ...base, id: "far", coordinates: [-33, 18] as const }, { ...base, id: "unmapped", coordinates: undefined }, { ...base, id: "near", coordinates: [-25, 28] as const }];
+    const unmapped = { ...base, id: "unmapped" };
+    delete unmapped.coordinates;
+    const records = [{ ...base, id: "far", coordinates: [-33, 18] as const }, unmapped, { ...base, id: "near", coordinates: [-25, 28] as const }];
     expect(filterCareFacilities(EMPTY_CARE_FILTERS, location, records).map((facility) => facility.id)).toEqual(["near", "far", "unmapped"]);
     expect(distanceKm(location, [-25, 28])).toBe(0);
     expect(distanceKm({ latitude: 0, longitude: 0 }, [0, 1])).toBeCloseTo(111.195, 2);
