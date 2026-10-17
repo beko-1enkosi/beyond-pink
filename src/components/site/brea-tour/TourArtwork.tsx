@@ -35,13 +35,15 @@ export function BotanicalSketch({ className = "" }: { className?: string }) {
 export function SketchConnector({ reverse = false, short = false }: { reverse?: boolean; short?: boolean }) {
   return <TourReveal className={`tour-connector ${reverse ? "tour-connector-reverse" : ""} ${short ? "tour-connector-short" : ""}`}>
     <svg className="tour-arrow-desktop" viewBox="0 0 840 180" fill="none" aria-hidden="true">
-      <path className="tour-drawn" pathLength="1" d="M90 14 C98 65 230 69 331 62 C437 57 463 100 438 114 C413 128 398 103 427 86 C475 58 655 106 741 162 M715 153 Q735 158 741 162 Q739 145 732 134" />
+      <path className="tour-drawn" pathLength="1" d="M90 14 C98 65 230 69 331 62 C437 57 463 100 438 114 C413 128 398 103 427 86 C475 58 655 106 741 162" />
+      <path className="tour-drawn tour-arrowhead" pathLength="1" d="M715 153 Q735 158 741 162 Q739 145 732 134" />
       <path d="M93 19 C97 68 233 73 322 65" className="tour-pencil" />
       <path d="M310 113 Q331 137 363 124" className="tour-dots" />
       <path d="M575 59 C564 38 550 64 575 70 C600 49 576 35 575 59Z M235 110 l3 -8 3 8 8 3 -8 3 -3 8 -3 -8 -8 -3Z" className="tour-doodle" />
     </svg>
     <svg className="tour-arrow-mobile" viewBox="0 0 140 160" fill="none" aria-hidden="true">
-      <path className="tour-drawn" pathLength="1" d="M66 5 C112 35 105 66 74 70 C39 75 28 47 47 39 C75 26 88 114 65 146 M50 130 Q59 144 65 146 Q75 138 80 129" />
+      <path className="tour-drawn" pathLength="1" d="M66 5 C112 35 105 66 74 70 C39 75 28 47 47 39 C75 26 88 114 65 146" />
+      <path className="tour-drawn tour-arrowhead" pathLength="1" d="M50 130 Q59 144 65 146 Q75 138 80 129" />
       <path d="M112 91 C120 83 127 94 115 100 C102 94 104 85 112 91Z" className="tour-doodle" />
       <path d="M31 98 Q25 117 42 125" className="tour-dots" />
     </svg>
