@@ -10,7 +10,7 @@
 - [x] Extend learning data/state with Lesson 2, Hormone Helper badge, hormones and quiz.
 - [x] Build Breasts & Hormones lesson: Hormone Garden, life-stage timeline, milk demo, variation section.
 - [x] Add route, dashboard/profile integration and MedDecode terms.
-- [ ] Verify flow, persistence, quiz, accessibility and mobile fit.
+- [x] Verify flow, persistence, quiz, accessibility and mobile fit.
 
 - [x] Add shared remembered language selection and five local dictionaries.
 - [x] Translate landing-page text and educational dialogs, excluding Bri.
