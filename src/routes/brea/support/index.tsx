@@ -1,8 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, HandHeart, Users } from "lucide-react";
-import { BreaWordmark } from "@/components/brea/BreaLogo";
-import { LearnButton, LearnShell, PrimaryButton } from "@/components/brea/learn/LearnPrimitives";
-import { LearningProfile } from "@/components/brea/learn/LearnPanels";
+import { CompanionBadge, LearnButton, LearnShell, PrimaryButton, SupportBadge } from "@/components/brea/learn/LearnPrimitives";
+import { BreaHeader } from "@/components/brea/learn/LearnPanels";
 import { GuideFlower } from "@/components/brea/support/SupportIllustrations";
 import { useLearning } from "@/lib/brea/learning";
 import { useChanges } from "@/lib/brea/changes";
