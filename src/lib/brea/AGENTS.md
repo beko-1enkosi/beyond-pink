@@ -12,3 +12,4 @@
 - The Brea Garden community demo lives at src/routes/brea/support/community.tsx with its own versioned record (brea-community-v1) in community.ts and curated fictional seeds in community-data.ts; it stores only pseudonymous botanical identities (never the onboarding name), uploaded images go to IndexedDB (never base64 in localStorage), reporting/moderation is simulated locally, and it awards no badges.
 
 - Brea research library (The Science Behind Awareness) lives in src/lib/brea/research-data.ts + src/components/brea/changes/ResearchLibrary.tsx on the breast-changes dashboard; only verified real studies, no badges/quizzes, RESEARCH_GLOSSARY extends the shared MedDecode GLOSSARY.
+- Brea main dashboards (Home, Learning Garden, Breast Changes, Find Support) share the BreaHeader from LearnPanels.tsx (BreaWordmark left, LearningProfile avatar right) with a back link below; this keeps navigation consistent and reusable for future features like Find Care.
