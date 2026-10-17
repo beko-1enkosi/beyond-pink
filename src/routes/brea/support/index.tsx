@@ -50,7 +50,7 @@ function SupportHome() {
               <Icon aria-hidden className="h-6 w-6 text-brea-sage-deep" />
               <h2 className="mt-4 text-3xl leading-tight">{p.title}</h2>
               <p className="mb-5 mt-3 text-sm leading-relaxed text-brea-sage-deep">{p.description}</p>
-              {p.available ? <PrimaryButton asChild className="mt-auto self-start"><Link to="/brea/support/supporting-someone">Explore Ways to Help <ArrowRight /></Link></PrimaryButton> : <span className="mt-auto self-start rounded-full border border-brea-sage/30 px-3 py-1 text-xs text-brea-sage-deep">Coming Soon</span>}
+              {p.available ? <PrimaryButton asChild className="mt-auto self-start"><Link to={p.id === "connect" ? "/brea/support/community" : "/brea/support/supporting-someone"}>{p.id === "connect" ? "Visit the Garden" : "Explore Ways to Help"} <ArrowRight /></Link></PrimaryButton> : <span className="mt-auto self-start rounded-full border border-brea-sage/30 px-3 py-1 text-xs text-brea-sage-deep">Coming Soon</span>}
             </article>
           ); })}
         </div>

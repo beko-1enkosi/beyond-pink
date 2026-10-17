@@ -23,6 +23,7 @@ import { Route as BreaLearnMeetYourBreastsRouteImport } from './routes/brea/lear
 import { Route as BreaLearnUnderstandingBreastCancerRouteImport } from './routes/brea/learn/understanding-breast-cancer'
 import { Route as BreaLearnWhatIsCancerRouteImport } from './routes/brea/learn/what-is-cancer'
 import { Route as BreaSupportIndexRouteImport } from './routes/brea/support/index'
+import { Route as BreaSupportCommunityRouteImport } from './routes/brea/support/community'
 import { Route as BreaSupportLookingForSupportRouteImport } from './routes/brea/support/looking-for-support'
 import { Route as BreaSupportSupportingSomeoneRouteImport } from './routes/brea/support/supporting-someone'
 
@@ -102,6 +103,11 @@ const BreaSupportIndexRoute = BreaSupportIndexRouteImport.update({
   path: '/brea/support/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaSupportCommunityRoute = BreaSupportCommunityRouteImport.update({
+  id: '/brea/support/community',
+  path: '/brea/support/community',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const BreaSupportLookingForSupportRoute =
   BreaSupportLookingForSupportRouteImport.update({
     id: '/brea/support/looking-for-support',
@@ -127,6 +133,7 @@ export interface FileRoutesByFullPath {
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/support/community': typeof BreaSupportCommunityRoute
   '/brea/support/looking-for-support': typeof BreaSupportLookingForSupportRoute
   '/brea/support/supporting-someone': typeof BreaSupportSupportingSomeoneRoute
   '/brea/breast-changes/': typeof BreaBreastChangesIndexRoute
@@ -145,6 +152,7 @@ export interface FileRoutesByTo {
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/support/community': typeof BreaSupportCommunityRoute
   '/brea/support/looking-for-support': typeof BreaSupportLookingForSupportRoute
   '/brea/support/supporting-someone': typeof BreaSupportSupportingSomeoneRoute
   '/brea/breast-changes': typeof BreaBreastChangesIndexRoute
@@ -164,6 +172,7 @@ export interface FileRoutesById {
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/support/community': typeof BreaSupportCommunityRoute
   '/brea/support/looking-for-support': typeof BreaSupportLookingForSupportRoute
   '/brea/support/supporting-someone': typeof BreaSupportSupportingSomeoneRoute
   '/brea/breast-changes/': typeof BreaBreastChangesIndexRoute
@@ -184,6 +193,7 @@ export interface FileRouteTypes {
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/support/community'
     | '/brea/support/looking-for-support'
     | '/brea/support/supporting-someone'
     | '/brea/breast-changes/'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/support/community'
     | '/brea/support/looking-for-support'
     | '/brea/support/supporting-someone'
     | '/brea/breast-changes'
@@ -220,6 +231,7 @@ export interface FileRouteTypes {
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/support/community'
     | '/brea/support/looking-for-support'
     | '/brea/support/supporting-someone'
     | '/brea/breast-changes/'
@@ -239,6 +251,7 @@ export interface RootRouteChildren {
   BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
   BreaLearnUnderstandingBreastCancerRoute: typeof BreaLearnUnderstandingBreastCancerRoute
   BreaLearnWhatIsCancerRoute: typeof BreaLearnWhatIsCancerRoute
+  BreaSupportCommunityRoute: typeof BreaSupportCommunityRoute
   BreaSupportLookingForSupportRoute: typeof BreaSupportLookingForSupportRoute
   BreaSupportSupportingSomeoneRoute: typeof BreaSupportSupportingSomeoneRoute
   BreaBreastChangesIndexRoute: typeof BreaBreastChangesIndexRoute
@@ -346,6 +359,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreaSupportIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/support/community': {
+      id: '/brea/support/community'
+      path: '/brea/support/community'
+      fullPath: '/brea/support/community'
+      preLoaderRoute: typeof BreaSupportCommunityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brea/support/looking-for-support': {
       id: '/brea/support/looking-for-support'
       path: '/brea/support/looking-for-support'
@@ -379,6 +399,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreaLearnUnderstandingBreastCancerRoute:
     BreaLearnUnderstandingBreastCancerRoute,
   BreaLearnWhatIsCancerRoute: BreaLearnWhatIsCancerRoute,
+  BreaSupportCommunityRoute: BreaSupportCommunityRoute,
   BreaSupportLookingForSupportRoute: BreaSupportLookingForSupportRoute,
   BreaSupportSupportingSomeoneRoute: BreaSupportSupportingSomeoneRoute,
   BreaBreastChangesIndexRoute: BreaBreastChangesIndexRoute,
