@@ -4,7 +4,7 @@ import { CHANGES, NORMAL_CARDS, type ChangeId, type NormalCardId } from "@/lib/b
 import { cn } from "@/lib/utils";
 import { LearnButton } from "@/components/brea/learn/LearnPrimitives";
 
-const TONES = ["var(--brea-skin-1)", "var(--brea-skin-2)", "var(--brea-skin-3)", "var(--brea-skin-4)"];
+const TONES: [string, string, string, string] = ["var(--brea-skin-1)", "var(--brea-skin-2)", "var(--brea-skin-3)", "var(--brea-skin-4)"];
 
 /** Small inclusive chest figure; `flat` draws a flatter chest. */
 function MiniChest({ tone, flat, asym }: { tone: string; flat?: boolean; asym?: boolean }) {
