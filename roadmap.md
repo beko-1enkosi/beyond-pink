@@ -18,6 +18,12 @@
 - [x] Integrate Lesson 3 route, dashboard/profile, Cell Detective badge and optional quiz.
 - [x] Verify completion, resume, existing progress, accessibility and compact-screen fit.
 
+# Brea Phase 5 — Lesson 4
+- [x] Add sourced breast-cancer data, glossary, preserved local progress and rule tests.
+- [x] Build four guided sections with anatomy, invasion, subtype and care-journey interactions.
+- [x] Integrate route, fourth badge, quiz, dashboard/profile and comfortable mobile badge layout.
+- [x] Verify personalization, persistence, completion, quiz, keyboard interactions and mobile fit.
+
 - [x] Add shared remembered language selection and five local dictionaries.
 - [x] Translate landing-page text and educational dialogs, excluding Bri.
 - [x] Verify selection, refresh, keyboard access, interactions and mobile fit.
