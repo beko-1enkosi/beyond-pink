@@ -11,6 +11,8 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
+import { Route as BreaIndexRouteImport } from './routes/brea/index'
+import { Route as BreaHomeRouteImport } from './routes/brea/home'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -22,31 +24,49 @@ const ApiBriRoute = ApiBriRouteImport.update({
   path: '/api/bri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaIndexRoute = BreaIndexRouteImport.update({
+  id: '/brea/',
+  path: '/brea/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreaHomeRoute = BreaHomeRouteImport.update({
+  id: '/brea/home',
+  path: '/brea/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
+  '/brea/': typeof BreaIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
+  '/brea': typeof BreaIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
+  '/brea/': typeof BreaIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/bri'
+  fullPaths: '/' | '/api/bri' | '/brea/home' | '/brea/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/bri'
-  id: '__root__' | '/' | '/api/bri'
+  to: '/' | '/api/bri' | '/brea/home' | '/brea'
+  id: '__root__' | '/' | '/api/bri' | '/brea/home' | '/brea/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   ApiBriRoute: typeof ApiBriRoute
+  BreaHomeRoute: typeof BreaHomeRoute
+  BreaIndexRoute: typeof BreaIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -65,12 +85,28 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBriRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/': {
+      id: '/brea/'
+      path: '/brea'
+      fullPath: '/brea/'
+      preLoaderRoute: typeof BreaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/home': {
+      id: '/brea/home'
+      path: '/brea/home'
+      fullPath: '/brea/home'
+      preLoaderRoute: typeof BreaHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   ApiBriRoute: ApiBriRoute,
+  BreaHomeRoute: BreaHomeRoute,
+  BreaIndexRoute: BreaIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -42,6 +42,14 @@
   --color-ivory: var(--ivory);
   --color-mist: var(--mist);
   --color-mist-deep: var(--mist-deep);
+  /* Brea app palette */
+  --color-brea-sage: var(--brea-sage);
+  --color-brea-sage-deep: var(--brea-sage-deep);
+  --color-brea-blush: var(--brea-blush);
+  --color-brea-ivory: var(--brea-ivory);
+  --color-brea-charcoal: var(--brea-charcoal);
+  --font-brea-display: "Poppins", system-ui, sans-serif;
+  --font-brea-body: "Inter", system-ui, sans-serif;
   --shadow-soft: var(--shadow-soft-v);
   --shadow-glow: var(--shadow-glow-v);
   --shadow-glow-strong: var(--shadow-glow-strong-v);
@@ -63,6 +71,12 @@
   /* Support & inclusion of men */
   --mist: oklch(0.9524 0.0134 233.7); /* #E7F1F7 */
   --mist-deep: oklch(0.9046 0.027 234); /* #CFE3EF */
+  /* Brea app palette */
+  --brea-sage: oklch(0.701 0.049 152); /* #91A58F */
+  --brea-sage-deep: oklch(0.419 0.045 156); /* #425C4B */
+  --brea-blush: oklch(0.763 0.089 6); /* #E5A1AF */
+  --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
+  --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -150,6 +164,13 @@
   50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--blush) 90%, transparent), 0 8px 26px -6px color-mix(in oklab, var(--sage) 85%, transparent), 0 0 20px color-mix(in oklab, var(--blush) 80%, transparent); }
 }
 @media (prefers-reduced-motion: reduce) { .bri-launcher-wrap, .bri-thinking-dot, .explore-pill, .explore-pill:hover { animation: none; } }
+
+/* Brea app animations */
+.brea-fade-in { animation: brea-fade-in 0.6s ease-out both; }
+.brea-splash-logo { animation: brea-breathe 1.5s ease-in-out both; }
+@keyframes brea-fade-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes brea-breathe { 0% { opacity: 0; transform: scale(0.92); } 40% { opacity: 1; transform: scale(1.02); } 70% { transform: scale(0.99); } 100% { opacity: 1; transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) { .brea-fade-in, .brea-splash-logo { animation: none; } }
 @media (max-width: 767px), (max-height: 500px) {
   .bri-panel {
     top: calc(var(--bri-viewport-top, 0px) + 8px + env(safe-area-inset-top, 0px));
