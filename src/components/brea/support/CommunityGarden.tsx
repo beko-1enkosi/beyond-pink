@@ -126,7 +126,6 @@ function PostCard({ post, state, onSupport, onComment, onReport, onDelete }: {
   const [error, setError] = useState("");
   const menuRef = useRef<HTMLDivElement>(null);
   const supported = state.supported.includes(post.id);
-  const visible = expanded ? post.comments : post.comments.slice(0, 2);
   const hiddenComments = post.comments.filter((c) => !state.hidden.includes(c.id));
   const shown = (expanded ? hiddenComments : hiddenComments.slice(0, 2));
 

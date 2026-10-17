@@ -122,7 +122,9 @@ export function deletePost(state: CommunityState, postId: string): CommunityStat
 }
 
 export function useCommunity() {
-  const [state, setState] = useState<CommunityState>(() => emptyCommunity());
+  // Deterministic initial identity keeps SSR and first client render identical;
+  // the real stored (or freshly randomized) identity loads in the effect below.
+  const [state, setState] = useState<CommunityState>(() => emptyCommunity(() => 0));
   const current = useRef(state);
   const [ready, setReady] = useState(false);
   const [storageNotice, setStorageNotice] = useState(false);
