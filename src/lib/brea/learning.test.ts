@@ -2,9 +2,10 @@ import { beforeEach, describe, expect, it } from "vitest";
 import { addExplored, addHormone, completeLesson, emptyLearning, LEARNING_KEY, learningSummary, normalizeLearning, readLearning } from "./learning";
 import { ANATOMY, findGlossaryTerm, HORMONES, LESSON_ID, LESSON2_ID, QUIZ, QUIZ2, quizScore } from "./learning-data";
 import { BREA_INTERESTS, restartBreaDemo, saveBreaName, getBreaName } from "./onboarding";
-import { LESSON3_ID, LESSON4_ID } from "./learning-data";
+import { LESSON3_ID, LESSON4_ID, LESSON5_ID } from "./learning-data";
 import { QUIZ3 } from "./cancer-data";
 import { QUIZ4 } from "./breast-cancer-data";
+import { QUIZ5 } from "./screening-data";
 beforeEach(() => localStorage.clear());
 describe("Brea learning rules", () => {
   it("four completions yield 80 percent and four distinct badges", () => {
@@ -88,8 +89,39 @@ describe("Brea learning rules", () => {
     expect(state.quiz3Result).toBe(0);
     expect(state.badges).toEqual(["cell-detective"]);
   });
-  it("Lesson 5 cannot earn completion or badges yet", () => {
-    expect(completeLesson(emptyLearning(), "screening").state.badges).toEqual([]);
+  it("five completions yield 100 percent and five distinct badges", () => {
+    let state = emptyLearning();
+    for (const id of [LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSON5_ID]) state = completeLesson(state, id).state;
+    expect(learningSummary(state)).toEqual({ completed: 5, remaining: 0, percent: 100, badges: 5 });
+    expect(state.badges).toEqual(["anatomy-explorer", "hormone-helper", "cell-detective", "breast-health-advocate", "screening-smart"]);
+    expect(completeLesson(state, LESSON5_ID).firstCompletion).toBe(false);
+  });
+  it("Lesson 5 is independent and never requires a quiz", () => {
+    const result = completeLesson(emptyLearning(), LESSON5_ID);
+    expect(result.firstCompletion).toBe(true);
+    expect(result.state.completed).toEqual(["screening"]);
+    expect(result.state.position5).toBe(2);
+    expect(result.state.quiz5Result).toBeNull();
+    expect(result.state.badges).toEqual(["screening-smart"]);
+  });
+  it("legacy progress and all quiz scores survive Lesson 5 and refresh", () => {
+    const old = { ...emptyLearning(), completed: [LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID], quizResult: 2, quiz2Result: 3, quiz3Result: 1, quiz4Result: 0 };
+    const state = completeLesson(normalizeLearning(old), LESSON5_ID).state;
+    localStorage.setItem(LEARNING_KEY, JSON.stringify({ ...state, quiz5Result: 3 }));
+    expect(readLearning()).toMatchObject({ quizResult: 2, quiz2Result: 3, quiz3Result: 1, quiz4Result: 0, quiz5Result: 3 });
+    expect(readLearning().badges).toHaveLength(5);
+  });
+  it("Lesson 5 bounds saved position", () => {
+    expect(normalizeLearning({ position5: 99 }).position5).toBe(2);
+  });
+  it("Lesson 5 quiz answers are A, B, A", () => {
+    expect(QUIZ5.map((q) => q.correct)).toEqual([0, 1, 0]);
+    expect(quizScore([0, 1, 0], QUIZ5)).toBe(3);
+  });
+  it("defines all new screening glossary terms in plain language", () => {
+    for (const term of ["Mammography", "Screening mammogram", "Diagnostic mammogram", "Low-dose X-ray", "Compression", "Radiographer", "Mammography technologist", "Radiologist", "Calcifications", "Microcalcifications", "Breast density", "Dense breast tissue", "Breast ultrasound", "Transducer", "Sonography", "Cyst", "Solid mass", "Breast MRI", "BI-RADS", "Additional imaging", "Image-guided biopsy"]) {
+      expect(findGlossaryTerm(term)?.definition.length).toBeGreaterThan(20);
+    }
   });
   it("starts with zero of five lessons and zero badges", () => {
     expect(learningSummary(emptyLearning())).toEqual({ completed: 0, remaining: 5, percent: 0, badges: 0 });

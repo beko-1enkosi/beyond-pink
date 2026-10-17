@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getBreaName } from "./onboarding";
-import { ANATOMY, HORMONES, LESSON_BADGES, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSONS, type AnatomyId, type HormoneId } from "./learning-data";
+import { ANATOMY, HORMONES, LESSON_BADGES, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSON5_ID, LESSONS, type AnatomyId, type HormoneId } from "./learning-data";
 export const LEARNING_KEY = "brea-learning-v1";
 const CHANGE_EVENT = "brea-learning-changed";
 export type LearningState = {
@@ -23,9 +23,12 @@ export type LearningState = {
   started4: boolean;
   origins: string[];
   quiz4Result: number | null;
+  position5: number;
+  started5: boolean;
+  quiz5Result: number | null;
 };
 export function emptyLearning(): LearningState {
-  return { version: 1, completed: [], badges: [], position: 0, started: false, explored: [], quizResult: null, position2: 0, started2: false, hormones: [], quiz2Result: null, position3: 0, started3: false, cells: [], quiz3Result: null, position4: 0, started4: false, origins: [], quiz4Result: null };
+  return { version: 1, completed: [], badges: [], position: 0, started: false, explored: [], quizResult: null, position2: 0, started2: false, hormones: [], quiz2Result: null, position3: 0, started3: false, cells: [], quiz3Result: null, position4: 0, started4: false, origins: [], quiz4Result: null, position5: 0, started5: false, quiz5Result: null };
 }
 const clampStep = (value: unknown, max: number) => (typeof value === "number" && Number.isFinite(value) ? Math.max(0, Math.min(max, Math.floor(value))) : 0);
 const clampScore = (value: unknown) => (typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 3 ? value : null);
@@ -33,7 +36,7 @@ export function normalizeLearning(input: unknown): LearningState {
   if (!input || typeof input !== "object") return emptyLearning();
   const value = input as Partial<LearningState>;
   // Only implemented achievements can be earned in this version.
-   const implemented = [LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID];
+   const implemented = [LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_ID, LESSON5_ID];
   const completed = Array.isArray(value.completed) ? [...new Set(value.completed.filter((id) => implemented.includes(id)))] : [];
   return {
     version: 1,
@@ -55,6 +58,9 @@ export function normalizeLearning(input: unknown): LearningState {
     started4: value.started4 === true,
     origins: Array.isArray(value.origins) ? [...new Set(value.origins.filter((id) => ["ducts", "lobules"].includes(id)))] : [],
     quiz4Result: clampScore(value.quiz4Result),
+    position5: clampStep(value.position5, 2),
+    started5: value.started5 === true,
+    quiz5Result: clampScore(value.quiz5Result),
   };
 }
 export function readLearning(): LearningState {
@@ -64,7 +70,7 @@ export function readLearning(): LearningState {
 export function completeLesson(state: LearningState, lessonId: string = LESSON_ID): { state: LearningState; firstCompletion: boolean } {
   if (!Object.hasOwn(LESSON_BADGES, lessonId)) return { state, firstCompletion: false };
   const firstCompletion = !state.completed.includes(lessonId);
-  const patch = lessonId === LESSON4_ID ? { position4: 3, started4: true } : lessonId === LESSON3_ID ? { position3: 2, started3: true } : lessonId === LESSON2_ID ? { position2: 2, started2: true } : { position: 2, started: true };
+  const patch = lessonId === LESSON5_ID ? { position5: 2, started5: true } : lessonId === LESSON4_ID ? { position4: 3, started4: true } : lessonId === LESSON3_ID ? { position3: 2, started3: true } : lessonId === LESSON2_ID ? { position2: 2, started2: true } : { position: 2, started: true };
   return { firstCompletion, state: normalizeLearning({ ...state, ...patch, completed: [...state.completed, lessonId] }) };
 }
 export function learningSummary(state: LearningState) {

@@ -51,6 +51,7 @@
   --color-brea-paper: var(--brea-paper);
   --color-brea-gold: var(--brea-gold);
   --color-brea-anatomy: var(--brea-anatomy);
+  --color-brea-rose: var(--brea-rose);
   --shadow-brea-soft: var(--shadow-brea-soft-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
@@ -84,6 +85,7 @@
   --brea-paper: oklch(0.996 0.002 95);
   --brea-gold: oklch(0.76 0.075 86);
   --brea-anatomy: oklch(0.905 0.032 15);
+  --brea-rose: oklch(0.552 0.122 356); /* #B65F7B editorial dusty rose */
   --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
 
   --background: var(--ivory);
@@ -191,6 +193,8 @@
 /* Brea learning: scoped editorial typography and anatomy/achievement motion. */
 .brea-learning { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .brea-learning h1, .brea-learning h2, .brea-learning h3 { font-family: var(--font-brea-display); font-weight: 500; letter-spacing: 0; }
+/* Reusable editorial emphasis: one meaningful word per headline in dusty rose. */
+.brea-em { color: var(--brea-rose); font-style: italic; }
 .brea-progress { appearance: none; background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); color: var(--brea-sage-deep); }
 .brea-progress::-webkit-progress-bar { background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); border-radius: 999px; }
 .brea-progress::-webkit-progress-value { background: var(--brea-sage-deep); border-radius: 999px; transition: width .35s ease; }
@@ -200,6 +204,11 @@
 .brea-cell-hotspot:focus { outline: none; }
 .brea-cell-hotspot:focus-visible circle { stroke: var(--brea-charcoal); stroke-width: 4; }
 .brea-cell-appear { transform-box: fill-box; transform-origin: center; animation: brea-bloom .8s ease-out both; }
+.brea-waves path { animation: brea-wave-pulse 1.6s ease-in-out infinite; }
+.brea-waves path:nth-of-type(2) { animation-delay: .25s; }
+.brea-waves path:nth-of-type(3) { animation-delay: .5s; }
+@keyframes brea-wave-pulse { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .brea-waves path { animation: none; opacity: .8; } }
 .brea-anatomy-tooltip { position: absolute; z-index: 1; transform: translate(-50%, -100%); max-width: 155px; padding: 6px 10px; border-radius: 8px; background: var(--brea-sage-deep); color: var(--brea-ivory); font-size: 12px; line-height: 1.3; text-align: center; pointer-events: none; box-shadow: var(--shadow-brea-soft-v); }
 .brea-badge-bloom { animation: brea-bloom .8s ease-out both; }
 .brea-confetti i { position: absolute; top: -15px; width: 7px; height: 12px; background: var(--brea-sage); border-radius: 2px; animation: brea-confetti 2.8s ease-out both; }

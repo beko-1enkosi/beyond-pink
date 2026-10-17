@@ -15,6 +15,7 @@ import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
 import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
 import { Route as BreaLearnBreastsAndHormonesRouteImport } from './routes/brea/learn/breasts-and-hormones'
+import { Route as BreaLearnMammogramsUltrasoundsScreeningRouteImport } from './routes/brea/learn/mammograms-ultrasounds-screening'
 import { Route as BreaLearnMeetYourBreastsRouteImport } from './routes/brea/learn/meet-your-breasts'
 import { Route as BreaLearnUnderstandingBreastCancerRouteImport } from './routes/brea/learn/understanding-breast-cancer'
 import { Route as BreaLearnWhatIsCancerRouteImport } from './routes/brea/learn/what-is-cancer'
@@ -50,6 +51,12 @@ const BreaLearnBreastsAndHormonesRoute =
     path: '/brea/learn/breasts-and-hormones',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BreaLearnMammogramsUltrasoundsScreeningRoute =
+  BreaLearnMammogramsUltrasoundsScreeningRouteImport.update({
+    id: '/brea/learn/mammograms-ultrasounds-screening',
+    path: '/brea/learn/mammograms-ultrasounds-screening',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BreaLearnMeetYourBreastsRoute =
   BreaLearnMeetYourBreastsRouteImport.update({
     id: '/brea/learn/meet-your-breasts',
@@ -74,6 +81,7 @@ export interface FileRoutesByFullPath {
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
+  '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
@@ -85,6 +93,7 @@ export interface FileRoutesByTo {
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
+  '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
@@ -97,6 +106,7 @@ export interface FileRoutesById {
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
+  '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
@@ -110,6 +120,7 @@ export interface FileRouteTypes {
     | '/brea/home'
     | '/brea/'
     | '/brea/learn/breasts-and-hormones'
+    | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
@@ -121,6 +132,7 @@ export interface FileRouteTypes {
     | '/brea/home'
     | '/brea'
     | '/brea/learn/breasts-and-hormones'
+    | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
@@ -132,6 +144,7 @@ export interface FileRouteTypes {
     | '/brea/home'
     | '/brea/'
     | '/brea/learn/breasts-and-hormones'
+    | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
@@ -144,6 +157,7 @@ export interface RootRouteChildren {
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
   BreaLearnBreastsAndHormonesRoute: typeof BreaLearnBreastsAndHormonesRoute
+  BreaLearnMammogramsUltrasoundsScreeningRoute: typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
   BreaLearnUnderstandingBreastCancerRoute: typeof BreaLearnUnderstandingBreastCancerRoute
   BreaLearnWhatIsCancerRoute: typeof BreaLearnWhatIsCancerRoute
@@ -194,6 +208,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreaLearnBreastsAndHormonesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/learn/mammograms-ultrasounds-screening': {
+      id: '/brea/learn/mammograms-ultrasounds-screening'
+      path: '/brea/learn/mammograms-ultrasounds-screening'
+      fullPath: '/brea/learn/mammograms-ultrasounds-screening'
+      preLoaderRoute: typeof BreaLearnMammogramsUltrasoundsScreeningRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brea/learn/meet-your-breasts': {
       id: '/brea/learn/meet-your-breasts'
       path: '/brea/learn/meet-your-breasts'
@@ -224,6 +245,8 @@ const rootRouteChildren: RootRouteChildren = {
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
   BreaLearnBreastsAndHormonesRoute: BreaLearnBreastsAndHormonesRoute,
+  BreaLearnMammogramsUltrasoundsScreeningRoute:
+    BreaLearnMammogramsUltrasoundsScreeningRoute,
   BreaLearnMeetYourBreastsRoute: BreaLearnMeetYourBreastsRoute,
   BreaLearnUnderstandingBreastCancerRoute:
     BreaLearnUnderstandingBreastCancerRoute,
