@@ -1,4 +1,9 @@
 # Landing-page languages
+# Brea Phase 15 — Fresh demo and navigation
+- [ ] Add confirmed complete Brea-only reset, including community images; retain normal persistence.
+- [ ] Add accessible single starting-pathway selection and direct destinations.
+- [ ] Apply consistent pink navigation capsules without changing feature content.
+- [ ] Test persistence, cancel/reset, all pathways and responsive navigation.
 # Brea Phase 14.2 — Find Care layout and colour refinement
 - [x] Restore map-first layout and compact full-width cards with scoped dusty-rose accents; preserve data and actions.
 - [x] Verify desktop, tablet and mobile rendering, filters and card/map navigation.
