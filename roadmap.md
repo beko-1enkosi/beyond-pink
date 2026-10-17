@@ -1,4 +1,9 @@
 # Landing-page languages
+# Brea Phase 14 — Find Care
+- [ ] Verify source-supported facilities and physical map coordinates.
+- [ ] Build map-first directory, combined filters, cards, links and CANSA nationwide fallback.
+- [ ] Add optional session-only nearby sorting and activate Home navigation.
+- [ ] Verify filters, map/card selection, location permissions, mobile layout and preserved progress.
 # Brea Phase 2
 - [x] Add local learning state, accurate lesson/glossary data and rule tests.
 - [x] Build personalized Learn dashboard, profile and lightweight Brea overview navigation.
