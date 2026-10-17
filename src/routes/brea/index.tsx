@@ -138,7 +138,8 @@ function BreaOnboarding() {
 
   const goBack = () => {
     const i = STEP_ORDER.indexOf(step);
-    if (i > 1) setStep(STEP_ORDER[i - 1]!); // never go back into the splash
+    const previous = STEP_ORDER[i - 1];
+    if (i > 1 && previous) setStep(previous); // never go back into the splash
   };
 
   const submitName = (skip: boolean) => {
@@ -155,7 +156,7 @@ function BreaOnboarding() {
     if (!interest) return;
     saveBreaInterest(interest);
     completeBreaOnboarding();
-    navigate({ to: "/brea/home" });
+    navigate({ to: interest === "learn" ? "/brea/learn" : "/brea/home" });
   };
 
   const displayName = getBreaName() || name.trim();

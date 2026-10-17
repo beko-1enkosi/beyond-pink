@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
+import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
+import { Route as BreaLearnMeetYourBreastsRouteImport } from './routes/brea/learn/meet-your-breasts'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +36,33 @@ const BreaHomeRoute = BreaHomeRouteImport.update({
   path: '/brea/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaLearnIndexRoute = BreaLearnIndexRouteImport.update({
+  id: '/brea/learn/',
+  path: '/brea/learn/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreaLearnMeetYourBreastsRoute =
+  BreaLearnMeetYourBreastsRouteImport.update({
+    id: '/brea/learn/meet-your-breasts',
+    path: '/brea/learn/meet-your-breasts',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
+  '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +70,34 @@ export interface FileRoutesById {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/bri' | '/brea/home' | '/brea/'
+  fullPaths:
+    | '/'
+    | '/api/bri'
+    | '/brea/home'
+    | '/brea/'
+    | '/brea/learn/meet-your-breasts'
+    | '/brea/learn/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/bri' | '/brea/home' | '/brea'
-  id: '__root__' | '/' | '/api/bri' | '/brea/home' | '/brea/'
+  to:
+    | '/'
+    | '/api/bri'
+    | '/brea/home'
+    | '/brea'
+    | '/brea/learn/meet-your-breasts'
+    | '/brea/learn'
+  id:
+    | '__root__'
+    | '/'
+    | '/api/bri'
+    | '/brea/home'
+    | '/brea/'
+    | '/brea/learn/meet-your-breasts'
+    | '/brea/learn/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +105,8 @@ export interface RootRouteChildren {
   ApiBriRoute: typeof ApiBriRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
+  BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
+  BreaLearnIndexRoute: typeof BreaLearnIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +139,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreaHomeRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/learn/': {
+      id: '/brea/learn/'
+      path: '/brea/learn'
+      fullPath: '/brea/learn/'
+      preLoaderRoute: typeof BreaLearnIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/learn/meet-your-breasts': {
+      id: '/brea/learn/meet-your-breasts'
+      path: '/brea/learn/meet-your-breasts'
+      fullPath: '/brea/learn/meet-your-breasts'
+      preLoaderRoute: typeof BreaLearnMeetYourBreastsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +161,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBriRoute: ApiBriRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
+  BreaLearnMeetYourBreastsRoute: BreaLearnMeetYourBreastsRoute,
+  BreaLearnIndexRoute: BreaLearnIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

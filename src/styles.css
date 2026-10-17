@@ -48,6 +48,10 @@
   --color-brea-blush: var(--brea-blush);
   --color-brea-ivory: var(--brea-ivory);
   --color-brea-charcoal: var(--brea-charcoal);
+  --color-brea-paper: var(--brea-paper);
+  --color-brea-gold: var(--brea-gold);
+  --color-brea-anatomy: var(--brea-anatomy);
+  --shadow-brea-soft: var(--shadow-brea-soft-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
   --shadow-soft: var(--shadow-soft-v);
@@ -77,6 +81,10 @@
   --brea-blush: oklch(0.763 0.089 6); /* #E5A1AF */
   --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
   --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
+  --brea-paper: oklch(0.996 0.002 95);
+  --brea-gold: oklch(0.76 0.075 86);
+  --brea-anatomy: oklch(0.905 0.032 15);
+  --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
 
   --background: var(--ivory);
   --foreground: var(--charcoal);
@@ -178,4 +186,32 @@
     height: min(660px, calc(var(--bri-viewport-height, 100dvh) - 16px - env(safe-area-inset-top, 0px) - env(safe-area-inset-bottom, 0px)));
   }
   .bri-composer [data-slot="input-group"] { min-height: 0; }
+}
+
+/* Brea learning: scoped editorial typography and anatomy/achievement motion. */
+.brea-learning { padding-bottom: env(safe-area-inset-bottom, 0px); }
+.brea-learning h1, .brea-learning h2, .brea-learning h3 { font-family: var(--font-brea-display); font-weight: 500; letter-spacing: 0; }
+.brea-progress { appearance: none; background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); color: var(--brea-sage-deep); }
+.brea-progress::-webkit-progress-bar { background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); border-radius: 999px; }
+.brea-progress::-webkit-progress-value { background: var(--brea-sage-deep); border-radius: 999px; transition: width .35s ease; }
+.brea-progress::-moz-progress-bar { background: var(--brea-sage-deep); border-radius: 999px; }
+.brea-hotspot:focus { outline: none; }
+.brea-hotspot:focus-visible circle:nth-of-type(2) { stroke: var(--brea-charcoal); stroke-width: 4; }
+.brea-anatomy-tooltip { position: absolute; z-index: 1; transform: translate(-50%, -100%); max-width: 155px; padding: 6px 10px; border-radius: 8px; background: var(--brea-sage-deep); color: var(--brea-ivory); font-size: 12px; line-height: 1.3; text-align: center; pointer-events: none; box-shadow: var(--shadow-brea-soft-v); }
+.brea-badge-bloom { animation: brea-bloom .8s ease-out both; }
+.brea-confetti i { position: absolute; top: -15px; width: 7px; height: 12px; background: var(--brea-sage); border-radius: 2px; animation: brea-confetti 2.8s ease-out both; }
+.brea-confetti i:nth-child(3n) { background: var(--brea-blush); }
+.brea-confetti i:nth-child(4n) { background: var(--brea-gold); }
+@keyframes brea-bloom { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
+@keyframes brea-confetti { 0% { opacity: 0; translate: 0 -10px; rotate: 0deg; } 12% { opacity: .85; } 100% { opacity: 0; translate: 22px 390px; rotate: 230deg; } }
+@media (max-width: 639px) {
+  .brea-learning.brea-sheet { --tw-translate-x: 0px !important; --tw-translate-y: 0px !important; top: auto; bottom: 0; left: 0; width: 100%; transform: none !important; padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+}
+@media (min-width: 640px) {
+  .brea-learning.brea-glossary { --tw-translate-x: 0px !important; --tw-translate-y: 0px !important; top: auto; left: auto; right: 32px; bottom: 88px; transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .brea-confetti { display: none; }
+  .brea-badge-bloom { animation: none; }
+  .brea-progress::-webkit-progress-value { transition: none; }
 }
