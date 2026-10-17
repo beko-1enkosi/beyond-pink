@@ -1,7 +1,7 @@
 import { CANCER_GLOSSARY } from "./cancer-data";
 import { BREAST_CANCER_GLOSSARY } from "./breast-cancer-data";
 import { SCREENING_GLOSSARY } from "./screening-data";
-import { CHANGES_GLOSSARY } from "./changes-data";
+import { CHANGES_GLOSSARY, QUADRANT_GLOSSARY } from "./changes-data";
 export const LESSON_ID = "meet-your-breasts";
 export const LESSON2_ID = "breasts-hormones";
 export const LESSON3_ID = "what-is-cancer";
@@ -47,6 +47,7 @@ export const LIFE_STAGES = [
 ] as const;
 export type LifeStageId = (typeof LIFE_STAGES)[number]["id"];
 export const GLOSSARY = [
+  ...QUADRANT_GLOSSARY,
   ...CHANGES_GLOSSARY,
   ...SCREENING_GLOSSARY,
   ...BREAST_CANCER_GLOSSARY,

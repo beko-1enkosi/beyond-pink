@@ -3,11 +3,54 @@
 export const CHANGES_LESSON1_ID = "recognise-changes";
 export const CHANGES_LESSON2_ID = "know-your-quadrants";
 export const AWARENESS_BADGE_ID = "awareness-explorer";
+export const QUADRANT_BADGE_ID = "quadrant-explorer";
 export const CHANGES_LESSONS = [
   { id: CHANGES_LESSON1_ID, title: "Recognise the Changes", available: true },
-  { id: CHANGES_LESSON2_ID, title: "Know Your Breast Quadrants", available: false },
+  { id: CHANGES_LESSON2_ID, title: "Know Your Breast Quadrants", available: true },
 ] as const;
-export const CHANGES_BADGES: Record<string, string> = { [CHANGES_LESSON1_ID]: AWARENESS_BADGE_ID };
+export const CHANGES_BADGES: Record<string, string> = { [CHANGES_LESSON1_ID]: AWARENESS_BADGE_ID, [CHANGES_LESSON2_ID]: QUADRANT_BADGE_ID };
+
+export const QUADRANTS = [
+  { id: "upper-outer", name: "Upper Outer Quadrant", text: "The upper outer quadrant is the part of the breast closest to your underarm. Breast tissue also extends toward the underarm, so awareness of this surrounding area matters." },
+  { id: "upper-inner", name: "Upper Inner Quadrant", text: "The upper inner quadrant is the upper part of the breast closest to the middle of your chest." },
+  { id: "lower-outer", name: "Lower Outer Quadrant", text: "The lower outer quadrant is the lower part of the breast toward the arm." },
+  { id: "lower-inner", name: "Lower Inner Quadrant", text: "The lower inner quadrant is the lower part of the breast closest to the middle of the chest." },
+] as const;
+export type QuadrantId = (typeof QUADRANTS)[number]["id"];
+
+export const WHOLE_AREA = [
+  { id: "nipple-areola", name: "Nipple & Areola", text: "Become familiar with the usual appearance of your nipple and surrounding skin. Notice new changes such as unusual discharge, a persistent rash or a newly inverted nipple. There is no need to squeeze the nipple to try to produce discharge." },
+  { id: "around", name: "Tissue Around the Breast", text: "Breast tissue does not stop at a neat edge. Becoming familiar with the tissue around the breast helps you notice changes anywhere in the area." },
+  { id: "upper-chest", name: "Upper Chest", text: "Breast and surrounding tissue extend across the chest. Becoming familiar with the area toward the collarbone can help you notice unfamiliar swelling or changes." },
+  { id: "underarm", name: "Underarm", text: "The underarm contains lymph nodes and tissue near the breast. New swelling or lumps here should also be assessed." },
+  { id: "whole", name: "Whole Breast or Chest", text: "Take a gentle, systematic approach so you do not focus only on one spot." },
+] as const;
+export type WholeAreaId = (typeof WHOLE_AREA)[number]["id"];
+
+export const CHECK_CAPTIONS = [
+  "Use the pads of your middle three fingers.",
+  "Make small, overlapping circular movements.",
+  "Use light pressure, then somewhat firmer pressure as comfortable.",
+  "Move systematically across the whole area.",
+  "Keep it comfortable — never press to the point of pain.",
+] as const;
+
+export const QUADRANT_GLOSSARY = [
+  { term: "Breast quadrant", definition: "One of four sections healthcare professionals use to describe where something is located in the breast: upper outer, upper inner, lower outer and lower inner." },
+  { term: "Upper outer quadrant", definition: "The upper part of the breast closest to the underarm. Breast tissue naturally extends toward the underarm in this region." },
+  { term: "Upper inner quadrant", definition: "The upper part of the breast closest to the middle of the chest." },
+  { term: "Lower outer quadrant", definition: "The lower part of the breast toward the arm." },
+  { term: "Lower inner quadrant", definition: "The lower part of the breast closest to the middle of the chest." },
+  { term: "Clinical breast examination", definition: "An examination of the breasts and surrounding area by a trained healthcare professional, sometimes done as part of an assessment." },
+  { term: "Breast tissue", definition: "The combination of glandular tissue, fatty tissue, connective tissue, blood vessels and nerves that makes up the breast. It can extend toward the underarm and collarbone." },
+  { term: "Palpation", definition: "Examining part of the body by gently feeling it with the hands, for example using the pads of the fingers." },
+] as const;
+
+export const QUADRANT_QUIZ = [
+  { question: "Which area is the upper outer breast quadrant?", answers: ["The upper breast area toward the underarm.", "The lower breast area toward the centre of the chest.", "The nipple only."], correct: 0, explanation: "The upper outer quadrant is located toward the underarm." },
+  { question: "Which areas should breast awareness include?", answers: ["Only the nipple.", "The whole breast or chest, including toward the collarbone and underarm.", "Only areas that feel painful."], correct: 1, explanation: "Breast awareness includes the whole breast or chest area and surrounding regions where changes may occur." },
+  { question: "What should you do if you notice a new, unusual breast lump?", answers: ["Keep pressing it until it disappears.", "Assume it is cancer.", "Arrange an assessment with a healthcare professional."], correct: 2, explanation: "Many breast lumps are not cancer, but new or unfamiliar changes should be checked by a healthcare professional." },
+] as const;
 
 export const NORMAL_CARDS = [
   { id: "shape", title: "Shape & Size", summary: "Breasts and chest tissue naturally differ in size and shape. Slight asymmetry is common.", detail: "It is very common for one breast to be a little larger, higher or differently shaped than the other. Chest tissue also looks different from person to person, including in men and in trans and non-binary people. What matters most is noticing what is new for you." },
