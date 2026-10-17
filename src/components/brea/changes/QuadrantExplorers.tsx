@@ -81,13 +81,13 @@ export function CheckingDemo({ onTerm }: { onTerm: (term: string) => void }) {
   }, [playing, reduced, quadrant, side]);
   const spots = HAND_SPOTS[side][quadrant];
   const qi = QUADRANTS.findIndex((q) => q.id === quadrant);
-  const step = (delta: number) => { const next = QUADRANTS[(qi + delta + QUADRANTS.length) % QUADRANTS.length]; setQuadrant(next.id); setSpot(0); };
+  const step = (delta: number) => { const next = QUADRANTS[(qi + delta + QUADRANTS.length) % QUADRANTS.length] ?? QUADRANTS[0]; setQuadrant(next.id); setSpot(0); };
   return <div className="mt-6">
     <div className="flex flex-wrap justify-center gap-2">
       {(["left", "right"] as const).map((s) => <LearnButton key={s} aria-pressed={side === s} onClick={() => { setSide(s); setSpot(0); }} className={cn("min-h-11 px-4 text-xs", side === s && "border-brea-sage-deep bg-brea-sage/20")}>{s === "left" ? "Left Breast" : "Right Breast"}</LearnButton>)}
     </div>
     <figure className="relative mx-auto mt-4 max-w-sm rounded-3xl border border-brea-sage/20 bg-brea-paper p-4 shadow-brea-soft">
-      <svg viewBox="0 0 200 200" className="h-auto w-full" role="img" aria-label={`Gentle checking demonstration on the ${QUADRANTS[qi].name.toLowerCase()} of the ${side} breast. An illustrated hand uses the pads of the middle three fingers in small circular movements.`}>
+      <svg viewBox="0 0 200 200" className="h-auto w-full" role="img" aria-label={`Gentle checking demonstration on the ${(QUADRANTS[qi] ?? QUADRANTS[0]).name.toLowerCase()} of the ${side} breast. An illustrated hand uses the pads of the middle three fingers in small circular movements.`}>
         <BreastFigure side={side} active={quadrant} labelledBy="demo-art" />
         <span id="demo-art" className="sr-only">Educational demonstration diagram, not a diagnostic image.</span>
         {reduced ? spots.map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="11" fill="var(--brea-ivory)" stroke="var(--brea-sage-deep)" strokeWidth="1.5" /><text x={x} y={y + 3.5} textAnchor="middle" fontSize="10" fill="var(--brea-sage-deep)">{i + 1}</text></g>) : <g className={playing ? "brea-hand-drift" : undefined} style={playing ? { animationDuration: `${SPOT_DURATION * 4}ms` } : undefined}>
