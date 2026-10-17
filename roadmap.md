@@ -69,4 +69,4 @@
 - [ ] Add Lesson 5 data, glossary terms, local progress fields, Screening Smart badge and rule tests.
 - [ ] Build Lesson 5: mammogram walkthrough, findings explorer, ultrasound walkthrough, comparison, screening vs diagnostic, results/BI-RADS, SA context.
 - [ ] Integrate route, dashboard/profile, five-badge responsive display and all-complete celebration.
-- [ ] Verify persistence, personalization, quiz, accessibility, reduced motion and mobile fit.
+- [x] Verify persistence, personalization, quiz, accessibility, reduced motion and mobile fit.
