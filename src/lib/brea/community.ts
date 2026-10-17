@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { BOTANICAL_NAMES, COMMENT_LIMIT, POST_LIMIT, type ReportReasonId, type SeedComment } from "./community-data";
+import { BOTANICAL_NAMES, COMMENT_LIMIT, HEART_REACTIONS, POST_LIMIT, type HeartReactionId, type ReportReasonId, type SeedComment } from "./community-data";
 
 // The Brea Garden is a browser-only community demo. Its record (brea-community-v1)
 // is deliberately separate from lesson, badge and support progress, and stores only
@@ -24,7 +24,7 @@ export type CommunityState = {
   visitorName: string;
   visitorAvatar: number;
   posts: GardenPost[];
-  supported: string[];
+  reactions: Record<string, HeartReactionId>; // one active heart reaction per post
   comments: Record<string, GardenComment[]>;
   hidden: string[];
   reported: Record<string, ReportReasonId>;
