@@ -265,20 +265,30 @@
 /* Inclusive illustration skin tones for Brea educational art */
 /* Find Care: scoped map controls, marker roles and elevated directory cards. */
 .brea-care-map { font-family: var(--font-brea-body); background: var(--brea-ivory); }
-.brea-care-map .leaflet-control-zoom a { background: var(--brea-paper); color: var(--brea-sage-deep); }
+.brea-care-map .leaflet-control-zoom { overflow: hidden; border: 1px solid color-mix(in oklab, var(--brea-sage) 35%, transparent); border-radius: 12px; box-shadow: var(--shadow-brea-lift-v); }
+.brea-care-map .leaflet-control-zoom a { width: 44px; height: 44px; line-height: 44px; background: var(--brea-paper); color: var(--brea-sage-deep); }
+.brea-care-map .leaflet-control-zoom a:hover { background: var(--brea-cream); }
+.brea-care-map .leaflet-popup-close-button { min-width: 36px; min-height: 36px; color: var(--brea-sage-deep); }
+.brea-care-map .leaflet-popup-content { margin: 20px; }
+.brea-care-popup strong { display: block; padding-right: 12px; font-family: var(--font-brea-display); font-size: 23px; line-height: 1.15; color: var(--brea-sage-deep); }
 .brea-care-map .leaflet-control-attribution { background: var(--brea-paper); color: var(--brea-charcoal); }
 .brea-care-map .leaflet-control-attribution a { color: var(--brea-sage-deep); }
 .brea-care-map .leaflet-popup-content-wrapper, .brea-care-map .leaflet-popup-tip { background: var(--brea-paper); color: var(--brea-charcoal); box-shadow: var(--shadow-brea-soft-v); }
 .brea-care-popup { font-size: 12px; line-height: 1.5; }
 .brea-care-popup p { margin: 8px 0; }
 .brea-care-popup button { min-height: 44px; border-radius: 999px; padding: 8px 14px; background: var(--brea-sage-deep); color: var(--brea-ivory); font: inherit; cursor: pointer; }
-.brea-care-pin-public, .brea-care-type-public { --care-marker: var(--brea-sage-deep); }
+.brea-care-pin-public, .brea-care-type-public { --care-marker: var(--brea-sage); }
 .brea-care-pin-private, .brea-care-type-private { --care-marker: var(--brea-rose); }
 .brea-care-pin-support, .brea-care-type-support { --care-marker: var(--brea-gold); }
-.brea-care-pin span { display: block; width: 28px; height: 28px; border: 2px solid var(--brea-paper); border-radius: 50% 50% 50% 0; background: var(--care-marker); transform: rotate(-45deg); box-shadow: var(--shadow-brea-lift-v); }
-.brea-care-pin span::after { content: ''; position: absolute; width: 8px; height: 8px; inset: 8px; background: var(--brea-paper); border-radius: 50%; }
-.brea-care-pin-selected span { outline: 3px solid var(--brea-charcoal); outline-offset: 3px; }
-.brea-care-legend { width: 10px; height: 10px; border-radius: 50%; background: var(--care-marker); border: 1px solid var(--brea-sage-deep); }
+.brea-care-pin { display: grid; place-items: center; background: none; border: none; }
+.brea-care-ribbon { display: block; width: 36px; height: 44px; overflow: visible; fill: var(--care-marker); stroke: var(--brea-paper); stroke-width: 1.3; stroke-linejoin: round; filter: drop-shadow(0 2px 2px color-mix(in oklab, var(--brea-charcoal) 45%, transparent)); transform-origin: center; transition: transform .2s ease; }
+.brea-care-ribbon-back { fill: color-mix(in oklab, var(--care-marker) 85%, var(--brea-sage-deep)); }
+.brea-care-pin-selected { z-index: 1000 !important; }
+.brea-care-pin-selected .brea-care-ribbon { transform: scale(1.2); stroke-width: 1.8; }
+.brea-care-pin:focus-visible { outline: 2px solid var(--brea-sage-deep); outline-offset: 4px; border-radius: 8px; }
+.brea-care-legend { display: grid; width: 22px; height: 28px; place-items: center; flex-shrink: 0; }
+.brea-care-legend .brea-care-ribbon { width: 20px; height: 26px; }
+.brea-care-actions > * { min-height: 44px; max-width: 100%; }
 .brea-care-type { color: var(--brea-charcoal); background: color-mix(in oklab, var(--care-marker) 12%, var(--brea-cream)); border-color: color-mix(in oklab, var(--care-marker) 35%, var(--brea-cream)); }
-@media (hover: hover) and (prefers-reduced-motion: no-preference) { .brea-care-card:hover { box-shadow: var(--shadow-brea-lift-hover-v); } }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .brea-care-card:hover { box-shadow: var(--shadow-brea-lift-hover-v); transform: translateY(-2px); } }
 :root { --brea-skin-1: #F3D9C6; --brea-skin-2: #D9A77F; --brea-skin-3: #A86F4C; --brea-skin-4: #6B4330; }

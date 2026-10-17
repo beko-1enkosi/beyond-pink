@@ -27,5 +27,6 @@ Brea lives under src/routes/brea/ as folder routes (index.tsx = onboarding, home
 
 Subdirectories have their own AGENTS.md (e.g. src/lib/brea/) to read before changing files there.
 Find Care uses browser-safe curated facility data and pure filtering/distance helpers, with Leaflet imported inside an effect and ephemeral location state; this avoids SSR browser imports, repeat geocoding and location persistence.
+Find Care shares ribbon geometry between React legends and Leaflet icons, with a separate map-focus request counter for repeated card selections; this keeps marker identity consistent and reopens closed popups without changing facility data.
 
 - Sitemap: router-derived via src/lib/sitemap.ts + src/routes/sitemap[.]xml.ts at https://beyond-pink.lovable.app; every route must set staticData.sitemap (true/false/"exclude-subtree"). GSC meta verification tag lives in src/routes/index.tsx head.

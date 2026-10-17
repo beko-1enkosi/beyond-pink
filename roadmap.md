@@ -1,5 +1,8 @@
 # Landing-page languages
 # Brea Phase 14 — Find Care
+# Brea Phase 14.1 — Find Care visual refinement
+- [x] Place full-width horizontal facility cards before the spacious ribbon-marker map, preserving all data and actions.
+- [x] Verify desktop, tablet and mobile layouts, filtering and both directions of card/map navigation.
 - [x] Verify source-supported facilities; retain provenance for 10 confirmed physical pins and omit 4 uncertain/regional pins.
 - [x] Build map-first directory, combined filters, cards, links and CANSA nationwide fallback.
 - [x] Add optional session-only nearby sorting and activate Home navigation.
