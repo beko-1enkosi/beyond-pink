@@ -62,36 +62,35 @@ describe("viewport-bound About statistics", () => {
     visibility(1); frameAt(1800);
     expect(current).toBe(value);
   });
-  it("holds the final value for two seconds then repeats while visible", () => {
+  it("keeps the final value on screen and never loops while visible", () => {
     render(<Probe />);
     visibility(1); frameAt(1800);
-    act(() => vi.advanceTimersByTime(1999));
+    act(() => vi.advanceTimersByTime(10000));
     expect(current).toBe(14712);
     expect(frames.size).toBe(0);
-    act(() => vi.advanceTimersByTime(1));
-    expect(current).toBe(0);
-    frameAt(2700);
-    expect(current).toBeGreaterThan(0);
-    expect(current).toBeLessThan(14712);
+    expect(vi.getTimerCount()).toBe(0);
   });
-  it("cancels an in-progress count on exit and starts again on return", () => {
+  it("does not replay after scrolling away and back", () => {
+    render(<Probe />);
+    visibility(1); frameAt(1800);
+    visibility(0);
+    visibility(1);
+    expect(current).toBe(14712);
+    expect(frames.size).toBe(0);
+    act(() => vi.advanceTimersByTime(5000));
+    expect(current).toBe(14712);
+  });
+  it("cancels an in-progress count on exit and settles on the final value", () => {
     render(<Probe />);
     visibility(1); frameAt(900); visibility(0);
     expect(frames.size).toBe(0);
     expect(current).toBe(14712);
     visibility(1);
-    expect(current).toBe(0);
-    expect(frames.size).toBe(1);
-  });
-  it("cancels the repeat pause when the visitor scrolls away", () => {
-    render(<Probe />);
-    visibility(1); frameAt(1800); visibility(0);
-    act(() => vi.advanceTimersByTime(4000));
-    expect(current).toBe(14712);
     expect(frames.size).toBe(0);
-    expect(vi.getTimerCount()).toBe(0);
+    act(() => vi.advanceTimersByTime(5000));
+    expect(current).toBe(14712);
   });
-  it("shows final values without repeated animation for reduced motion", () => {
+  it("shows final values without animation for reduced motion", () => {
     reduced = true;
     render(<Probe />); visibility(1);
     act(() => vi.advanceTimersByTime(10000));
