@@ -10,7 +10,7 @@ export function PrimaryButton(props: ButtonProps) {
   return <LearnButton {...props} className={cn("bg-brea-sage-deep text-brea-ivory hover:bg-brea-sage-deep/90 border-brea-sage-deep shadow-brea-soft", props.className)} />;
 }
 export function LearnShell({ children }: { children: ReactNode }) {
-  return <div lang="en" className="brea-learning relative min-h-dvh bg-brea-ivory text-brea-charcoal font-[family-name:var(--font-brea-body)]"><BotanicalBackdrop /><div className="relative z-10 mx-auto max-w-5xl px-5 pb-32 pt-5 sm:px-8 sm:pt-8">{children}<footer className="mt-12"><BreaWaves className="mb-5" /><DisclaimerCapsule /></footer></div></div>;
+  return <div lang="en" className="brea-learning relative min-h-dvh bg-brea-ivory text-brea-charcoal font-[family-name:var(--font-brea-body)]"><BotanicalBackdrop /><div className="relative z-10 mx-auto max-w-5xl px-5 pb-32 pt-5 sm:px-8 sm:pt-8">{children}<footer className="mt-12"><DisclaimerCapsule /></footer></div></div>;
 }
 export function ProgressBar({ percent }: { percent: number }) {
   return <progress className="brea-progress mt-3 h-1.5 w-full overflow-hidden rounded-full" value={percent} max={100} aria-label="Learning progress" />;
