@@ -1,3 +1,4 @@
+import { BreaHomeButton } from "@/components/brea/BreaNavigation";
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, HandHeart, Users } from "lucide-react";
 import { CompanionBadge, LearnButton, LearnShell, PrimaryButton, SupportBadge } from "@/components/brea/learn/LearnPrimitives";
@@ -30,7 +31,7 @@ function SupportHome() {
     <LearnShell>
       <BreaHeader state={state} name={name} changes={changes} support={support} />
       <main className="mx-auto max-w-3xl">
-        <LearnButton asChild className="mt-6 border-0 px-0 text-xs"><Link to="/brea/home"><ArrowLeft /> Brea Home</Link></LearnButton>
+        <BreaHomeButton className="mt-6" />
         <section className="pb-8 pt-8">
           <p className="text-xs text-brea-sage-deep">Find Support</p>
           <h1 className="mt-3 break-words text-5xl leading-tight sm:text-6xl">You Are Not <em className="brea-em">Alone.</em></h1>
