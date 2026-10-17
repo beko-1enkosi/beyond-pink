@@ -1,0 +1,10 @@
+# Brea rules
+
+- Brea learning uses sibling folder leaf routes under brea/learn, browser-safe curated lesson data and a versioned local learning record separate from onboarding; this keeps resuming, derived progress and idempotent achievements independent of demo restarts.
+- Brea learning UI uses scoped shared controls and an original SVG cross-section with keyboard/touch hotspots; this preserves global primitives and anatomical relationships while allowing future lessons to reuse the lesson shell, glossary and profile.
+- Brea lessons are data-driven per lesson (id, badge, position, exploration set, quiz) in src/lib/brea/learning-data.ts with generic completeLesson/addExplored-style helpers in learning.ts; new lessons extend these datasets rather than forking state shapes.
+- Brea cell education isolates curated cancer data and reusable SVG explorers from the lesson shell; growth animation uses bounded cancellable stages with manual controls and static reduced-motion alternatives to keep educational playback predictable.
+- Brea breast-cancer education keeps curated content and reusable origin, invasion, receptor and care explorers separate from the guided lesson; this keeps clinical statements reviewable and interactions reusable without changing earlier lessons.
+- Brea editorial emphasis uses the reusable .brea-em class (dusty rose #B65F7B via --brea-rose/--color-brea-rose tokens) for selective italic headline words; sage stays primary and no large pink panels.
+- Brea Lesson 5 (screening) content lives in src/lib/brea/screening-data.ts with explorers in ScreeningExplorers.tsx and the shell in ScreeningLesson.tsx, following the same data-driven pattern as earlier lessons; learning state extends with position5/started5/quiz5Result only.
+- Brea's Understand Breast Changes pathway lives under src/routes/brea/breast-changes/ (index + lesson leaves), with curated data in src/lib/brea/changes-data.ts and its own versioned localStorage record (brea-changes-v1) in changes.ts; this keeps its progress and badges separate from the five-lesson Learning Garden. Its glossary terms extend the shared MedDecode GLOSSARY.
