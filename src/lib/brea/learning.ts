@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { getBreaName } from "./onboarding";
-import { ANATOMY, BADGE_ID, LESSON_ID, LESSONS, type AnatomyId } from "./learning-data";
+import { ANATOMY, HORMONES, LESSON_BADGES, LESSON_ID, LESSON2_ID, LESSONS, type AnatomyId, type HormoneId } from "./learning-data";
 export const LEARNING_KEY = "brea-learning-v1";
 const CHANGE_EVENT = "brea-learning-changed";
 export type LearningState = {
@@ -11,32 +11,44 @@ export type LearningState = {
   started: boolean;
   explored: AnatomyId[];
   quizResult: number | null;
+  position2: number;
+  started2: boolean;
+  hormones: HormoneId[];
+  quiz2Result: number | null;
 };
 export function emptyLearning(): LearningState {
-  return { version: 1, completed: [], badges: [], position: 0, started: false, explored: [], quizResult: null };
+  return { version: 1, completed: [], badges: [], position: 0, started: false, explored: [], quizResult: null, position2: 0, started2: false, hormones: [], quiz2Result: null };
 }
+const clampStep = (value: unknown, max: number) => (typeof value === "number" && Number.isFinite(value) ? Math.max(0, Math.min(max, Math.floor(value))) : 0);
+const clampScore = (value: unknown) => (typeof value === "number" && Number.isInteger(value) && value >= 0 && value <= 3 ? value : null);
 export function normalizeLearning(input: unknown): LearningState {
   if (!input || typeof input !== "object") return emptyLearning();
   const value = input as Partial<LearningState>;
   // Only implemented achievements can be earned in this version.
-  const completed = Array.isArray(value.completed) && value.completed.includes(LESSON_ID) ? [LESSON_ID] : [];
+  const implemented = [LESSON_ID, LESSON2_ID];
+  const completed = Array.isArray(value.completed) ? [...new Set(value.completed.filter((id) => implemented.includes(id)))] : [];
   return {
     version: 1,
     completed,
-    badges: completed.length ? [BADGE_ID] : [],
-    position: typeof value.position === "number" && Number.isFinite(value.position) ? Math.max(0, Math.min(2, Math.floor(value.position))) : 0,
+    badges: completed.map((id) => LESSON_BADGES[id]).filter(Boolean),
+    position: clampStep(value.position, 2),
     started: value.started === true,
     explored: Array.isArray(value.explored) ? [...new Set(value.explored.filter((id) => ANATOMY.some((part) => part.id === id)))] : [],
-    quizResult: typeof value.quizResult === "number" && Number.isInteger(value.quizResult) && value.quizResult >= 0 && value.quizResult <= 3 ? value.quizResult : null,
+    quizResult: clampScore(value.quizResult),
+    position2: clampStep(value.position2, 2),
+    started2: value.started2 === true,
+    hormones: Array.isArray(value.hormones) ? [...new Set(value.hormones.filter((id) => HORMONES.some((h) => h.id === id)))] : [],
+    quiz2Result: clampScore(value.quiz2Result),
   };
 }
 export function readLearning(): LearningState {
   try { return normalizeLearning(JSON.parse(window.localStorage.getItem(LEARNING_KEY) ?? "null")); }
   catch { return emptyLearning(); }
 }
-export function completeLesson(state: LearningState): { state: LearningState; firstCompletion: boolean } {
-  const firstCompletion = !state.completed.includes(LESSON_ID);
-  return { firstCompletion, state: normalizeLearning({ ...state, completed: [...state.completed, LESSON_ID], badges: [...state.badges, BADGE_ID], position: 2, started: true }) };
+export function completeLesson(state: LearningState, lessonId: string = LESSON_ID): { state: LearningState; firstCompletion: boolean } {
+  const firstCompletion = !state.completed.includes(lessonId);
+  const patch = lessonId === LESSON2_ID ? { position2: 2, started2: true } : { position: 2, started: true };
+  return { firstCompletion, state: normalizeLearning({ ...state, ...patch, completed: [...state.completed, lessonId] }) };
 }
 export function learningSummary(state: LearningState) {
   const completed = state.completed.filter((id) => LESSONS.some((lesson) => lesson.id === id)).length;
@@ -44,6 +56,9 @@ export function learningSummary(state: LearningState) {
 }
 export function addExplored(state: LearningState, id: AnatomyId): LearningState {
   return normalizeLearning({ ...state, started: true, explored: [...state.explored, id] });
+}
+export function addHormone(state: LearningState, id: HormoneId): LearningState {
+  return normalizeLearning({ ...state, started2: true, hormones: [...state.hormones, id] });
 }
 export function useLearning() {
   const [state, setState] = useState<LearningState>(emptyLearning);
