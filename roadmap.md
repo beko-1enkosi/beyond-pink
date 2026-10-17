@@ -65,8 +65,8 @@
 - [x] Set exact homepage, Open Graph, Twitter and canonical metadata; retain the verified approved ribbon favicon and selected document language.
 - [x] Verify public image access, rendered metadata and unchanged website; live-page metadata requires the next publish.
 # Brea Phase 6 — Lesson 5 & brand refinement
-- [ ] Add dusty-rose editorial accent token and reusable emphasized-heading treatment across Brea learning.
-- [ ] Add Lesson 5 data, glossary terms, local progress fields, Screening Smart badge and rule tests.
-- [ ] Build Lesson 5: mammogram walkthrough, findings explorer, ultrasound walkthrough, comparison, screening vs diagnostic, results/BI-RADS, SA context.
-- [ ] Integrate route, dashboard/profile, five-badge responsive display and all-complete celebration.
+- [x] Add dusty-rose editorial accent token and reusable emphasized-heading treatment across Brea learning.
+- [x] Add Lesson 5 data, glossary terms, local progress fields, Screening Smart badge and rule tests.
+- [x] Build Lesson 5: mammogram walkthrough, findings explorer, ultrasound walkthrough, comparison, screening vs diagnostic, results/BI-RADS, SA context.
+- [x] Integrate route, dashboard/profile, five-badge responsive display and all-complete celebration.
 - [x] Verify persistence, personalization, quiz, accessibility, reduced motion and mobile fit.
