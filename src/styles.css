@@ -198,6 +198,8 @@
 
 /* Brea learning: scoped editorial typography and anatomy/achievement motion. */
 .brea-learning { padding-bottom: env(safe-area-inset-bottom, 0px); }
+/* Keep the achievement sheet's close control pinned and comfortably tappable. */
+.brea-learning.brea-sheet > button { right: 6px; top: 6px; padding: 12px; border-radius: 9999px; background: color-mix(in oklab, var(--brea-sage) 16%, var(--brea-ivory)); }
 .brea-learning h1, .brea-learning h2, .brea-learning h3 { font-family: var(--font-brea-display); font-weight: 500; letter-spacing: 0; }
 /* Reusable editorial emphasis: one meaningful word per headline in dusty rose. */
 .brea-em { color: var(--brea-rose); font-style: italic; }
