@@ -13,3 +13,4 @@
 
 - Brea research library (The Science Behind Awareness) lives in src/lib/brea/research-data.ts + src/components/brea/changes/ResearchLibrary.tsx on the breast-changes dashboard; only verified real studies, no badges/quizzes, RESEARCH_GLOSSARY extends the shared MedDecode GLOSSARY.
 - Brea main dashboards (Home, Learning Garden, Breast Changes, Find Support) share the BreaHeader from LearnPanels.tsx (BreaWordmark left, LearningProfile avatar right) with a back link below; this keeps navigation consistent and reusable for future features like Find Care.
+- Find Care keeps source-linked facilities in care-data.ts and pure combined filtering/distance helpers in care.ts; physical coordinates retain OSM provenance while regional/unverified contacts remain list-only, keeping data reviewable without runtime geocoding.

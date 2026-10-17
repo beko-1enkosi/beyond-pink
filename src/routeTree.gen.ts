@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
+import { Route as BreaFindCareRouteImport } from './routes/brea/find-care'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
 import { Route as BreaBreastChangesIndexRouteImport } from './routes/brea/breast-changes/index'
 import { Route as BreaBreastChangesKnowYourQuadrantsRouteImport } from './routes/brea/breast-changes/know-your-quadrants'
@@ -46,6 +47,11 @@ const ApiBriRoute = ApiBriRouteImport.update({
 const BreaIndexRoute = BreaIndexRouteImport.update({
   id: '/brea/',
   path: '/brea/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreaFindCareRoute = BreaFindCareRouteImport.update({
+  id: '/brea/find-care',
+  path: '/brea/find-care',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BreaHomeRoute = BreaHomeRouteImport.update({
@@ -131,6 +137,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/find-care': typeof BreaFindCareRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
   '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
@@ -151,6 +158,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/find-care': typeof BreaFindCareRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
   '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
@@ -172,6 +180,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
+  '/brea/find-care': typeof BreaFindCareRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
   '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
@@ -194,6 +203,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/api/bri'
+    | '/brea/find-care'
     | '/brea/home'
     | '/brea/'
     | '/brea/breast-changes/know-your-quadrants'
@@ -214,6 +224,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/api/bri'
+    | '/brea/find-care'
     | '/brea/home'
     | '/brea'
     | '/brea/breast-changes/know-your-quadrants'
@@ -234,6 +245,7 @@ export interface FileRouteTypes {
     | '/'
     | '/sitemap.xml'
     | '/api/bri'
+    | '/brea/find-care'
     | '/brea/home'
     | '/brea/'
     | '/brea/breast-changes/know-your-quadrants'
@@ -255,6 +267,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiBriRoute: typeof ApiBriRoute
+  BreaFindCareRoute: typeof BreaFindCareRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
   BreaBreastChangesKnowYourQuadrantsRoute: typeof BreaBreastChangesKnowYourQuadrantsRoute
@@ -300,6 +313,13 @@ declare module '@tanstack/react-router' {
       path: '/brea'
       fullPath: '/brea/'
       preLoaderRoute: typeof BreaIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/find-care': {
+      id: '/brea/find-care'
+      path: '/brea/find-care'
+      fullPath: '/brea/find-care'
+      preLoaderRoute: typeof BreaFindCareRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brea/home': {
@@ -407,6 +427,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiBriRoute: ApiBriRoute,
+  BreaFindCareRoute: BreaFindCareRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
   BreaBreastChangesKnowYourQuadrantsRoute:
