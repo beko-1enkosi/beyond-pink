@@ -31,6 +31,6 @@
 - [x] Verify clicks, hover glow, translations and fit on desktop, mobile and narrow screens.
 
 # Final visual polish
-- [ ] Reuse the exact Hero waves at section transitions without changing content or spacing.
-- [ ] Repeat statistics only while their cards are visible, with a two-second final-value pause and reduced-motion support.
-- [ ] Verify counter lifecycle and wave transitions on desktop, tablet and mobile.
+- [x] Reuse the exact Hero waves at section transitions without changing content or spacing; retain the Footer's existing boundary.
+- [x] Repeat statistics only while their cards are visible, with a two-second final-value pause and reduced-motion support.
+- [x] Verify counter lifecycle and wave transitions on desktop, tablet and mobile.
