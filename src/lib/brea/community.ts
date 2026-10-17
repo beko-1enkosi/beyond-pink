@@ -33,7 +33,7 @@ export type CommunityState = {
 function pick<T>(list: readonly T[], rand: () => number): T { return list[Math.floor(rand() * list.length)]!; }
 
 export function emptyCommunity(rand: () => number = Math.random): CommunityState {
-  return { version: 1, visitorName: pick(BOTANICAL_NAMES, rand), visitorAvatar: Math.floor(rand() * BOTANICAL_NAMES.length), posts: [], supported: [], comments: {}, hidden: [], reported: {} };
+  return { version: 1, visitorName: pick(BOTANICAL_NAMES, rand), visitorAvatar: Math.floor(rand() * BOTANICAL_NAMES.length), posts: [], reactions: {}, comments: {}, hidden: [], reported: {} };
 }
 
 export function normalizeCommunity(input: unknown, rand: () => number = Math.random): CommunityState {
@@ -73,12 +73,21 @@ export function normalizeCommunity(input: unknown, rand: () => number = Math.ran
   if (v.reported && typeof v.reported === "object") {
     for (const [id, reason] of Object.entries(v.reported)) if (typeof reason === "string") reported[id] = reason as ReportReasonId;
   }
+  const reactionIds = new Set<string>(HEART_REACTIONS.map((r) => r.id));
+  const reactions: Record<string, HeartReactionId> = {};
+  if (v.reactions && typeof v.reactions === "object") {
+    for (const [postId, reaction] of Object.entries(v.reactions)) if (typeof reaction === "string" && reactionIds.has(reaction)) reactions[postId] = reaction as HeartReactionId;
+  }
+  // Migrate the original single Support toggle: each supported post becomes a Care heart.
+  if (Array.isArray(v.supported)) {
+    for (const id of v.supported) if (typeof id === "string" && !reactions[id]) reactions[id] = "care";
+  }
   return {
     version: 1,
     visitorName: typeof v.visitorName === "string" && v.visitorName.startsWith("Anonymous") ? v.visitorName : base.visitorName,
     visitorAvatar: typeof v.visitorAvatar === "number" ? v.visitorAvatar : base.visitorAvatar,
     posts,
-    supported: Array.isArray(v.supported) ? v.supported.filter((s): s is string => typeof s === "string") : [],
+    reactions,
     comments,
     hidden: Array.isArray(v.hidden) ? v.hidden.filter((s): s is string => typeof s === "string") : [],
     reported,
