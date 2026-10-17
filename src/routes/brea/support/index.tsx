@@ -57,11 +57,11 @@ function SupportHome() {
         </article>
         <div className="mt-5 grid gap-4 sm:grid-cols-2">
           {rest.map((p) => { const Icon = icons[p.id as keyof typeof icons]; return (
-            <article key={p.id} className="flex flex-col rounded-2xl border border-brea-sage/25 bg-brea-paper p-6 shadow-brea-soft">
+            <article key={p.id} className="flex flex-col rounded-2xl border border-brea-sage/25 bg-brea-paper p-6 shadow-brea-soft transition-all duration-300 hover:-translate-y-0.5 hover:border-brea-sage/40 hover:shadow-lg focus-within:border-brea-sage-deep/50">
               <Icon aria-hidden className="h-6 w-6 text-brea-sage-deep" />
               <h2 className="mt-4 text-3xl leading-tight">{p.title}</h2>
               <p className="mb-5 mt-3 text-sm leading-relaxed text-brea-sage-deep">{p.description}</p>
-              {p.available ? <PrimaryButton asChild className="mt-auto self-start"><Link to={p.id === "connect" ? "/brea/support/community" : "/brea/support/supporting-someone"}>{p.id === "connect" ? "Visit the Garden" : "Explore Ways to Help"} <ArrowRight /></Link></PrimaryButton> : <span className="mt-auto self-start rounded-full border border-brea-sage/30 px-3 py-1 text-xs text-brea-sage-deep">Coming Soon</span>}
+              <PrimaryButton asChild className="mt-auto self-start"><Link to={p.id === "connect" ? "/brea/support/community" : "/brea/support/supporting-someone"}>{p.id === "connect" ? "Visit the Garden" : "Explore Ways to Help"} <ArrowRight /></Link></PrimaryButton>
             </article>
           ); })}
         </div>
