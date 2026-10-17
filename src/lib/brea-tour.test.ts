@@ -9,6 +9,6 @@ describe('Brea introduction boundaries', () => {
   it('contains four ordered steps with five genuine-upload slots, not invented screenshots', () => {
     expect(TOUR_STEPS.map(step => step.id)).toEqual(['01', '02', '03', '04']);
     expect(TOUR_STEPS.flatMap(step => [...step.slots])).toEqual(['brea-welcome', 'brea-pathways', 'brea-learning', 'brea-community', 'brea-find-care']);
-    expect(Object.values(BREA_SCREENSHOTS).every(slot => slot.image === undefined)).toBe(true);
+    expect(Object.values(BREA_SCREENSHOTS).every(slot => typeof slot.image === 'string' && slot.image.length > 0)).toBe(true);
   });
 });
