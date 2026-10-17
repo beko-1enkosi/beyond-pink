@@ -205,10 +205,10 @@
 @keyframes brea-bloom { from { opacity: 0; transform: scale(.8); } to { opacity: 1; transform: scale(1); } }
 @keyframes brea-confetti { 0% { opacity: 0; translate: 0 -10px; rotate: 0deg; } 12% { opacity: .85; } 100% { opacity: 0; translate: 22px 390px; rotate: 230deg; } }
 @media (max-width: 639px) {
-  .brea-sheet { top: auto; bottom: 0; left: 0; width: 100%; translate: none; transform: none; padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
+  .brea-learning.brea-sheet { top: auto; bottom: 0; left: 0; width: 100%; translate: 0 0; transform: none; padding-bottom: max(24px, env(safe-area-inset-bottom, 0px)); }
 }
 @media (min-width: 640px) {
-  .brea-glossary { top: auto; left: auto; right: 32px; bottom: 88px; transform: none; }
+  .brea-learning.brea-glossary { top: auto; left: auto; right: 32px; bottom: 88px; translate: 0 0; transform: none; }
 }
 @media (prefers-reduced-motion: reduce) {
   .brea-confetti { display: none; }
