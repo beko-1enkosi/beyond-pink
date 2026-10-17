@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useNavigate } from "@tanstack/react-router";
+import { Link as RouterLink } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { BookOpen, HeartHandshake, MapPin, ArrowRight, ArrowUpRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -103,8 +103,6 @@ function ResourceLink({ label, href }: Link) {
 
 export function Resources() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const openBrea = () => navigate({ to: "/brea" });
   return (
     <section id="resources" aria-labelledby="resources-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
       <div aria-hidden className="pointer-events-none absolute -right-28 top-28 -z-10 h-72 w-72 rounded-full bg-blush/35 blur-3xl" />
@@ -144,7 +142,7 @@ export function Resources() {
 
                 {card.cta && (
                   <div className="mt-auto pt-5">
-                    <Button variant="brea" className="h-11 w-full px-5 text-sm shadow-glow" onClick={openBrea}>{t("Find Care in Brea")}<ArrowRight aria-hidden />
+                    <Button variant="brea" asChild className="h-11 w-full px-5 text-sm shadow-glow"><RouterLink to="/how-brea-works">{t("Find Care in Brea")}<ArrowRight aria-hidden /></RouterLink>
                     </Button>
                     <p className="mt-3 text-center text-xs leading-relaxed text-muted-foreground">{t("The directory is planned, not yet available.")}</p>
                   </div>

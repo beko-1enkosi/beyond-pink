@@ -1,5 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
-import { useNavigate } from "@tanstack/react-router";
+import { Link } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { HeartHandshake, HandHeart, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -70,8 +70,6 @@ function Sprig({ className }: { className?: string }) {
 
 export function Support() {
   const { t } = useTranslation();
-  const navigate = useNavigate();
-  const openBrea = () => navigate({ to: "/brea" });
   return (
     <section id="support" aria-labelledby="support-heading" className="relative isolate">
       {/* Full-bleed photographic background */}
@@ -118,7 +116,7 @@ export function Support() {
 
         <Reveal className="mt-12 text-center md:mt-16">
           <Sprig className="mx-auto mb-5 h-7 w-14 text-sage/60" />
-          <Button variant="brea" className="h-[3.25rem] px-8 text-base shadow-glow-strong" onClick={openBrea}>{t("Find Support in Brea")}<ArrowRight aria-hidden />
+          <Button variant="brea" asChild className="h-[3.25rem] px-8 text-base shadow-glow-strong"><Link to="/how-brea-works">{t("Find Support in Brea")}<ArrowRight aria-hidden /></Link>
           </Button>
         </Reveal>
       </div>

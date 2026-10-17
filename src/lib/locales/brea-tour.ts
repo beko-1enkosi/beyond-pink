@@ -57,3 +57,7 @@ const af = [
 export const tourDictionaries: Record<string, Record<string, string>> = Object.fromEntries(
   Object.entries({ en: keys, zu, xh, st, af }).map(([language, values]) => [language, Object.fromEntries(keys.map((key, i) => [key, values[i] ?? key]))])
 );
+for (const [language, label] of Object.entries({ en: 'Skip to main content', zu: 'Yeqa uye kokuqukethwe okuyinhloko', xh: 'Tsibela kumxholo ophambili', st: 'Tlola ho ya dikahare tsa sehlooho', af: 'Slaan oor na hoofinhoud' })) {
+  const dictionary = tourDictionaries[language];
+  if (dictionary) dictionary['Skip to main content'] = label;
+}
