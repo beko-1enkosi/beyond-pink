@@ -1,0 +1,72 @@
+import { useEffect, useState } from "react";
+import { ANATOMY, BADGE_ID, LESSON_ID, LESSONS, type AnatomyId } from "./learning-data";
+export const LEARNING_KEY = "brea-learning-v1";
+const CHANGE_EVENT = "brea-learning-changed";
+export type LearningState = {
+  version: 1;
+  completed: string[];
+  badges: string[];
+  position: number;
+  started: boolean;
+  explored: AnatomyId[];
+  quizResult: number | null;
+};
+export function emptyLearning(): LearningState {
+  return { version: 1, completed: [], badges: [], position: 0, started: false, explored: [], quizResult: null };
+}
+export function normalizeLearning(input: unknown): LearningState {
+  if (!input || typeof input !== "object") return emptyLearning();
+  const value = input as Partial<LearningState>;
+  // Only implemented achievements can be earned in this version.
+  const completed = Array.isArray(value.completed) && value.completed.includes(LESSON_ID) ? [LESSON_ID] : [];
+  return {
+    version: 1,
+    completed,
+    badges: completed.length ? [BADGE_ID] : [],
+    position: typeof value.position === "number" && Number.isFinite(value.position) ? Math.max(0, Math.min(2, Math.floor(value.position))) : 0,
+    started: value.started === true,
+    explored: Array.isArray(value.explored) ? [...new Set(value.explored.filter((id) => ANATOMY.some((part) => part.id === id)))] : [],
+    quizResult: typeof value.quizResult === "number" && Number.isInteger(value.quizResult) && value.quizResult >= 0 && value.quizResult <= 3 ? value.quizResult : null,
+  };
+}
+export function readLearning(): LearningState {
+  try { return normalizeLearning(JSON.parse(window.localStorage.getItem(LEARNING_KEY) ?? "null")); }
+  catch { return emptyLearning(); }
+}
+export function completeLesson(state: LearningState): { state: LearningState; firstCompletion: boolean } {
+  const firstCompletion = !state.completed.includes(LESSON_ID);
+  return { firstCompletion, state: normalizeLearning({ ...state, completed: [...state.completed, LESSON_ID], badges: [...state.badges, BADGE_ID], position: 2, started: true }) };
+}
+export function learningSummary(state: LearningState) {
+  const completed = state.completed.filter((id) => LESSONS.some((lesson) => lesson.id === id)).length;
+  return { completed, remaining: LESSONS.length - completed, percent: completed / LESSONS.length * 100, badges: state.badges.length };
+}
+export function addExplored(state: LearningState, id: AnatomyId): LearningState {
+  return normalizeLearning({ ...state, started: true, explored: [...state.explored, id] });
+}
+export function useLearning() {
+  const [state, setState] = useState<LearningState>(emptyLearning);
+  const [name, setName] = useState("");
+  const [ready, setReady] = useState(false);
+  const [storageNotice, setStorageNotice] = useState(false);
+  useEffect(() => {
+    const load = () => { setState(readLearning()); };
+    load();
+    // Reuse onboarding’s display-name storage, not another personalization key.
+    import("./onboarding").then(({ getBreaName }) => setName(getBreaName()));
+    setReady(true);
+    window.addEventListener("storage", load);
+    window.addEventListener(CHANGE_EVENT, load);
+    return () => { window.removeEventListener("storage", load); window.removeEventListener(CHANGE_EVENT, load); };
+  }, []);
+  const update = (transform: (current: LearningState) => LearningState) => {
+    const next = normalizeLearning(transform(state));
+    setState(next);
+    try {
+      window.localStorage.setItem(LEARNING_KEY, JSON.stringify(next));
+      window.dispatchEvent(new Event(CHANGE_EVENT));
+    } catch { setStorageNotice(true); }
+    return next;
+  };
+  return { state, name, ready, update, storageNotice };
+}
