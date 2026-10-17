@@ -34,7 +34,7 @@ export function normalizeLearning(input: unknown): LearningState {
   return {
     version: 1,
     completed,
-    badges: completed.map((id) => LESSON_BADGES[id]).filter(Boolean),
+    badges: completed.map((id) => LESSON_BADGES[id]).filter((badge): badge is string => typeof badge === "string"),
     position: clampStep(value.position, 2),
     started: value.started === true,
     explored: Array.isArray(value.explored) ? [...new Set(value.explored.filter((id) => ANATOMY.some((part) => part.id === id)))] : [],
