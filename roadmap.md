@@ -13,10 +13,10 @@
 - [x] Verify flow, persistence, quiz, accessibility and mobile fit.
 
 # Brea Phase 4 — Lesson 3
-- [ ] Add cell/cancer educational data, glossary, local progress and rule tests.
-- [ ] Build interactive cell explorer, controlled growth animations and tumor comparison.
-- [ ] Integrate Lesson 3 route, dashboard/profile, Cell Detective badge and optional quiz.
-- [ ] Verify completion, resume, existing progress, accessibility and compact-screen fit.
+- [x] Add cell/cancer educational data, glossary, local progress and rule tests.
+- [x] Build interactive cell explorer, controlled growth animations and tumor comparison.
+- [x] Integrate Lesson 3 route, dashboard/profile, Cell Detective badge and optional quiz.
+- [x] Verify completion, resume, existing progress, accessibility and compact-screen fit.
 
 - [x] Add shared remembered language selection and five local dictionaries.
 - [x] Translate landing-page text and educational dialogs, excluding Bri.
