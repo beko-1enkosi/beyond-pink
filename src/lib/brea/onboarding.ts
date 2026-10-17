@@ -29,6 +29,13 @@ export const BREA_INTERESTS = [
 
 export type BreaInterestId = (typeof BREA_INTERESTS)[number]["id"];
 
+export const BREA_START_PATHS = {
+  learn: "/brea/learn",
+  changes: "/brea/breast-changes",
+  support: "/brea/support",
+  care: "/brea/find-care",
+} as const;
+
 function safeGet(key: string): string | null {
   try {
     return window.localStorage.getItem(key);
@@ -70,12 +77,31 @@ export function completeBreaOnboarding() {
   safeSet(BREA_ONBOARDED_KEY, "yes");
 }
 
-export function restartBreaDemo() {
-  try {
-    window.localStorage.removeItem(BREA_NAME_KEY);
-    window.localStorage.removeItem(BREA_INTEREST_KEY);
-    window.localStorage.removeItem(BREA_ONBOARDED_KEY);
-  } catch {
-    /* ignore */
+/** Destructive reset is opt-in; ordinary navigation and onboarding never call it. */
+export async function restartBreaDemo(confirmed = false): Promise<boolean> {
+  if (!confirmed) return false;
+  // Delete images first. A blocked/failed database deletion must not be reported
+  // as a successful fresh demo; the confirmation panel offers a retry instead.
+  if ("indexedDB" in window) {
+    const names = new Set(["brea-garden"]);
+    if (typeof window.indexedDB.databases === "function") {
+      const databases = await window.indexedDB.databases();
+      for (const db of databases) if (db.name?.startsWith("brea-")) names.add(db.name);
+    }
+    for (const name of names) {
+      await new Promise<void>((resolve, reject) => {
+        const request = window.indexedDB.deleteDatabase(name);
+        const timeout = window.setTimeout(() => reject(new Error("Close other Brea tabs and try again.")), 5000);
+        request.onsuccess = () => { window.clearTimeout(timeout); resolve(); };
+        request.onerror = () => { window.clearTimeout(timeout); reject(new Error("Brea images could not be cleared. Please try again.")); };
+      });
+    }
   }
+  for (const storage of [window.localStorage, window.sessionStorage]) {
+    const keys = Array.from({ length: storage.length }, (_, i) => storage.key(i));
+    for (const key of keys) if (key?.startsWith("brea-")) storage.removeItem(key);
+  }
+  // Refresh every mounted progress hook before the caller leaves the page.
+  window.dispatchEvent(new Event("storage"));
+  return true;
 }

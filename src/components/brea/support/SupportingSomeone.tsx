@@ -1,3 +1,4 @@
+import { BreaHomeButton } from "@/components/brea/BreaNavigation";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Check, ChevronDown, ExternalLink } from "lucide-react";
@@ -62,9 +63,9 @@ export function SupportingSomeone() {
     <LearnShell>
       <header className="flex items-center justify-between gap-3"><BreaWordmark symbolClassName="h-8 w-8" textClassName="text-2xl" /><LearningProfile state={learning} name={name} changes={changes} support={state} /></header>
       <main className="mx-auto max-w-3xl">
-        <nav aria-label="Support navigation" className="mt-6 flex flex-wrap gap-x-5">
+        <nav aria-label="Support navigation" className="mt-6 flex flex-wrap items-center gap-3">
           <LearnButton asChild className="border-0 px-0 text-xs"><Link to="/brea/support"><ArrowLeft /> Back to Find Support</Link></LearnButton>
-          <LearnButton asChild className="border-0 px-0 text-xs"><Link to="/brea/home">Brea Home</Link></LearnButton>
+          <BreaHomeButton />
         </nav>
 
         {celebrating ? (

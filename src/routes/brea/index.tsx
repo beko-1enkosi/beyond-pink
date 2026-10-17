@@ -2,9 +2,11 @@ import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Check, HeartHandshake, MapPin, Search } from "lucide-react";
 import { BreaSymbol, BreaWordmark } from "@/components/brea/BreaLogo";
+import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
   BREA_INTERESTS,
+  BREA_START_PATHS,
   completeBreaOnboarding,
   getBreaName,
   isBreaOnboarded,
@@ -157,7 +159,7 @@ function BreaOnboarding() {
     if (!interest) return;
     saveBreaInterest(interest);
     completeBreaOnboarding();
-    navigate({ to: interest === "learn" ? "/brea/learn" : "/brea/home" });
+    navigate({ to: BREA_START_PATHS[interest] });
   };
 
   const displayName = getBreaName() || name.trim();
@@ -194,9 +196,9 @@ function BreaOnboarding() {
                 Your breast health companion. A safe space to learn, explore and feel supported.
               </p>
             </div>
-            <button type="button" onClick={() => setStep("name")} className={cn(primaryButton, "mb-4 max-w-xs")}>
+            <Button variant="ghost" type="button" onClick={() => setStep("name")} className={cn(primaryButton, "mb-4 max-w-xs")}>
               Get Started <ArrowRight className="h-5 w-5" aria-hidden />
-            </button>
+            </Button>
           </div>
         </div>
       )}
@@ -206,21 +208,21 @@ function BreaOnboarding() {
           <BotanicalSprig className="pointer-events-none absolute -bottom-4 -right-4 h-28 w-28 opacity-80 sm:h-36 sm:w-36" />
           <div className="brea-fade-in mx-auto flex w-full max-w-md flex-1 flex-col">
             <div className="flex items-center justify-between">
-              <button
+              <Button variant="ghost"
                 type="button"
                 onClick={goBack}
                 aria-label="Back"
                 className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brea-charcoal/70 transition hover:bg-brea-sage/15"
               >
                 <ArrowLeft className="h-5 w-5" aria-hidden />
-              </button>
-              <button
+              </Button>
+              <Button variant="ghost"
                 type="button"
                 onClick={() => submitName(true)}
                 className="rounded-full px-4 py-2 text-sm font-medium text-brea-charcoal/60 underline-offset-4 transition hover:text-brea-charcoal hover:underline"
               >
                 Skip
-              </button>
+              </Button>
             </div>
             <div className="flex flex-1 flex-col justify-center">
               <p className="text-xs font-semibold uppercase tracking-[0.22em] text-brea-sage-deep">
@@ -252,7 +254,7 @@ function BreaOnboarding() {
                   placeholder="Your first name"
                   aria-invalid={nameError}
                   className={cn(
-                    "h-16 w-full rounded-2xl border bg-white/80 px-5 text-lg shadow-[0_8px_24px_-14px_var(--brea-sage-deep)] outline-none transition placeholder:text-brea-charcoal/40 focus:border-brea-sage-deep",
+                    "h-16 w-full rounded-2xl border bg-brea-paper/80 px-5 text-lg shadow-[0_8px_24px_-14px_var(--brea-sage-deep)] outline-none transition placeholder:text-brea-charcoal/40 focus:border-brea-sage-deep",
                     nameError ? "border-brea-blush" : "border-brea-sage/35",
                   )}
                 />
@@ -261,9 +263,9 @@ function BreaOnboarding() {
                     Please enter a name, or choose Skip to continue without one.
                   </p>
                 )}
-                <button type="submit" className={cn(primaryButton, "mt-6")}>
+                <Button variant="ghost" type="submit" className={cn(primaryButton, "mt-6")}>
                   Continue <ArrowRight className="h-5 w-5" aria-hidden />
-                </button>
+                </Button>
               </form>
             </div>
           </div>
@@ -297,36 +299,49 @@ function BreaOnboarding() {
         <div className="relative flex min-h-dvh flex-col overflow-hidden px-6 py-6">
           <BotanicalSprig className="pointer-events-none absolute -right-5 -top-4 h-24 w-24 rotate-180 opacity-60" />
           <div className="brea-fade-in mx-auto flex w-full max-w-lg flex-1 flex-col">
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={goBack}
               aria-label="Back"
               className="inline-flex h-11 w-11 items-center justify-center rounded-full text-brea-charcoal/70 transition hover:bg-brea-sage/15"
             >
               <ArrowLeft className="h-5 w-5" aria-hidden />
-            </button>
+            </Button>
             <h1 className="mt-4 font-[family-name:var(--font-brea-display)] text-4xl font-medium leading-[1.08] tracking-tight sm:text-5xl">
-              What brings you to Brea today?
+              Where would you like to <em className="brea-em">start</em>?
             </h1>
             <p className="mt-3 text-base text-brea-charcoal/75">
-              Choose what you’d like to explore first. You can always discover more later.
+              Choose one to explore first. You can discover everything else later.
             </p>
-            <div role="radiogroup" aria-label="Choose your journey" className="mt-7 grid flex-1 content-start gap-3.5">
+            <div role="radiogroup" aria-label="Choose your starting pathway" className="mt-7 grid flex-1 content-start gap-3.5">
               {BREA_INTERESTS.map((item) => {
                 const Icon = INTEREST_ICONS[item.id];
                 const selected = interest === item.id;
                 return (
-                  <button
+                  <Button variant="ghost"
                     key={item.id}
                     type="button"
                     role="radio"
                     aria-checked={selected}
+                    tabIndex={selected || (!interest && item.id === "learn") ? 0 : -1}
+                    onKeyDown={(event) => {
+                      const direction = event.key === "ArrowRight" || event.key === "ArrowDown" ? 1 : event.key === "ArrowLeft" || event.key === "ArrowUp" ? -1 : 0;
+                      if (!direction && event.key !== "Home" && event.key !== "End") return;
+                      event.preventDefault();
+                      const index = BREA_INTERESTS.findIndex((choice) => choice.id === item.id);
+                      const nextIndex = event.key === "Home" ? 0 : event.key === "End" ? BREA_INTERESTS.length - 1 : (index + direction + BREA_INTERESTS.length) % BREA_INTERESTS.length;
+                      const next = BREA_INTERESTS[nextIndex];
+                      if (!next) return;
+                      setInterest(next.id);
+                      const radios = event.currentTarget.parentElement?.querySelectorAll<HTMLButtonElement>('[role="radio"]');
+                      radios?.[nextIndex]?.focus();
+                    }}
                     onClick={() => setInterest(item.id)}
                     className={cn(
-                      "flex min-h-11 w-full items-center gap-4 rounded-[1.75rem] border p-4 pl-5 text-left transition duration-300",
+                      "flex h-auto min-h-11 w-full items-center justify-start gap-4 whitespace-normal rounded-[1.75rem] border p-4 pl-5 text-left transition duration-300",
                       selected
                         ? "border-brea-sage-deep/70 bg-brea-sage/12 shadow-[0_14px_30px_-16px_var(--brea-sage-deep)]"
-                        : "border-brea-sage/25 bg-white/60 shadow-[0_6px_18px_-14px_var(--brea-sage-deep)] hover:border-brea-sage/50 hover:bg-white/80",
+                        : "border-brea-sage/25 bg-brea-paper/60 shadow-[0_6px_18px_-14px_var(--brea-sage-deep)] hover:border-brea-sage/50 hover:bg-brea-paper/80",
                     )}
                   >
                     <span
@@ -356,18 +371,18 @@ function BreaOnboarding() {
                     >
                       <Check className="h-3.5 w-3.5" aria-hidden />
                     </span>
-                  </button>
+                  </Button>
                 );
               })}
             </div>
-            <button
+            <Button variant="ghost"
               type="button"
               onClick={finish}
               disabled={!interest}
               className={cn(primaryButton, "mb-4 mt-6 disabled:cursor-not-allowed disabled:opacity-40 disabled:shadow-none")}
             >
               Continue <ArrowRight className="h-5 w-5" aria-hidden />
-            </button>
+            </Button>
           </div>
         </div>
       )}

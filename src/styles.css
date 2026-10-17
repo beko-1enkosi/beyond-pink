@@ -295,3 +295,19 @@
 .brea-care-type { color: var(--brea-charcoal); background: color-mix(in oklab, var(--care-marker) 12%, var(--brea-cream)); border-color: color-mix(in oklab, var(--care-marker) 35%, var(--brea-cream)); }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .brea-care-card:hover { box-shadow: var(--shadow-brea-lift-hover-v); transform: translateY(-2px); } }
 :root { --brea-skin-1: #F3D9C6; --brea-skin-2: #D9A77F; --brea-skin-3: #A86F4C; --brea-skin-4: #6B4330; }
+
+/* Shared Brea navigation only: readable capsule states without feature-control changes. */
+.brea-nav-capsule {
+  min-height: 44px; height: auto; max-width: 100%; padding: 10px 20px;
+  border-radius: 999px; border: 1px solid color-mix(in oklab, var(--brea-rose) 55%, var(--brea-ivory));
+  background: color-mix(in oklab, var(--brea-blush) 24%, var(--brea-ivory)); color: var(--brea-rose-deep);
+  font-family: var(--font-brea-body); font-size: 14px; font-weight: 500; line-height: 1.4; white-space: normal;
+  box-shadow: var(--shadow-brea-soft-v); transition: background .2s, color .2s, transform .2s, box-shadow .2s;
+}
+.brea-nav-capsule:hover { background: color-mix(in oklab, var(--brea-blush) 40%, var(--brea-ivory)); color: var(--brea-rose-deep); box-shadow: var(--shadow-brea-lift-v); }
+.brea-nav-capsule:active { background: color-mix(in oklab, var(--brea-blush) 48%, var(--brea-ivory)); color: var(--brea-rose-deep); }
+.brea-nav-capsule:focus-visible { outline: 2px solid var(--brea-rose-deep); outline-offset: 3px; }
+.brea-nav-filled { background: var(--brea-rose); border-color: var(--brea-rose); color: var(--brea-paper); }
+.brea-nav-filled:hover, .brea-nav-filled:active { background: var(--brea-rose-deep); border-color: var(--brea-rose-deep); color: var(--brea-paper); }
+@media (hover: hover) and (prefers-reduced-motion: no-preference) { .brea-nav-capsule:hover { transform: translateY(-2px); } }
+@media (prefers-reduced-motion: reduce) { .brea-nav-capsule { transition: none; } }
