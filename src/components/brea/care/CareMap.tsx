@@ -30,7 +30,8 @@ export function CareMap({ facilities, selected, location, focusRequest, onSelect
     void import("leaflet").then((module) => {
       if (cancelled || !container.current) return;
       const L = module.default;
-      instance = L.map(container.current, { scrollWheelZoom: false, zoomAnimation: !window.matchMedia("(prefers-reduced-motion: reduce)").matches }).fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5 });
+      instance = L.map(container.current, { zoomControl: false, scrollWheelZoom: false, zoomAnimation: !window.matchMedia("(prefers-reduced-motion: reduce)").matches }).fitBounds([[-35, 16], [-22, 33]], { padding: [10, 10], maxZoom: 5 });
+      L.control.zoom({ position: "bottomleft" }).addTo(instance);
       map.current = instance;
       const tiles = L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { maxZoom: 19, attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap</a> contributors' });
       tiles.on("tileerror", () => { if (!cancelled) setTileFailed(true); });
