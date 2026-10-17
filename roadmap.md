@@ -70,3 +70,8 @@
 - [x] Build Lesson 5: mammogram walkthrough, findings explorer, ultrasound walkthrough, comparison, screening vs diagnostic, results/BI-RADS, SA context.
 - [x] Integrate route, dashboard/profile, five-badge responsive display and all-complete celebration.
 - [x] Verify persistence, personalization, quiz, accessibility, reduced motion and mobile fit.
+
+# Brea profile simplification
+- [x] Remove the repeated completed-lesson lists and hide "Still to explore" when nothing is outstanding.
+- [x] Keep counts, bars, badges and descriptions; keep the sheet scrollable with a pinned, tappable close control.
+- [x] Verify full and partial progress at phone and desktop sizes.
