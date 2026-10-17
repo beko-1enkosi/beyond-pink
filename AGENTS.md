@@ -24,6 +24,7 @@ Section boundaries reuse SectionWaves, extracted unchanged from Hero; absolute p
 About counters use a per-number visibility lifecycle hook with cancellable frames and pause timers; this prevents tall mobile statistics groups from starting offscreen counters and releases animation work on exit.
 Homepage sharing metadata and canonical live only in the leaf route head; its shared image URL resolves the optimised approved-photo asset pointer against the canonical origin, keeping crawlers on a single absolute public image without altering visible content.
 Brea lives under src/routes/brea/ as folder routes (index.tsx = onboarding, home.tsx = home); a flat brea.tsx plus brea.home.tsx makes brea a layout parent and breaks /brea/home. Brea is English-only, outside the landing LanguageProvider, with its own tokens (--brea-*) in src/styles.css and demo personalization (name, interest, onboarded flag) in src/lib/brea/onboarding.ts via localStorage only.
+Brea navigation uses shared capsule controls in BreaNavigation; confirmed reset deletes Brea-prefixed browser records and image databases, refreshes mounted state and reloads onboarding, preventing stale hooks from restoring old achievements while ordinary navigation preserves storage.
 
 Subdirectories have their own AGENTS.md (e.g. src/lib/brea/) to read before changing files there.
 Find Care uses browser-safe curated facility data and pure filtering/distance helpers, with Leaflet imported inside an effect and ephemeral location state; this avoids SSR browser imports, repeat geocoding and location persistence.

@@ -149,10 +149,10 @@ describe("Brea learning rules", () => {
     for (const part of ANATOMY) state = addExplored(addExplored(state, part.id), part.id);
     expect(state.explored).toHaveLength(8);
   });
-  it("keeps learning progress when onboarding is restarted", () => {
+  it("keeps learning progress when reset is not confirmed", async () => {
     const state = completeLesson(emptyLearning()).state;
     localStorage.setItem(LEARNING_KEY, JSON.stringify(state));
-    restartBreaDemo();
+    expect(await restartBreaDemo()).toBe(false);
     expect(readLearning()).toEqual(state);
   });
   it("restores bounded lesson position and progress from storage", () => {
