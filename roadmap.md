@@ -1,4 +1,8 @@
 # Landing-page languages
+# Bri — Intelligence and conversations
+- [ ] Broaden general educational conversations and update verified Brea demo knowledge and outdated descriptions.
+- [ ] Preserve personal medical safety, privacy, model, rate limits and existing chat features.
+- [ ] Test all six requested questions and follow-up context through Bri.
 # BeyondPink Phase 16.1 — How Brea Works refinements
 - [x] Replace the five phone placeholders with the real uploaded Brea screenshots.
 - [x] Present "How Brea Works" as a readable blush current-page capsule with book icon, 44px target and clear hover/focus states.
