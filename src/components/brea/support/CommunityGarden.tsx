@@ -319,12 +319,7 @@ export function CommunityGarden() {
   const [reportTarget, setReportTarget] = useState<{ id: string; kind: "post" | "comment" } | null>(null);
   const feed = toFeed(state);
 
-  const publish = (text: string, imageId?: string, imageAlt?: string, blob?: Blob) => {
-    if (blob && !imageId) {
-      // IndexedDB unavailable: keep an in-memory object URL for this session only.
-      const tempId = `mem-${Date.now().toString(36)}`;
-      void saveImage(tempId, blob);
-    }
+  const publish = (text: string, imageId?: string, imageAlt?: string) => {
     update((s) => makePost(s, text, imageId, imageAlt));
     window.scrollTo({ top: 0 });
   };

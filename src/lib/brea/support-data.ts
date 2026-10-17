@@ -57,5 +57,5 @@ export const SUPPORT_GUIDES: readonly SupportGuide[] = [
 export const SUPPORT_PATHWAYS = [
   { id: "looking", title: "I’m Looking for Support", description: "Find gentle guidance for wherever you are in your journey.", available: true },
   { id: "supporting", title: "I’m Supporting Someone", description: "Discover ways to listen, care and show up for someone.", available: true },
-  { id: "connect", title: "I Want to Connect", description: "Find connection through shared experiences and supportive community.", available: false },
+  { id: "connect", title: "I Want to Connect", description: "Find connection through shared experiences and supportive community.", available: true },
 ] as const;
