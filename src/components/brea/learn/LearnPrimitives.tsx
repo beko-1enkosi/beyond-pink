@@ -2,7 +2,7 @@ import type { ReactNode } from "react";
 import { Button, type ButtonProps } from "@/components/ui/button";
 import { BreaSymbol } from "@/components/brea/BreaLogo";
 import { cn } from "@/lib/utils";
-import { DISCLAIMER } from "@/lib/brea/learning-data";
+import { BotanicalBackdrop, BreaWaves, DisclaimerCapsule } from "./BreaDecor";
 export function LearnButton({ className, variant = "ghost", ...props }: ButtonProps) {
   return <Button variant={variant} className={cn("min-h-11 h-auto rounded-full border border-brea-sage/30 px-5 py-3 whitespace-normal text-brea-sage-deep hover:bg-brea-sage/15 focus-visible:ring-brea-sage-deep", className)} {...props} />;
 }
@@ -10,7 +10,7 @@ export function PrimaryButton(props: ButtonProps) {
   return <LearnButton {...props} className={cn("bg-brea-sage-deep text-brea-ivory hover:bg-brea-sage-deep/90 border-brea-sage-deep shadow-brea-soft", props.className)} />;
 }
 export function LearnShell({ children }: { children: ReactNode }) {
-  return <div lang="en" className="brea-learning min-h-dvh bg-brea-ivory text-brea-charcoal font-[family-name:var(--font-brea-body)]"><div className="mx-auto max-w-5xl px-5 pb-32 pt-5 sm:px-8 sm:pt-8">{children}<footer className="mt-12 border-t border-brea-sage/20 pt-5 text-xs leading-relaxed text-brea-sage-deep">{DISCLAIMER}</footer></div></div>;
+  return <div lang="en" className="brea-learning relative min-h-dvh bg-brea-ivory text-brea-charcoal font-[family-name:var(--font-brea-body)]"><BotanicalBackdrop /><div className="relative z-10 mx-auto max-w-5xl px-5 pb-32 pt-5 sm:px-8 sm:pt-8">{children}<footer className="mt-12"><BreaWaves className="mb-5" /><DisclaimerCapsule /></footer></div></div>;
 }
 export function ProgressBar({ percent }: { percent: number }) {
   return <progress className="brea-progress mt-3 h-1.5 w-full overflow-hidden rounded-full" value={percent} max={100} aria-label="Learning progress" />;
