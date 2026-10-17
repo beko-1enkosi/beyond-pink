@@ -47,7 +47,7 @@ function TourPage() {
           <span className="font-serif text-2xl">Beyond<span className="text-tour-rose">Pink</span></span>
         </Link>
         <Link to="/how-brea-works" aria-current="page" className="tour-current-page"><BookOpen className="tour-current-page-icon" aria-hidden="true" />{t("How Brea Works")}</Link>
-        <div className="flex flex-wrap items-center gap-2"><LanguageSelect className="min-h-11" /><Button variant="ghost" asChild className="tour-skip"><Link to="/brea">{t("Skip Intro")}</Link></Button><LaunchButton /></div>
+        <div className="flex flex-wrap items-center gap-2"><LanguageSelect className="min-h-11 tour-language" /><Button variant="ghost" asChild className="tour-skip"><Link to="/brea">{t("Skip Intro")}</Link></Button><LaunchButton /></div>
       </nav>
     </header>
     <main id="tour-main">
