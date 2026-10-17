@@ -2,12 +2,12 @@ import { useEffect, useRef, useState, type ReactNode } from "react";
 
 export function TourReveal({ children, className = "" }: { children: ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
-  const [visible, setVisible] = useState(true);
+  const [visible, setVisible] = useState(false);
   useEffect(() => {
     const node = ref.current;
     const motion = window.matchMedia("(prefers-reduced-motion: reduce)");
-    if (!node || motion.matches || !("IntersectionObserver" in window)) return;
-    if (node.getBoundingClientRect().top > window.innerHeight) setVisible(false);
+    if (!node) return;
+    if (motion.matches || !("IntersectionObserver" in window)) { setVisible(true); return; }
     const observer = new IntersectionObserver(([entry]) => {
       if (entry?.isIntersecting) { setVisible(true); observer.disconnect(); }
     }, { threshold: 0.08 });
@@ -20,10 +20,21 @@ export function TourReveal({ children, className = "" }: { children: ReactNode; 
 }
 
 export function BotanicalSketch({ className = "" }: { className?: string }) {
-  return <svg viewBox="0 0 180 210" fill="none" aria-hidden="true" className={`tour-botanical ${className}`}>
+  const ref = useRef<SVGSVGElement>(null);
+  const [bloomed, setBloomed] = useState(false);
+  useEffect(() => {
+    const node = ref.current;
+    if (!node || typeof IntersectionObserver === "undefined") return;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) { setBloomed(true); observer.disconnect(); }
+    }, { threshold: 0.1 });
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+  return <svg ref={ref} data-bloomed={bloomed} viewBox="0 0 180 210" fill="none" aria-hidden="true" className={`tour-botanical ${className}`}>
     <path d="M48 200 C100 161 73 118 101 59 C107 44 116 33 133 20 M89 107 C111 102 128 82 137 62 M70 152 C46 136 33 122 24 104" stroke="var(--sage)" strokeWidth="1.7" strokeLinecap="round" />
     <path d="M84 120 C59 116 52 99 48 83 C68 84 83 103 84 120Z M99 76 C117 73 125 58 126 42 C107 49 103 61 99 76Z M70 153 C93 155 108 147 117 132 C97 129 81 139 70 153Z M115 89 C143 97 156 85 161 71 C140 70 122 78 115 89Z" fill="var(--sage)" fillOpacity=".24" stroke="var(--olive)" strokeWidth=".8" />
-    <g stroke="var(--brea-rose)" strokeWidth="1.2" transform="translate(132 24)">
+    <g className="tour-flower" stroke="var(--brea-rose)" strokeWidth="1.2" transform="translate(132 24)">
       <path d="M0 0 C-14 -1 -17 -16 -8 -16 C-3 -17 0 -8 0 0 C2 -15 14 -19 17 -11 C20 -4 7 0 0 0 C16 3 19 13 11 16 C4 19 0 7 0 0 C-1 15 -12 19 -16 12 C-21 4 -7 0 0 0Z" fill="var(--blush)" />
       <circle r="2.5" fill="var(--brea-gold)" />
     </g>
