@@ -39,17 +39,6 @@ export function BotanicalBackdrop() {
   );
 }
 
-/** Gentle layered wave divider in blush, sage and muted olive-beige. */
-export function BreaWaves({ className }: { className?: string }) {
-  return (
-    <svg aria-hidden="true" viewBox="0 0 1440 90" preserveAspectRatio="none" className={cn("pointer-events-none block h-10 w-full sm:h-12", className)}>
-      <path d="M0 45 C240 15 420 75 720 50 C1000 28 1200 70 1440 40 L1440 90 L0 90Z" fill="var(--brea-blush)" opacity="0.35" />
-      <path d="M0 60 C260 38 480 80 760 62 C1040 46 1220 78 1440 56 L1440 90 L0 90Z" fill="var(--brea-sage)" opacity="0.3" />
-      <path d="M0 72 C300 56 520 84 800 70 C1080 58 1260 82 1440 70 L1440 90 L0 90Z" fill="var(--brea-gold)" opacity="0.18" />
-      <path d="M0 52 C300 30 520 72 800 54" stroke="var(--brea-sage-deep)" strokeWidth="1.2" fill="none" opacity="0.25" />
-    </svg>
-  );
-}
 
 /** Soft pale-yellow medical information capsule shown near the bottom of Brea screens. */
 export function DisclaimerCapsule({ className }: { className?: string }) {

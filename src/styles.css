@@ -52,6 +52,7 @@
   --color-brea-gold: var(--brea-gold);
   --color-brea-anatomy: var(--brea-anatomy);
   --color-brea-rose: var(--brea-rose);
+  --color-brea-rose-deep: var(--brea-rose-deep);
   --shadow-brea-soft: var(--shadow-brea-soft-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
@@ -86,6 +87,7 @@
   --brea-gold: oklch(0.76 0.075 86);
   --brea-anatomy: oklch(0.905 0.032 15);
   --brea-rose: oklch(0.552 0.122 356); /* #B65F7B editorial dusty rose */
+  --brea-rose-deep: #A64D6E; /* darker dusty rose for initials/text on blush */
   --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
 
   --background: var(--ivory);

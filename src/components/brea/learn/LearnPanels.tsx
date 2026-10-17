@@ -6,7 +6,7 @@ import { GLOSSARY, findGlossaryTerm, LESSON_ID, LESSON2_ID, LESSON3_ID, LESSON4_
 import { learningSummary, type LearningState } from "@/lib/brea/learning";
 import { AnatomyBadge, HormoneBadge, CellBadge, AdvocateBadge, ScreeningBadge, LearnButton, PrimaryButton, ProgressBar } from "./LearnPrimitives";
 export function Avatar({ name }: { name: string }) {
-  return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brea-sage/30 bg-brea-sage/20 text-brea-sage-deep">{name ? Array.from(name)[0]?.toUpperCase() : <UserRound className="h-5 w-5" />}</span>;
+  return <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-brea-rose/40 bg-brea-blush/40 text-brea-rose-deep shadow-brea-soft" aria-hidden={!name}>{name ? <span className="font-[family-name:var(--font-brea-display)] text-lg italic leading-none">{Array.from(name)[0]?.toUpperCase()}</span> : <UserRound className="h-5 w-5 text-brea-rose-deep/80" />}</span>;
 }
 export function LearningProfile({ state, name }: { state: LearningState; name: string }) {
   const summary = learningSummary(state);
