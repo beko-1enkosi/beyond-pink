@@ -79,8 +79,8 @@ export function About() {
       <div aria-hidden className="pointer-events-none absolute -left-20 bottom-40 -z-10 h-64 w-64 rounded-full bg-blush/40 blur-3xl" />
 
       <div className="mx-auto max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="grid items-center gap-12 md:grid-cols-[1.1fr_1fr] lg:gap-16">
-          <Reveal>
+        <div className="grid items-center gap-12 md:grid-cols-[1fr_1.1fr] lg:gap-16">
+          <Reveal className="md:order-2">
             <p className="flex items-center gap-2 text-[0.7rem] font-medium uppercase tracking-[0.22em] text-muted-foreground sm:text-xs sm:tracking-[0.28em]">
               <span className="h-px w-8 bg-sage" aria-hidden />{t("About BeyondPink")}</p>
             <h2 id="about-heading" className="mt-4 text-4xl leading-[1.05] tracking-tight text-foreground sm:text-5xl lg:text-[3.5rem]">{t("Because Awareness Is Only")} <span className="italic text-rose">{t("the Beginning.")}</span>
@@ -106,7 +106,7 @@ export function About() {
             </ul>
           </Reveal>
 
-          <Reveal delay={150} className="relative mx-auto w-full max-w-md md:max-w-none">
+          <Reveal delay={150} className="relative mx-auto w-full max-w-md md:order-1 md:max-w-none">
             <Leaf className="absolute -left-4 -top-6 z-10 h-14 w-28 text-sage" />
             <div aria-hidden className="absolute -bottom-3 -left-3 h-full w-full border border-sage/60" style={{ borderRadius: FRAME_RADIUS }} />
             <div className="relative aspect-[4/5] w-full overflow-hidden bg-accent shadow-soft" style={{ borderRadius: FRAME_RADIUS }}>
