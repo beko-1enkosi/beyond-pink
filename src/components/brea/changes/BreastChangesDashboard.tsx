@@ -7,6 +7,7 @@ import { LearningProfile } from "@/components/brea/learn/LearnPanels";
 import { useLearning } from "@/lib/brea/learning";
 import { changesSummary, useChanges } from "@/lib/brea/changes";
 import { CHANGES_LESSON1_ID, CHANGES_LESSON2_ID } from "@/lib/brea/changes-data";
+import { ResearchLibrary } from "@/components/brea/changes/ResearchLibrary";
 import { isBreaOnboarded } from "@/lib/brea/onboarding";
 
 function BotanicalComposition() {
