@@ -14,6 +14,7 @@ import {
 } from "@/lib/brea/onboarding";
 
 export const Route = createFileRoute("/brea/")({
+  staticData: { sitemap: false },
   head: () => ({
     meta: [
       { title: "Brea | Your Breast Health Companion" },

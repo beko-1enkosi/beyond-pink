@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreastsAndHormones } from "@/components/brea/learn/BreastsAndHormones";
 export const Route = createFileRoute("/brea/learn/breasts-and-hormones")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Breasts & Hormones | Brea Lesson 02" },
     { name: "description", content: "A guided Brea lesson exploring how hormones influence breast development, natural changes and lactation, with an interactive Hormone Garden and life-stage timeline." },

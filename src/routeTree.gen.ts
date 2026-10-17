@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
@@ -30,6 +31,11 @@ import { Route as BreaSupportSupportingSomeoneRouteImport } from './routes/brea/
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBriRoute = ApiBriRouteImport.update({
@@ -123,6 +129,7 @@ const BreaSupportSupportingSomeoneRoute =
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
@@ -142,6 +149,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
@@ -162,6 +170,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
@@ -183,6 +192,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/sitemap.xml'
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
@@ -202,6 +212,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/sitemap.xml'
     | '/api/bri'
     | '/brea/home'
     | '/brea'
@@ -221,6 +232,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/sitemap.xml'
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
@@ -241,6 +253,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   ApiBriRoute: typeof ApiBriRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
@@ -266,6 +279,13 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/bri': {
@@ -385,6 +405,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   ApiBriRoute: ApiBriRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,

@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { ScreeningLesson } from "@/components/brea/learn/ScreeningLesson";
 export const Route = createFileRoute("/brea/learn/mammograms-ultrasounds-screening")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Mammograms, Ultrasounds & Screening | Brea Lesson 5" },
     { name: "description", content: "Understand how mammograms and breast ultrasounds work, what they can reveal and what to expect during an appointment." },

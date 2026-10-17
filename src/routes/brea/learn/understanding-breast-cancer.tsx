@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { UnderstandingBreastCancer } from "@/components/brea/learn/UnderstandingBreastCancer";
 export const Route = createFileRoute("/brea/learn/understanding-breast-cancer")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Understanding Breast Cancer | Brea Lesson 04" },
     { name: "description", content: "Explore where breast cancer begins, cancer characteristics, risk factors and the journey toward professional diagnosis and care in Brea’s interactive Lesson 4." },

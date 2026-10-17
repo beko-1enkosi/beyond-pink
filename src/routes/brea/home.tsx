@@ -9,6 +9,7 @@ import { useChanges } from "@/lib/brea/changes";
 import { useSupport } from "@/lib/brea/support";
 import { BREA_INTERESTS, getBreaInterest, isBreaOnboarded, restartBreaDemo } from "@/lib/brea/onboarding";
 export const Route = createFileRoute("/brea/home")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "Explore Brea | Your Breast Health Companion" },
     { name: "description", content: "Your personalized Brea overview: explore breast-health learning and upcoming support and care pathways." },
