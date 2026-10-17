@@ -9,7 +9,7 @@ export function BreastIllustration({ inside = true, selected, onSelect }: { insi
   const colour = (id: AnatomyId, normal: string) => selected === id ? "var(--brea-sage-deep)" : normal;
   return <svg viewBox="0 0 440 390" className="mx-auto block w-full max-w-lg" role="img" aria-label={inside ? "Simplified side-view breast anatomy, with nearby underarm lymph nodes above the breast" : "External side view of a breast"}>
     <path d="M95 51 C111 104 109 170 107 230 L105 337" fill="none" stroke="var(--brea-sage)" strokeWidth="18" opacity=".22" />
-    <path d="M119 110 C192 92 269 109 296 168 C316 200 321 221 340 234 L359 238 Q374 247 358 253 L339 256 C308 287 272 326 206 332 C159 337 124 324 115 311 Z" fill="var(--brea-anatomy)" stroke="var(--brea-sage)" strokeWidth="2" />
+    <path d="M119 110 C192 92 269 109 296 168 C316 200 321 221 340 234 L359 238 Q374 247 358 253 L339 256 C308 287 272 326 206 332 C159 337 124 324 115 311 Z" fill="var(--brea-anatomy)" stroke={colour("tissue", "var(--brea-sage)")} strokeWidth={selected === "tissue" ? 5 : 2} />
     {inside && <g className="brea-fade-in">
       <path d="M124 121 C176 104 265 119 294 174 L322 238 C302 284 257 319 199 322 L122 308 Z" fill={colour("fat", "var(--brea-anatomy)")} opacity=".6" />
       <path d="M125 138 Q225 155 304 217 M125 208 Q220 202 305 237 M122 274 Q202 267 300 253 M139 318 Q180 281 192 128" fill="none" stroke={colour("connective", "var(--brea-sage)")} strokeWidth="2" strokeDasharray="4 5" opacity=".65" />
