@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import { createRoot, type Root } from "react-dom/client";
 import type { Map as LeafletMap, Marker as LeafletMarker } from "leaflet";
 import type { CareFacility } from "@/lib/brea/care-data";
 import { CARE_TYPES } from "@/lib/brea/care-data";
@@ -11,6 +12,7 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
   const container = useRef<HTMLDivElement>(null);
   const map = useRef<LeafletMap | null>(null);
   const markers = useRef(new Map<string, LeafletMarker>());
+  const popupRoots = useRef<Root[]>([]);
   const callbacks = useRef(onSelect);
   callbacks.current = onSelect;
   const [status, setStatus] = useState<"loading" | "ready" | "failed">("loading");
@@ -34,7 +36,7 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
       observer.observe(container.current);
       setStatus("ready");
     }).catch(() => { if (!cancelled) setStatus("failed"); });
-    return () => { cancelled = true; observer?.disconnect(); instance?.remove(); map.current = null; markers.current.clear(); };
+    return () => { cancelled = true; observer?.disconnect(); instance?.remove(); map.current = null; markers.current.clear(); popupRoots.current.forEach((root) => root.unmount()); popupRoots.current = []; };
   }, [attempt]);
 
   useEffect(() => {
@@ -46,21 +48,21 @@ export function CareMap({ facilities, selected, location, onSelect }: Props) {
       const L = module.default;
       markers.current.forEach((marker) => marker.remove());
       markers.current.clear();
+      popupRoots.current.forEach((root) => root.unmount());
+      popupRoots.current = [];
       facilities.forEach((facility) => {
         if (!facility.coordinates) return;
         const icon = L.divIcon({ className: `brea-care-pin brea-care-pin-${facility.type}`, html: '<span aria-hidden="true"></span>', iconSize: [30, 36], iconAnchor: [15, 36], popupAnchor: [0, -36] });
         const marker = L.marker([facility.coordinates[0], facility.coordinates[1]], { icon, title: facility.name, alt: facility.name, keyboard: true });
         const content = document.createElement("div");
         content.className = "brea-care-popup";
-        const heading = document.createElement("strong"); heading.textContent = facility.name;
-        const label = document.createElement("p"); label.textContent = `${CARE_TYPES[facility.type]} · ${facility.city}`;
-        const description = document.createElement("p"); description.textContent = facility.description;
-        const button = document.createElement("button"); button.type = "button"; button.textContent = "View Details";
-        button.addEventListener("click", () => callbacks.current(facility.id, true));
-        content.append(heading, label, description, button);
+        const root = createRoot(content);
+        popupRoots.current.push(root);
+        root.render(<><strong>{facility.name}</strong><p>{CARE_TYPES[facility.type]} · {facility.city}</p><p>{facility.description}</p><LearnButton onClick={() => callbacks.current(facility.id, true)} className="bg-brea-sage-deep px-3 py-2 text-xs text-brea-ivory hover:bg-brea-sage-deeper hover:text-brea-ivory">View Details</LearnButton></>);
         marker.bindPopup(content, { maxWidth: 270, autoPan: true }).addTo(instance);
         marker.on("click", () => callbacks.current(facility.id, false));
         markers.current.set(facility.id, marker);
+        marker.getElement()?.classList.toggle("brea-care-pin-selected", facility.id === selected);
       });
       if (location) instance.setView([location.latitude, location.longitude], 7, { animate: false });
       else if (facilities.length === 14) instance.setView([-28.5, 25], 5, { animate: false });
