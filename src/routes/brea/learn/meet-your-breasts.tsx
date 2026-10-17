@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { MeetYourBreasts } from "@/components/brea/learn/MeetYourBreasts";
 export const Route = createFileRoute("/brea/learn/meet-your-breasts")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Meet Your Breasts | Brea Lesson 01" },
     { name: "description", content: "A guided Brea lesson with a layered breast anatomy explorer, curated MedDecode glossary and optional three-question quiz." },

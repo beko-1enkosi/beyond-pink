@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { KnowYourQuadrants } from "@/components/brea/changes/KnowYourQuadrants";
 export const Route = createFileRoute("/brea/breast-changes/know-your-quadrants")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Know Your Breast Quadrants | Brea" },
     { name: "description", content: "A gentle, interactive guide to the four breast quadrants and becoming familiar with your body, with Brea." },

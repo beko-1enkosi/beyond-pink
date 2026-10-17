@@ -10,6 +10,7 @@ import { useSupport } from "@/lib/brea/support";
 import { SUPPORT_PATHWAYS } from "@/lib/brea/support-data";
 
 export const Route = createFileRoute("/brea/support/")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Find Support | Brea" },
     { name: "description", content: "You are not alone. Explore gentle, educational support guidance with Brea for every part of a breast-health journey." },

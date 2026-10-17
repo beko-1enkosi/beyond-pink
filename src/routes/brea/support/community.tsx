@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { CommunityGarden } from "@/components/brea/support/CommunityGarden";
 
 export const Route = createFileRoute("/brea/support/community")({
+  staticData: { sitemap: false },
   head: () => ({ meta: [
     { title: "The Brea Garden | Brea" },
     { name: "description", content: "A welcoming, pseudonymous community demo where people share experiences, offer encouragement and feel connected." },

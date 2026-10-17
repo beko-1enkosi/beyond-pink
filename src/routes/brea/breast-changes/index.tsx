@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { BreastChangesDashboard } from "@/components/brea/changes/BreastChangesDashboard";
 export const Route = createFileRoute("/brea/breast-changes/")({
+  staticData: { sitemap: true },
   head: () => ({ meta: [
     { title: "Understand Your Breast Changes | Brea" },
     { name: "description", content: "Get to know what's normal for your body, what changes to notice and when to seek care, with Brea." },
