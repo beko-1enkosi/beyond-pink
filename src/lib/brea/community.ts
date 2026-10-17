@@ -79,8 +79,9 @@ export function normalizeCommunity(input: unknown, rand: () => number = Math.ran
     for (const [postId, reaction] of Object.entries(v.reactions)) if (typeof reaction === "string" && reactionIds.has(reaction)) reactions[postId] = reaction as HeartReactionId;
   }
   // Migrate the original single Support toggle: each supported post becomes a Care heart.
-  if (Array.isArray(v.supported)) {
-    for (const id of v.supported) if (typeof id === "string" && !reactions[id]) reactions[id] = "care";
+  const legacySupported = (v as { supported?: unknown }).supported;
+  if (Array.isArray(legacySupported)) {
+    for (const id of legacySupported) if (typeof id === "string" && !reactions[id]) reactions[id] = "care";
   }
   return {
     version: 1,
@@ -109,9 +110,12 @@ export function makePost(state: CommunityState, text: string, imageId?: string, 
   return normalizeCommunity({ ...state, posts: [post, ...state.posts] });
 }
 
-export function toggleSupport(state: CommunityState, postId: string): CommunityState {
-  const supported = state.supported.includes(postId) ? state.supported.filter((id) => id !== postId) : [...state.supported, postId];
-  return normalizeCommunity({ ...state, supported });
+/** Set, change or clear (null) the visitor's heart reaction on a post — one active reaction per post. */
+export function setReaction(state: CommunityState, postId: string, reaction: HeartReactionId | null): CommunityState {
+  const reactions = { ...state.reactions };
+  if (reaction === null) delete reactions[postId];
+  else reactions[postId] = reaction;
+  return normalizeCommunity({ ...state, reactions });
 }
 
 export function addComment(state: CommunityState, postId: string, text: string): CommunityState {
@@ -127,7 +131,9 @@ export function reportItem(state: CommunityState, id: string, reason: ReportReas
 export function deletePost(state: CommunityState, postId: string): CommunityState {
   const comments = { ...state.comments };
   delete comments[postId];
-  return normalizeCommunity({ ...state, posts: state.posts.filter((p) => p.id !== postId), comments, supported: state.supported.filter((id) => id !== postId), hidden: state.hidden.filter((id) => id !== postId) });
+  const reactions = { ...state.reactions };
+  delete reactions[postId];
+  return normalizeCommunity({ ...state, posts: state.posts.filter((p) => p.id !== postId), comments, reactions, hidden: state.hidden.filter((id) => id !== postId) });
 }
 
 export function useCommunity() {
