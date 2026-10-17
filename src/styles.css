@@ -440,5 +440,15 @@
   .tour-closing-botanical { width: 60px; height: 90px; top: 5px; left: 5px; opacity: .5; }
   .tour-connector-short { height: 100px; margin: 0 auto; }
 }
-@media (max-width: 359px) { .tour-phone-pair { flex-direction: column; align-items: center; gap: 24px; } .tour-phone-pair .tour-phone-figure { width: 190px; } .tour-phone-pair .tour-phone-figure:last-of-type { transform: rotate(3deg); } }
+@media (max-width: 359px) {
+  .tour-phone-pair { flex-direction: column; align-items: center; gap: 24px; }
+  .tour-phone-pair .tour-phone-figure { width: 190px; }
+  .tour-phone-pair .tour-phone-figure:last-of-type { transform: rotate(3deg); }
+  /* Narrow phones: every navbar control stays on one readable row. */
+  .tour-navigation { gap: 4px; padding-left: 12px; padding-right: 12px; }
+  .tour-navigation > div { gap: 5px; }
+  .tour-navigation .tour-button { padding: 9px 12px; font-size: 13px; }
+  .tour-skip { padding: 9px 12px; font-size: 13px; }
+  .tour-language { padding-left: 8px; padding-right: 8px; font-size: 13px; }
+}
 @media (prefers-reduced-motion: reduce) { .tour-reveal, .tour-reveal[data-visible="false"] { opacity: 1; translate: none; transition: none; } .tour-reveal[data-visible="true"] .tour-drawn { animation: none; stroke-dashoffset: 0; } }
