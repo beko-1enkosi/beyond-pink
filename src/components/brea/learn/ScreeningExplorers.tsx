@@ -42,7 +42,7 @@ export function ScreeningIntro() {
 /* Four-step mammogram appointment walkthrough. */
 export function MammogramWalkthrough() {
   const [step, setStep] = useState(0);
-  const current = MAMMOGRAM_STEPS[step];
+  const current = MAMMOGRAM_STEPS[step]!;
   return <div className="mt-7 rounded-2xl border border-brea-sage/25 bg-brea-paper p-5 sm:p-6">
     <p className="text-xs uppercase text-brea-sage-deep">Interactive · Inside a mammogram appointment</p>
     <div role="tablist" aria-label="Mammogram appointment steps" className="mt-4 flex flex-wrap gap-2">
@@ -112,7 +112,7 @@ export function MammogramFindings() {
 /* Three-step ultrasound walkthrough. */
 export function UltrasoundWalkthrough() {
   const [step, setStep] = useState(0);
-  const current = ULTRASOUND_STEPS[step];
+  const current = ULTRASOUND_STEPS[step]!;
   return <div className="mt-7 rounded-2xl border border-brea-sage/25 bg-brea-paper p-5 sm:p-6">
     <p className="text-xs uppercase text-brea-sage-deep">Interactive · How ultrasound works</p>
     <div role="tablist" aria-label="Ultrasound steps" className="mt-4 flex flex-wrap gap-2">
