@@ -1,4 +1,8 @@
 # Landing-page languages
+# BeyondPink Phase 16.1 — How Brea Works refinements
+- [x] Replace the five phone placeholders with the real uploaded Brea screenshots.
+- [x] Present "How Brea Works" as a readable blush current-page capsule with book icon, 44px target and clear hover/focus states.
+- [x] Verify navbar rows, translations, saved progress and desktop, tablet, phone and narrow-screen layouts.
 # BeyondPink Phase 16 — How Brea Works
 - [x] Add the illustrated four-step introduction with five replaceable botanical phone placeholders and sketch arrows.
 - [x] Connect landing Brea entry links and integrate all five languages without changing Brea sessions.
