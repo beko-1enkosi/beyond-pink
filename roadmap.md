@@ -1,7 +1,7 @@
 # Landing-page languages
 # Brea Phase 14.2 — Find Care layout and colour refinement
-- [ ] Restore map-first layout and compact full-width cards with scoped dusty-rose accents; preserve data and actions.
-- [ ] Verify desktop, tablet and mobile rendering, filters and card/map navigation.
+- [x] Restore map-first layout and compact full-width cards with scoped dusty-rose accents; preserve data and actions.
+- [x] Verify desktop, tablet and mobile rendering, filters and card/map navigation.
 # Brea Phase 14 — Find Care
 # Brea Phase 14.1 — Find Care visual refinement
 - [x] Place full-width horizontal facility cards before the spacious ribbon-marker map, preserving all data and actions.
