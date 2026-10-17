@@ -13,6 +13,8 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
+import { Route as BreaBreastChangesIndexRouteImport } from './routes/brea/breast-changes/index'
+import { Route as BreaBreastChangesRecogniseChangesRouteImport } from './routes/brea/breast-changes/recognise-changes'
 import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
 import { Route as BreaLearnBreastsAndHormonesRouteImport } from './routes/brea/learn/breasts-and-hormones'
 import { Route as BreaLearnMammogramsUltrasoundsScreeningRouteImport } from './routes/brea/learn/mammograms-ultrasounds-screening'
@@ -40,6 +42,17 @@ const BreaHomeRoute = BreaHomeRouteImport.update({
   path: '/brea/home',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaBreastChangesIndexRoute = BreaBreastChangesIndexRouteImport.update({
+  id: '/brea/breast-changes/',
+  path: '/brea/breast-changes/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreaBreastChangesRecogniseChangesRoute =
+  BreaBreastChangesRecogniseChangesRouteImport.update({
+    id: '/brea/breast-changes/recognise-changes',
+    path: '/brea/breast-changes/recognise-changes',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BreaLearnIndexRoute = BreaLearnIndexRouteImport.update({
   id: '/brea/learn/',
   path: '/brea/learn/',
@@ -80,11 +93,13 @@ export interface FileRoutesByFullPath {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/breast-changes/': typeof BreaBreastChangesIndexRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesByTo {
@@ -92,11 +107,13 @@ export interface FileRoutesByTo {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
+  '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/breast-changes': typeof BreaBreastChangesIndexRoute
   '/brea/learn': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesById {
@@ -105,11 +122,13 @@ export interface FileRoutesById {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/understanding-breast-cancer': typeof BreaLearnUnderstandingBreastCancerRoute
   '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
+  '/brea/breast-changes/': typeof BreaBreastChangesIndexRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRouteTypes {
@@ -119,11 +138,13 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/breast-changes/'
     | '/brea/learn/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -131,11 +152,13 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea'
+    | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/breast-changes'
     | '/brea/learn'
   id:
     | '__root__'
@@ -143,11 +166,13 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/understanding-breast-cancer'
     | '/brea/learn/what-is-cancer'
+    | '/brea/breast-changes/'
     | '/brea/learn/'
   fileRoutesById: FileRoutesById
 }
@@ -156,11 +181,13 @@ export interface RootRouteChildren {
   ApiBriRoute: typeof ApiBriRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
+  BreaBreastChangesRecogniseChangesRoute: typeof BreaBreastChangesRecogniseChangesRoute
   BreaLearnBreastsAndHormonesRoute: typeof BreaLearnBreastsAndHormonesRoute
   BreaLearnMammogramsUltrasoundsScreeningRoute: typeof BreaLearnMammogramsUltrasoundsScreeningRoute
   BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
   BreaLearnUnderstandingBreastCancerRoute: typeof BreaLearnUnderstandingBreastCancerRoute
   BreaLearnWhatIsCancerRoute: typeof BreaLearnWhatIsCancerRoute
+  BreaBreastChangesIndexRoute: typeof BreaBreastChangesIndexRoute
   BreaLearnIndexRoute: typeof BreaLearnIndexRoute
 }
 
@@ -192,6 +219,20 @@ declare module '@tanstack/react-router' {
       path: '/brea/home'
       fullPath: '/brea/home'
       preLoaderRoute: typeof BreaHomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/breast-changes/': {
+      id: '/brea/breast-changes/'
+      path: '/brea/breast-changes'
+      fullPath: '/brea/breast-changes/'
+      preLoaderRoute: typeof BreaBreastChangesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/breast-changes/recognise-changes': {
+      id: '/brea/breast-changes/recognise-changes'
+      path: '/brea/breast-changes/recognise-changes'
+      fullPath: '/brea/breast-changes/recognise-changes'
+      preLoaderRoute: typeof BreaBreastChangesRecogniseChangesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brea/learn/': {
@@ -244,6 +285,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBriRoute: ApiBriRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
+  BreaBreastChangesRecogniseChangesRoute:
+    BreaBreastChangesRecogniseChangesRoute,
   BreaLearnBreastsAndHormonesRoute: BreaLearnBreastsAndHormonesRoute,
   BreaLearnMammogramsUltrasoundsScreeningRoute:
     BreaLearnMammogramsUltrasoundsScreeningRoute,
@@ -251,6 +294,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreaLearnUnderstandingBreastCancerRoute:
     BreaLearnUnderstandingBreastCancerRoute,
   BreaLearnWhatIsCancerRoute: BreaLearnWhatIsCancerRoute,
+  BreaBreastChangesIndexRoute: BreaBreastChangesIndexRoute,
   BreaLearnIndexRoute: BreaLearnIndexRoute,
 }
 export const routeTree = rootRouteImport
