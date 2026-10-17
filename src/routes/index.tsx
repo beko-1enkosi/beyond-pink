@@ -19,6 +19,7 @@ const SOCIAL_TITLE = "BeyondPink | Beyond Awareness";
 const SOCIAL_DESCRIPTION = "Beyond the Pink Ribbon. Beyond Awareness. Empowering everyone through breast-health education, understanding and support.";
 
 export const Route = createFileRoute("/")({
+  staticData: { sitemap: true },
   head: () => ({
     meta: [
       { title: "BeyondPink | Beyond the Pink Ribbon. Beyond Awareness." },
