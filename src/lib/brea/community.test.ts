@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { addComment, deletePost, emptyCommunity, makePost, normalizeCommunity, reportItem, toggleSupport } from "./community";
+import { addComment, deletePost, emptyCommunity, makePost, normalizeCommunity, reportItem, setReaction } from "./community";
 import { COMMENT_LIMIT, POST_LIMIT, SEED_POSTS } from "./community-data";
 
 const rand = () => 0;
@@ -30,11 +30,20 @@ describe("Brea Garden community state", () => {
     expect(s.posts[0]!.text).toHaveLength(POST_LIMIT);
   });
 
-  it("toggles Support on and off", () => {
-    let s = toggleSupport(base(), "seed-hope");
-    expect(s.supported).toContain("seed-hope");
-    s = toggleSupport(s, "seed-hope");
-    expect(s.supported).not.toContain("seed-hope");
+  it("sets, changes and removes a heart reaction, keeping one per post", () => {
+    let s = setReaction(base(), "seed-hope", "care");
+    expect(s.reactions["seed-hope"]).toBe("care");
+    s = setReaction(s, "seed-hope", "strength");
+    expect(s.reactions["seed-hope"]).toBe("strength");
+    expect(Object.keys(s.reactions)).toHaveLength(1);
+    s = setReaction(s, "seed-hope", null);
+    expect(s.reactions["seed-hope"]).toBeUndefined();
+  });
+
+  it("rejects unknown reaction ids during normalization", () => {
+    const s = normalizeCommunity({ reactions: { "seed-hope": "love", "seed-ask": "fire" } }, rand);
+    expect(s.reactions["seed-hope"]).toBe("love");
+    expect(s.reactions["seed-ask"]).toBeUndefined();
   });
 
   it("appends comments under the visitor pseudonym and enforces the limit", () => {
@@ -56,11 +65,11 @@ describe("Brea Garden community state", () => {
     let s = makePost(base(), "Mine");
     const id = s.posts[0]!.id;
     s = addComment(s, id, "note");
-    s = toggleSupport(s, id);
+    s = setReaction(s, id, "hugs");
     s = deletePost(s, id);
     expect(s.posts).toHaveLength(0);
     expect(s.comments[id]).toBeUndefined();
-    expect(s.supported).toHaveLength(0);
+    expect(s.reactions[id]).toBeUndefined();
   });
 
   it("drops malformed data and non-botanical names during normalization", () => {
@@ -68,6 +77,7 @@ describe("Brea Garden community state", () => {
     expect(s.visitorName).toMatch(/^Anonymous /);
     expect(s.posts).toHaveLength(1);
     expect(s.posts[0]!.name).toMatch(/^Anonymous /);
-    expect(s.supported).toEqual(["x"]);
+    // legacy Support toggles migrate to Care hearts
+    expect(s.reactions["x"]).toBe("care");
   });
 });
