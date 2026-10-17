@@ -1,4 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { HeartHandshake, HandHeart, Users, ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -69,7 +70,8 @@ function Sprig({ className }: { className?: string }) {
 
 export function Support() {
   const { t } = useTranslation();
-  const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
+  const navigate = useNavigate();
+  const openBrea = () => navigate({ to: "/brea" });
   return (
     <section id="support" aria-labelledby="support-heading" className="relative isolate">
       {/* Full-bleed photographic background */}

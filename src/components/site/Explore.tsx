@@ -1,4 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
+import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { ArrowRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -78,7 +79,8 @@ function Sprig({ className }: { className?: string }) {
 
 export function Explore() {
   const { t } = useTranslation();
-  const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
+  const navigate = useNavigate();
+  const openBrea = () => navigate({ to: "/brea" });
   return (
     <section id="explore" aria-labelledby="explore-heading" className="relative isolate overflow-hidden bg-ivory py-16 sm:py-20 lg:py-28">
       <div aria-hidden className="pointer-events-none absolute -left-28 top-32 -z-10 h-72 w-72 rounded-full bg-blush/35 blur-3xl" />

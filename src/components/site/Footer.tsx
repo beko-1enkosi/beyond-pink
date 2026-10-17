@@ -1,4 +1,5 @@
 import { useTranslation } from "@/lib/i18n";
+import { useNavigate } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 import { ArrowRight, Github, Instagram, Linkedin, Mail } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
@@ -55,7 +56,8 @@ function ColHeading({ children }: { children: ReactNode }) {
 
 export function Footer() {
   const { t } = useTranslation();
-  const openBrea = () => window.dispatchEvent(new CustomEvent("beyondpink:open-brea"));
+  const navigate = useNavigate();
+  const openBrea = () => navigate({ to: "/brea" });
 
   return (
     <footer
