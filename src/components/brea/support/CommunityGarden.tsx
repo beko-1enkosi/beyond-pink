@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { ArrowLeft, Flag, HeartHandshake, ImagePlus, MessageCircle, MoreHorizontal, PenLine, Trash2, X } from "lucide-react";
+import { ArrowLeft, Flag, Heart, ImagePlus, MessageCircle, MoreHorizontal, PenLine, Trash2, X } from "lucide-react";
 import { BreaWordmark } from "@/components/brea/BreaLogo";
 import { LearnButton, LearnShell, PrimaryButton } from "@/components/brea/learn/LearnPrimitives";
 import { LearningProfile } from "@/components/brea/learn/LearnPanels";
@@ -9,12 +9,12 @@ import { useLearning } from "@/lib/brea/learning";
 import { useChanges } from "@/lib/brea/changes";
 import { useSupport } from "@/lib/brea/support";
 import {
-  addComment, deletePost, imagesSupported, makePost, removeImage, reportItem, saveImage, toggleSupport, useCommunity, useStoredImage, type CommunityState, type GardenPost,
+  addComment, deletePost, imagesSupported, makePost, removeImage, reportItem, saveImage, setReaction, useCommunity, useStoredImage, type CommunityState, type GardenPost,
 } from "@/lib/brea/community";
-import { COMMENT_LIMIT, COMMUNITY_GUIDELINES, IMAGE_MAX_BYTES, IMAGE_TYPES, POST_LIMIT, REPORT_REASONS, SEED_POSTS, type ReportReasonId, type SeedPost } from "@/lib/brea/community-data";
+import { COMMENT_LIMIT, COMMUNITY_GUIDELINES, HEART_REACTIONS, IMAGE_MAX_BYTES, IMAGE_TYPES, POST_LIMIT, REPORT_REASONS, SEED_POSTS, type HeartReactionId, type ReportReasonId, type SeedPost } from "@/lib/brea/community-data";
 import { cn } from "@/lib/utils";
 
-const card = "rounded-2xl border border-brea-sage/25 bg-brea-paper shadow-brea-soft";
+const card = "rounded-2xl border border-brea-blush/45 bg-brea-cream shadow-brea-lift";
 const AVATAR_FILLS = ["var(--brea-blush)", "var(--brea-sage)", "var(--brea-gold)", "var(--brea-rose)", "var(--brea-sage-deep)", "var(--brea-anatomy)", "var(--brea-blush)"];
 
 /** Small circular botanical avatar — a simple flower, varied by palette index. */
