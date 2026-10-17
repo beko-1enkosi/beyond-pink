@@ -36,6 +36,6 @@
 - [x] Verify counter lifecycle and wave transitions on desktop, tablet and mobile.
 
 # Social sharing and SEO
-- [ ] Compose and optimise the approved photo-and-logo sharing image.
-- [ ] Set exact homepage, Open Graph, Twitter and canonical metadata; verify favicon and language metadata.
-- [ ] Verify image access, rendered metadata and unchanged website; explain publication requirement.
+- [x] Compose and optimise the approved photo-and-logo sharing image (1200 × 630, 114 KB).
+- [x] Set exact homepage, Open Graph, Twitter and canonical metadata; retain the verified approved ribbon favicon and selected document language.
+- [x] Verify public image access, rendered metadata and unchanged website; live-page metadata requires the next publish.
