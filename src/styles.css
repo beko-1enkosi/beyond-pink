@@ -51,6 +51,7 @@
   --color-brea-paper: var(--brea-paper);
   --color-brea-gold: var(--brea-gold);
   --color-brea-anatomy: var(--brea-anatomy);
+  --color-brea-rose: var(--brea-rose);
   --shadow-brea-soft: var(--shadow-brea-soft-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
@@ -84,6 +85,7 @@
   --brea-paper: oklch(0.996 0.002 95);
   --brea-gold: oklch(0.76 0.075 86);
   --brea-anatomy: oklch(0.905 0.032 15);
+  --brea-rose: oklch(0.552 0.122 356); /* #B65F7B editorial dusty rose */
   --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
 
   --background: var(--ivory);
@@ -191,6 +193,8 @@
 /* Brea learning: scoped editorial typography and anatomy/achievement motion. */
 .brea-learning { padding-bottom: env(safe-area-inset-bottom, 0px); }
 .brea-learning h1, .brea-learning h2, .brea-learning h3 { font-family: var(--font-brea-display); font-weight: 500; letter-spacing: 0; }
+/* Reusable editorial emphasis: one meaningful word per headline in dusty rose. */
+.brea-em { color: var(--brea-rose); font-style: italic; }
 .brea-progress { appearance: none; background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); color: var(--brea-sage-deep); }
 .brea-progress::-webkit-progress-bar { background: color-mix(in oklab, var(--brea-sage) 25%, var(--brea-ivory)); border-radius: 999px; }
 .brea-progress::-webkit-progress-value { background: var(--brea-sage-deep); border-radius: 999px; transition: width .35s ease; }
