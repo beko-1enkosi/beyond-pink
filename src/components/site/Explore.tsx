@@ -114,7 +114,7 @@ export function Explore() {
                   <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
                   <p className="mt-3 text-[0.95rem] leading-relaxed text-muted-foreground">{t(card.text)}</p>
                   <div className="mt-auto pt-5">
-                    <span className="flex min-h-11 w-fit max-w-full items-center justify-center gap-2 self-start rounded-full border border-olive/40 bg-sage/25 px-5 py-2 text-sm font-medium leading-snug text-foreground transition-all duration-300 ease-out group-hover/explore-card:border-olive/70 group-hover/explore-card:bg-sage/40 group-hover/explore-card:shadow-glow-sage motion-reduce:transition-none">
+                    <span className="explore-pill flex min-h-11 w-fit max-w-full items-center justify-center gap-2 self-start rounded-full border border-olive/40 bg-sage/25 px-5 py-2 text-sm font-medium leading-snug text-foreground transition-all duration-300 ease-out group-hover/explore-card:border-olive/70 group-hover/explore-card:bg-sage/40 motion-reduce:transition-none">
                       {t("Tap to Explore")}
                       <ArrowRight className="h-4 w-4 shrink-0 text-olive transition-transform duration-300 ease-out group-hover/explore-card:translate-x-1 motion-reduce:transition-none motion-reduce:group-hover/explore-card:translate-x-0" aria-hidden />
                     </span>

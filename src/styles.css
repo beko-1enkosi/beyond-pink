@@ -122,8 +122,9 @@
 @media (min-width: 768px) { .hero-img { object-position: var(--pos, 50% 50%); } }
 
 .bri-mark, .bri-launcher { background-image: var(--gradient-bri); }
-.bri-launcher { box-shadow: var(--shadow-bri-v); transition: box-shadow .3s; animation: bri-float 4s ease-in-out infinite; }
+.bri-launcher { box-shadow: var(--shadow-bri-v); transition: box-shadow .3s; }
 .bri-launcher:hover { box-shadow: var(--shadow-bri-strong-v); }
+.bri-launcher-wrap { animation: bri-bounce 7s ease-in-out infinite; will-change: transform; }
 .bri-panel[hidden] { display: none; }
 .bri-launcher-wrap[hidden] { display: none; }
 .bri-panel { overscroll-behavior: contain; }
@@ -132,8 +133,23 @@
 .bri-thinking-dot:nth-of-type(3) { animation-delay: .18s; }
 .bri-thinking-dot:nth-of-type(4) { animation-delay: .36s; }
 @keyframes bri-think { 0%, 100% { opacity: .45; transform: scale(.85); } 50% { opacity: 1; transform: scale(1); } }
-@keyframes bri-float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-@media (prefers-reduced-motion: reduce) { .bri-launcher, .bri-thinking-dot { animation: none; } }
+@keyframes bri-bounce {
+  0%, 4%, 12%, 20%, 28%, 100% { transform: translateY(0); }
+  8% { transform: translateY(-7px); }
+  16% { transform: translateY(-5px); }
+  24% { transform: translateY(-3px); }
+}
+.explore-pill { animation: explore-pill-glow 3.6s ease-in-out infinite; }
+.explore-pill:hover { animation: explore-pill-glow-strong 3.6s ease-in-out infinite; }
+@keyframes explore-pill-glow {
+  0%, 100% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--sage) 35%, transparent), 0 4px 14px -6px color-mix(in oklab, var(--sage) 45%, transparent); }
+  50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--blush) 70%, transparent), 0 6px 20px -6px color-mix(in oklab, var(--sage) 70%, transparent), 0 0 14px color-mix(in oklab, var(--blush) 60%, transparent); }
+}
+@keyframes explore-pill-glow-strong {
+  0%, 100% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--sage) 55%, transparent), 0 6px 18px -6px color-mix(in oklab, var(--sage) 65%, transparent); }
+  50% { box-shadow: 0 0 0 1px color-mix(in oklab, var(--blush) 90%, transparent), 0 8px 26px -6px color-mix(in oklab, var(--sage) 85%, transparent), 0 0 20px color-mix(in oklab, var(--blush) 80%, transparent); }
+}
+@media (prefers-reduced-motion: reduce) { .bri-launcher-wrap, .bri-thinking-dot, .explore-pill, .explore-pill:hover { animation: none; } }
 @media (max-width: 767px), (max-height: 500px) {
   .bri-panel {
     top: calc(var(--bri-viewport-top, 0px) + 8px + env(safe-area-inset-top, 0px));
