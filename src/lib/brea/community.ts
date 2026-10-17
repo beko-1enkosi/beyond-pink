@@ -51,8 +51,8 @@ export function normalizeCommunity(input: unknown, rand: () => number = Math.ran
           avatar: typeof post.avatar === "number" ? post.avatar : base.visitorAvatar,
           when: typeof post.when === "string" ? post.when : "Just now",
           text: post.text.slice(0, POST_LIMIT),
-          imageId: typeof post.imageId === "string" ? post.imageId : undefined,
-          imageAlt: typeof post.imageAlt === "string" ? post.imageAlt : undefined,
+          ...(typeof post.imageId === "string" ? { imageId: post.imageId } : {}),
+          ...(typeof post.imageAlt === "string" ? { imageAlt: post.imageAlt } : {}),
           own: true as const,
         }];
       })
@@ -96,7 +96,7 @@ export function nextId(prefix: string): string {
 }
 
 export function makePost(state: CommunityState, text: string, imageId?: string, imageAlt?: string): CommunityState {
-  const post: GardenPost = { id: nextId("post"), name: state.visitorName, avatar: state.visitorAvatar, when: "Just now", text: text.trim().slice(0, POST_LIMIT), imageId, imageAlt, own: true };
+  const post: GardenPost = { id: nextId("post"), name: state.visitorName, avatar: state.visitorAvatar, when: "Just now", text: text.trim().slice(0, POST_LIMIT), ...(imageId ? { imageId } : {}), ...(imageAlt ? { imageAlt } : {}), own: true };
   return normalizeCommunity({ ...state, posts: [post, ...state.posts] });
 }
 
