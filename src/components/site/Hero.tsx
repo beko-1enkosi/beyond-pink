@@ -1,5 +1,6 @@
 import { useTranslation } from "@/lib/i18n";
 import { useCallback, useEffect, useRef, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import img1 from "@/assets/hero-1-unity.webp.asset.json";
 import img2 from "@/assets/hero-2-diversity.webp.asset.json";
@@ -9,8 +10,6 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { scrollToSection } from "@/lib/section-scroll";
 import { SectionWaves } from "./SectionWaves";
-
-export const OPEN_BREA_EVENT = "beyondpink:open-brea";
 
 const SLIDES = [
   { src: img1.url, alt: "Diverse hands holding pink awareness ribbons in a circle", title: "Unity & Awareness", pos: "50% 50%", posMobile: "50% 50%" },
@@ -82,7 +81,8 @@ export function Hero() {
           </h1>
           <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">{t("Breast health is more than a conversation in October. Discover accessible education, compassionate support and a place where everyone belongs.")}</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
-            <Button variant="brea" className="h-[3.25rem] px-7 text-base sm:px-8" onClick={() => window.dispatchEvent(new Event(OPEN_BREA_EVENT))}>{t("Try Brea")}<ArrowRight aria-hidden />
+            <Button variant="brea" asChild className="h-[3.25rem] px-7 text-base sm:px-8">
+              <Link to="/brea">{t("Try Brea")}<ArrowRight aria-hidden /></Link>
             </Button>
             <Button
               variant="outline"

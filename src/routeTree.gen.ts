@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as BreaRouteImport } from './routes/brea'
 import { Route as ApiBriRouteImport } from './routes/api/bri'
+import { Route as BreaHomeRouteImport } from './routes/brea.home'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BreaRoute = BreaRouteImport.update({
+  id: '/brea',
+  path: '/brea',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiBriRoute = ApiBriRouteImport.update({
@@ -22,30 +29,42 @@ const ApiBriRoute = ApiBriRouteImport.update({
   path: '/api/bri',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaHomeRoute = BreaHomeRouteImport.update({
+  id: '/home',
+  path: '/home',
+  getParentRoute: () => BreaRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/brea': typeof BreaRouteWithChildren
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/brea': typeof BreaRouteWithChildren
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/brea': typeof BreaRouteWithChildren
   '/api/bri': typeof ApiBriRoute
+  '/brea/home': typeof BreaHomeRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/api/bri'
+  fullPaths: '/' | '/brea' | '/api/bri' | '/brea/home'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/api/bri'
-  id: '__root__' | '/' | '/api/bri'
+  to: '/' | '/brea' | '/api/bri' | '/brea/home'
+  id: '__root__' | '/' | '/brea' | '/api/bri' | '/brea/home'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  BreaRoute: typeof BreaRouteWithChildren
   ApiBriRoute: typeof ApiBriRoute
 }
 
@@ -58,6 +77,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea': {
+      id: '/brea'
+      path: '/brea'
+      fullPath: '/brea'
+      preLoaderRoute: typeof BreaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/bri': {
       id: '/api/bri'
       path: '/api/bri'
@@ -65,11 +91,29 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiBriRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/home': {
+      id: '/brea/home'
+      path: '/home'
+      fullPath: '/brea/home'
+      preLoaderRoute: typeof BreaHomeRouteImport
+      parentRoute: typeof BreaRoute
+    }
   }
 }
 
+interface BreaRouteChildren {
+  BreaHomeRoute: typeof BreaHomeRoute
+}
+
+const BreaRouteChildren: BreaRouteChildren = {
+  BreaHomeRoute: BreaHomeRoute,
+}
+
+const BreaRouteWithChildren = BreaRoute._addFileChildren(BreaRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BreaRoute: BreaRouteWithChildren,
   ApiBriRoute: ApiBriRoute,
 }
 export const routeTree = rootRouteImport

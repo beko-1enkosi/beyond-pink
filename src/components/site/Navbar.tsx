@@ -1,15 +1,9 @@
 import { useTranslation } from "@/lib/i18n";
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check, ChevronDown, Github, Globe, Menu } from "lucide-react";
 import logo from "@/assets/beyondpink-logo.svg.asset.json";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -101,14 +95,7 @@ function GithubLink() {
 export function Navbar() {
   const { t, language } = useTranslation();
   const [scrolled, setScrolled] = useState(false);
-  const [breaOpen, setBreaOpen] = useState(false);
   const active = useActiveSection();
-
-  useEffect(() => {
-    const open = () => setBreaOpen(true);
-    window.addEventListener("beyondpink:open-brea", open);
-    return () => window.removeEventListener("beyondpink:open-brea", open);
-  }, []);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8);
@@ -203,19 +190,11 @@ export function Navbar() {
             <LanguageSelect />
             <GithubLink />
           </div>
-          <Button variant="brea" className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base" onClick={() => setBreaOpen(true)}>{t("Try Brea")}<ArrowRight className="hidden lg:block" aria-hidden />
+          <Button variant="brea" asChild className="h-9 px-3 text-[0.8rem] sm:text-sm lg:h-11 lg:px-6 lg:text-base">
+            <Link to="/brea">{t("Try Brea")}<ArrowRight className="hidden lg:block" aria-hidden /></Link>
           </Button>
         </div>
       </nav>
-
-      <Dialog open={breaOpen} onOpenChange={setBreaOpen}>
-        <DialogContent closeLabel={t("Close")} className="rounded-2xl bg-card sm:max-w-md">
-          <DialogHeader>
-            <DialogTitle className="font-serif text-3xl font-medium">{t("Brea demo coming soon")}</DialogTitle>
-            <DialogDescription className="pt-2 text-base">{t("Brea, our interactive breast-health education and support app, is on its way.")}</DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
     </header>
   );
 }
