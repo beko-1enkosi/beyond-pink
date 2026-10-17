@@ -48,6 +48,10 @@
   --color-brea-blush: var(--brea-blush);
   --color-brea-ivory: var(--brea-ivory);
   --color-brea-charcoal: var(--brea-charcoal);
+  --color-brea-paper: var(--brea-paper);
+  --color-brea-gold: var(--brea-gold);
+  --color-brea-anatomy: var(--brea-anatomy);
+  --shadow-brea-soft: var(--shadow-brea-soft-v);
   --font-brea-display: "Cormorant Garamond", Georgia, serif;
   --font-brea-body: "Inter", system-ui, sans-serif;
   --shadow-soft: var(--shadow-soft-v);
@@ -77,6 +81,10 @@
   --brea-blush: oklch(0.763 0.089 6); /* #E5A1AF */
   --brea-ivory: oklch(0.979 0.004 95); /* #FAF9F6 */
   --brea-charcoal: oklch(0.284 0.026 155); /* #26352C */
+  --brea-paper: oklch(0.996 0.002 95);
+  --brea-gold: oklch(0.76 0.075 86);
+  --brea-anatomy: oklch(0.905 0.032 15);
+  --shadow-brea-soft-v: 0 12px 34px -24px color-mix(in oklab, var(--brea-sage-deep) 45%, transparent);
 
   --background: var(--ivory);
   --foreground: var(--charcoal);

@@ -22,7 +22,7 @@ export const BREA_INTERESTS = [
   },
   {
     id: "care",
-    title: "Explore Care Resources",
+    title: "Find Care",
     description: "Understand screening options, healthcare guidance and where to find help.",
   },
 ] as const;
