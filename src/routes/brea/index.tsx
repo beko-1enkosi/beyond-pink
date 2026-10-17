@@ -13,7 +13,7 @@ import {
   type BreaInterestId,
 } from "@/lib/brea/onboarding";
 
-export const Route = createFileRoute("/brea")({
+export const Route = createFileRoute("/brea/")({
   head: () => ({
     meta: [
       { title: "Brea | Your Breast Health Companion" },
