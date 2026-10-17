@@ -14,6 +14,7 @@ import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
 import { Route as BreaBreastChangesIndexRouteImport } from './routes/brea/breast-changes/index'
+import { Route as BreaBreastChangesKnowYourQuadrantsRouteImport } from './routes/brea/breast-changes/know-your-quadrants'
 import { Route as BreaBreastChangesRecogniseChangesRouteImport } from './routes/brea/breast-changes/recognise-changes'
 import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
 import { Route as BreaLearnBreastsAndHormonesRouteImport } from './routes/brea/learn/breasts-and-hormones'
@@ -47,6 +48,12 @@ const BreaBreastChangesIndexRoute = BreaBreastChangesIndexRouteImport.update({
   path: '/brea/breast-changes/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaBreastChangesKnowYourQuadrantsRoute =
+  BreaBreastChangesKnowYourQuadrantsRouteImport.update({
+    id: '/brea/breast-changes/know-your-quadrants',
+    path: '/brea/breast-changes/know-your-quadrants',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BreaBreastChangesRecogniseChangesRoute =
   BreaBreastChangesRecogniseChangesRouteImport.update({
     id: '/brea/breast-changes/recognise-changes',
@@ -93,6 +100,7 @@ export interface FileRoutesByFullPath {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
   '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
@@ -107,6 +115,7 @@ export interface FileRoutesByTo {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
+  '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
   '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
@@ -122,6 +131,7 @@ export interface FileRoutesById {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/breast-changes/know-your-quadrants': typeof BreaBreastChangesKnowYourQuadrantsRoute
   '/brea/breast-changes/recognise-changes': typeof BreaBreastChangesRecogniseChangesRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/mammograms-ultrasounds-screening': typeof BreaLearnMammogramsUltrasoundsScreeningRoute
@@ -138,6 +148,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/breast-changes/know-your-quadrants'
     | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
@@ -152,6 +163,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea'
+    | '/brea/breast-changes/know-your-quadrants'
     | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
@@ -166,6 +178,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/breast-changes/know-your-quadrants'
     | '/brea/breast-changes/recognise-changes'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/mammograms-ultrasounds-screening'
@@ -181,6 +194,7 @@ export interface RootRouteChildren {
   ApiBriRoute: typeof ApiBriRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
+  BreaBreastChangesKnowYourQuadrantsRoute: typeof BreaBreastChangesKnowYourQuadrantsRoute
   BreaBreastChangesRecogniseChangesRoute: typeof BreaBreastChangesRecogniseChangesRoute
   BreaLearnBreastsAndHormonesRoute: typeof BreaLearnBreastsAndHormonesRoute
   BreaLearnMammogramsUltrasoundsScreeningRoute: typeof BreaLearnMammogramsUltrasoundsScreeningRoute
@@ -226,6 +240,13 @@ declare module '@tanstack/react-router' {
       path: '/brea/breast-changes'
       fullPath: '/brea/breast-changes/'
       preLoaderRoute: typeof BreaBreastChangesIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/brea/breast-changes/know-your-quadrants': {
+      id: '/brea/breast-changes/know-your-quadrants'
+      path: '/brea/breast-changes/know-your-quadrants'
+      fullPath: '/brea/breast-changes/know-your-quadrants'
+      preLoaderRoute: typeof BreaBreastChangesKnowYourQuadrantsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/brea/breast-changes/recognise-changes': {
@@ -285,6 +306,8 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBriRoute: ApiBriRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
+  BreaBreastChangesKnowYourQuadrantsRoute:
+    BreaBreastChangesKnowYourQuadrantsRoute,
   BreaBreastChangesRecogniseChangesRoute:
     BreaBreastChangesRecogniseChangesRoute,
   BreaLearnBreastsAndHormonesRoute: BreaLearnBreastsAndHormonesRoute,
