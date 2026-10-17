@@ -459,7 +459,7 @@ export function CommunityGarden() {
               key={post.id}
               post={post}
               state={state}
-              onSupport={() => update((s) => toggleSupport(s, post.id))}
+              onReact={(reaction) => update((s) => setReaction(s, post.id, reaction))}
               onComment={(text) => update((s) => addComment(s, post.id, text))}
               onReport={(id, kind) => setReportTarget({ id, kind })}
               onDelete={post.own ? () => { if (post.imageId) void removeImage(post.imageId); update((s) => deletePost(s, post.id)); } : undefined}
