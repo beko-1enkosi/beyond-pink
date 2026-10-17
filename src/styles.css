@@ -289,6 +289,9 @@
 .brea-care-legend { display: grid; width: 22px; height: 28px; place-items: center; flex-shrink: 0; }
 .brea-care-legend .brea-care-ribbon { width: 20px; height: 26px; }
 .brea-care-actions > * { min-height: 44px; max-width: 100%; }
+.brea-care-actions > *:hover, .brea-care-actions > *[aria-pressed="true"], .brea-care-actions > *[aria-expanded="true"] { background: color-mix(in oklab, var(--brea-blush) 22%, var(--brea-cream)); color: var(--brea-rose-deep); border-color: var(--brea-rose); }
+.brea-care-card:hover { border-color: color-mix(in oklab, var(--brea-rose) 45%, var(--brea-cream)); }
+.brea-care-filter[data-care-active="true"] { background: color-mix(in oklab, var(--brea-blush) 20%, var(--brea-paper)); border-color: var(--brea-rose); color: var(--brea-rose-deep); }
 .brea-care-type { color: var(--brea-charcoal); background: color-mix(in oklab, var(--care-marker) 12%, var(--brea-cream)); border-color: color-mix(in oklab, var(--care-marker) 35%, var(--brea-cream)); }
 @media (hover: hover) and (prefers-reduced-motion: no-preference) { .brea-care-card:hover { box-shadow: var(--shadow-brea-lift-hover-v); transform: translateY(-2px); } }
 :root { --brea-skin-1: #F3D9C6; --brea-skin-2: #D9A77F; --brea-skin-3: #A86F4C; --brea-skin-4: #6B4330; }
