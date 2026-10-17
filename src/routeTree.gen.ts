@@ -16,6 +16,7 @@ import { Route as BreaHomeRouteImport } from './routes/brea/home'
 import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
 import { Route as BreaLearnBreastsAndHormonesRouteImport } from './routes/brea/learn/breasts-and-hormones'
 import { Route as BreaLearnMeetYourBreastsRouteImport } from './routes/brea/learn/meet-your-breasts'
+import { Route as BreaLearnWhatIsCancerRouteImport } from './routes/brea/learn/what-is-cancer'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -54,6 +55,11 @@ const BreaLearnMeetYourBreastsRoute =
     path: '/brea/learn/meet-your-breasts',
     getParentRoute: () => rootRouteImport,
   } as any)
+const BreaLearnWhatIsCancerRoute = BreaLearnWhatIsCancerRouteImport.update({
+  id: '/brea/learn/what-is-cancer',
+  path: '/brea/learn/what-is-cancer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -62,6 +68,7 @@ export interface FileRoutesByFullPath {
   '/brea/': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesByTo {
@@ -71,6 +78,7 @@ export interface FileRoutesByTo {
   '/brea': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
   '/brea/learn': typeof BreaLearnIndexRoute
 }
 export interface FileRoutesById {
@@ -81,6 +89,7 @@ export interface FileRoutesById {
   '/brea/': typeof BreaIndexRoute
   '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
+  '/brea/learn/what-is-cancer': typeof BreaLearnWhatIsCancerRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
 export interface FileRouteTypes {
@@ -92,6 +101,7 @@ export interface FileRouteTypes {
     | '/brea/'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
+    | '/brea/learn/what-is-cancer'
     | '/brea/learn/'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -101,6 +111,7 @@ export interface FileRouteTypes {
     | '/brea'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
+    | '/brea/learn/what-is-cancer'
     | '/brea/learn'
   id:
     | '__root__'
@@ -110,6 +121,7 @@ export interface FileRouteTypes {
     | '/brea/'
     | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
+    | '/brea/learn/what-is-cancer'
     | '/brea/learn/'
   fileRoutesById: FileRoutesById
 }
@@ -120,6 +132,7 @@ export interface RootRouteChildren {
   BreaIndexRoute: typeof BreaIndexRoute
   BreaLearnBreastsAndHormonesRoute: typeof BreaLearnBreastsAndHormonesRoute
   BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
+  BreaLearnWhatIsCancerRoute: typeof BreaLearnWhatIsCancerRoute
   BreaLearnIndexRoute: typeof BreaLearnIndexRoute
 }
 
@@ -174,6 +187,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreaLearnMeetYourBreastsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/learn/what-is-cancer': {
+      id: '/brea/learn/what-is-cancer'
+      path: '/brea/learn/what-is-cancer'
+      fullPath: '/brea/learn/what-is-cancer'
+      preLoaderRoute: typeof BreaLearnWhatIsCancerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -184,6 +204,7 @@ const rootRouteChildren: RootRouteChildren = {
   BreaIndexRoute: BreaIndexRoute,
   BreaLearnBreastsAndHormonesRoute: BreaLearnBreastsAndHormonesRoute,
   BreaLearnMeetYourBreastsRoute: BreaLearnMeetYourBreastsRoute,
+  BreaLearnWhatIsCancerRoute: BreaLearnWhatIsCancerRoute,
   BreaLearnIndexRoute: BreaLearnIndexRoute,
 }
 export const routeTree = rootRouteImport
