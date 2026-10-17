@@ -91,8 +91,8 @@ export function CheckingDemo({ onTerm }: { onTerm: (term: string) => void }) {
         <BreastFigure side={side} active={quadrant} labelledBy="demo-art" />
         <span id="demo-art" className="sr-only">Educational demonstration diagram, not a diagnostic image.</span>
         {reduced ? spots.map(([x, y], i) => <g key={i}><circle cx={x} cy={y} r="11" fill="var(--brea-ivory)" stroke="var(--brea-sage-deep)" strokeWidth="1.5" /><text x={x} y={y + 3.5} textAnchor="middle" fontSize="10" fill="var(--brea-sage-deep)">{i + 1}</text></g>) : <g className={playing ? "brea-hand-drift" : undefined} style={playing ? { animationDuration: `${SPOT_DURATION * 4}ms` } : undefined}>
-          <circle cx={spots[spot][0]} cy={spots[spot][1]} r="14" fill="var(--brea-blush)" opacity=".5" className="brea-fade-in" key={`${quadrant}-${spot}`} />
-          <g transform={`translate(${spots[spot][0] - 12} ${spots[spot][1] - 12})`}><ellipse cx="12" cy="14" rx="9" ry="7" fill="var(--brea-skin-3)" /><rect x="5" y="2" width="4.5" height="10" rx="2.2" fill="var(--brea-skin-3)" /><rect x="10" y="0" width="4.5" height="12" rx="2.2" fill="var(--brea-skin-3)" /><rect x="15" y="2" width="4.5" height="10" rx="2.2" fill="var(--brea-skin-3)" /></g>
+          <circle cx={spots[spot]?.[0] ?? 100} cy={spots[spot]?.[1] ?? 100} r="14" fill="var(--brea-blush)" opacity=".5" className="brea-fade-in" key={`${quadrant}-${spot}`} />
+          <g transform={`translate(${(spots[spot]?.[0] ?? 100) - 12} ${(spots[spot]?.[1] ?? 100) - 12})`}><ellipse cx="12" cy="14" rx="9" ry="7" fill="var(--brea-skin-3)" /><rect x="5" y="2" width="4.5" height="10" rx="2.2" fill="var(--brea-skin-3)" /><rect x="10" y="0" width="4.5" height="12" rx="2.2" fill="var(--brea-skin-3)" /><rect x="15" y="2" width="4.5" height="10" rx="2.2" fill="var(--brea-skin-3)" /></g>
         </g>}
       </svg>
     </figure>
