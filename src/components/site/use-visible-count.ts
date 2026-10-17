@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-const COUNT_DURATION = 1800;
+const COUNT_DURATION = 3000;
 
 /**
  * Count up once per page load, only while the actual number is at least half

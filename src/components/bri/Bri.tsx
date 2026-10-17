@@ -107,7 +107,7 @@ export function Bri() {
 
   return (
     <DialogPrimitive.Root open={open} onOpenChange={setOpen}>
-      <div hidden={open} className="bri-launcher-wrap fixed bottom-5 right-4 z-[60] flex items-center gap-3 sm:bottom-7 sm:right-7">
+      <div hidden={open} className="bri-launcher-wrap fixed bottom-[calc(4.5rem+env(safe-area-inset-bottom))] right-4 z-[60] flex items-center gap-3 sm:bottom-24 sm:right-7">
         {!open && (
           <span className="rounded-full border border-sage/40 bg-card px-4 py-2 text-sm font-medium shadow-soft">
             Ask Bri ✨
@@ -116,7 +116,7 @@ export function Bri() {
         <DialogPrimitive.Trigger asChild>
           <Button
             ref={launcher}
-            className="bri-launcher h-14 w-14 rounded-full p-0 text-ivory sm:h-16 sm:w-16"
+            className="bri-launcher h-16 w-16 rounded-full p-0 text-ivory sm:h-[4.5rem] sm:w-[4.5rem]"
             aria-label="Ask Bri"
             aria-haspopup="dialog"
             title="Ask Bri"
@@ -139,7 +139,7 @@ export function Bri() {
             e.preventDefault();
             launcher.current?.focus();
           }}
-          className="bri-panel fixed bottom-24 right-4 z-[61] flex h-[min(660px,calc(100dvh-120px))] w-[calc(100vw-32px)] max-w-[410px] flex-col overflow-hidden rounded-2xl border border-sage/40 bg-card shadow-soft outline-none sm:bottom-28 sm:right-7"
+          className="bri-panel fixed bottom-[calc(9.5rem+env(safe-area-inset-bottom))] right-4 z-[61] flex h-[min(660px,calc(100dvh-120px))] w-[calc(100vw-32px)] max-w-[410px] flex-col overflow-hidden rounded-2xl border border-sage/40 bg-card shadow-soft outline-none sm:bottom-40 sm:right-7"
         >
           <header className="flex shrink-0 items-center gap-3 border-b border-sage/25 bg-accent/60 px-5 py-4">
             <span className="bri-mark flex h-11 w-11 shrink-0 items-center justify-center rounded-full text-ivory">

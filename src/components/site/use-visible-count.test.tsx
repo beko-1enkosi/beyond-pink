@@ -59,12 +59,12 @@ describe("viewport-bound About statistics", () => {
   });
   it.each([2.3, 14712, 25])("reaches the unchanged final value %s", (value) => {
     render(<Probe value={value} />);
-    visibility(1); frameAt(1800);
+    visibility(1); frameAt(3000);
     expect(current).toBe(value);
   });
   it("keeps the final value on screen and never loops while visible", () => {
     render(<Probe />);
-    visibility(1); frameAt(1800);
+    visibility(1); frameAt(3000);
     act(() => vi.advanceTimersByTime(10000));
     expect(current).toBe(14712);
     expect(frames.size).toBe(0);
@@ -72,7 +72,7 @@ describe("viewport-bound About statistics", () => {
   });
   it("does not replay after scrolling away and back", () => {
     render(<Probe />);
-    visibility(1); frameAt(1800);
+    visibility(1); frameAt(3000);
     visibility(0);
     visibility(1);
     expect(current).toBe(14712);
