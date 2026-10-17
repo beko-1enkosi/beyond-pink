@@ -56,7 +56,7 @@ export function QuadrantExplorer({ explored, onExplore }: { explored: readonly Q
     <figure className="relative mx-auto mt-4 max-w-sm rounded-3xl border border-brea-sage/20 bg-brea-paper p-4 shadow-brea-soft">
       <BreastFigure side={side} active={active} onSelect={select} labelledBy="quadrant-art" />
       <span id="quadrant-art" className="sr-only">A simplified educational front-view diagram of the {side} breast divided into four quadrants by gentle guides through the nipple. Outer means toward the arm; inner means toward the centre of the chest. This is not a diagnostic image.</span>
-      {current && <span role="tooltip" className="brea-anatomy-tooltip" style={{ left: `${LABELS[side][current.id][0] / 2}%`, top: `calc(${LABELS[side][current.id][1] / 2}% - 30px)` }}>{current.name}</span>}
+      {current && (() => { const [lx, ly] = LABELS[side][current.id] ?? [50, 50]; return <span role="tooltip" className="brea-anatomy-tooltip" style={{ left: `${lx / 2}%`, top: `calc(${ly / 2}% - 30px)` }}>{current.name}</span>; })()}
     </figure>
     <p className="mt-3 text-center text-xs text-brea-sage-deep">A simplified educational diagram — not a diagnostic image. “Outer” is toward the arm; “inner” is toward the centre of the chest.</p>
     <p className="mt-3 text-center text-xs text-brea-sage-deep" aria-live="polite">You’ve explored {explored.length} of {QUADRANTS.length} quadrants.</p>
