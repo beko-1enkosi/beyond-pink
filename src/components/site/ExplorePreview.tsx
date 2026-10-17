@@ -21,7 +21,7 @@ export function ExplorePreview({ kind, title, img, alt, children }: Props) {
   const step = JOURNEY_STEPS[selected] ?? JOURNEY_STEPS[0];
   return (
     <Dialog.Root onOpenChange={(open) => { if (open) setSelected(0); }}>
-      <div className="group/explore-card relative h-full">
+      <div className="group/explore-card bp-card-host relative h-full">
         {children}
         <Dialog.Trigger asChild>
           <Button variant="ghost" aria-label={`${t("Explore")} ${t(title)}`} className="absolute inset-0 h-full w-full rounded-[2rem] p-0 hover:bg-transparent focus-visible:ring-2 focus-visible:ring-sage">

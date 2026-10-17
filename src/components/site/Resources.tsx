@@ -121,10 +121,10 @@ export function Resources() {
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
           {CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 120} className="h-full">
-              <article className="group relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-soft transition-all duration-300 ease-out hover:-translate-y-2 hover:border-sage/70 hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-7">
+              <article className="group bp-card relative flex h-full flex-col overflow-hidden rounded-[2rem] border border-border bg-card p-6 shadow-soft sm:p-7">
                 <Sprig className="absolute -right-3 -top-1 h-8 w-16 text-sage/40 transition-colors duration-500 group-hover:text-sage/70 motion-reduce:transition-none" />
                 <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl text-charcoal ring-1 ring-border/60", card.iconBg)}>
-                  <card.icon className="h-6 w-6" aria-hidden />
+                  <card.icon className="bp-card-icon h-6 w-6" aria-hidden />
                 </span>
                 <h3 className="mt-5 text-2xl leading-snug text-foreground">{t(card.title)}</h3>
                 <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />

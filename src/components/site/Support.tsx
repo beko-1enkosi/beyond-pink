@@ -102,9 +102,9 @@ export function Support() {
         <div className="mt-12 grid gap-6 md:mt-16 md:grid-cols-3 lg:gap-8">
           {CARDS.map((card, i) => (
             <Reveal key={card.title} delay={i * 120} className="h-full">
-              <article className="flex h-full flex-col rounded-[2rem] border border-border/80 bg-card/90 p-7 text-left shadow-soft backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-soft motion-reduce:transition-none motion-reduce:hover:translate-y-0 sm:p-8">
+              <article className="bp-card flex h-full flex-col rounded-[2rem] border border-border/80 bg-card/90 p-7 text-left shadow-soft backdrop-blur-sm sm:p-8">
                 <span className={cn("inline-flex h-12 w-12 items-center justify-center rounded-2xl text-charcoal", card.iconBg)}>
-                  <card.icon className="h-6 w-6" aria-hidden />
+                  <card.icon className="bp-card-icon h-6 w-6" aria-hidden />
                 </span>
                 <h3 className="mt-5 text-2xl leading-snug text-foreground">{t(card.title)}</h3>
                 <span aria-hidden className="mt-3 block h-0.5 w-10 rounded-full bg-rose" />
