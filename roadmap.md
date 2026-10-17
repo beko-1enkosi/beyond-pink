@@ -34,3 +34,8 @@
 - [x] Reuse the exact Hero waves at section transitions without changing content or spacing; retain the Footer's existing boundary.
 - [x] Repeat statistics only while their cards are visible, with a two-second final-value pause and reduced-motion support.
 - [x] Verify counter lifecycle and wave transitions on desktop, tablet and mobile.
+
+# Social sharing and SEO
+- [x] Compose and optimise the approved photo-and-logo sharing image (1200 × 630, 114 KB).
+- [x] Set exact homepage, Open Graph, Twitter and canonical metadata; retain the verified approved ribbon favicon and selected document language.
+- [x] Verify public image access, rendered metadata and unchanged website; live-page metadata requires the next publish.
