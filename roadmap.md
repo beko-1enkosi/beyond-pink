@@ -1,4 +1,8 @@
 # Landing-page languages
+# BeyondPink — About illustration move
+- [ ] Move the exact About illustration to Hero slide five, retaining four photographs and wraparound.
+- [ ] Rebalance About without an image; preserve content, counters, inclusion and botanicals.
+- [ ] Verify carousel and About at desktop, tablet and mobile widths.
 # Bri — Intelligence and conversations
 - [x] Broaden general educational conversations and update verified Brea demo knowledge and outdated descriptions.
 - [x] Preserve personal medical safety, privacy, model, rate limits and existing chat features.
