@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import { addExplored, completeLesson, emptyLearning, LEARNING_KEY, learningSummary, normalizeLearning, readLearning } from "./learning";
-import { ANATOMY, findGlossaryTerm, QUIZ, quizScore } from "./learning-data";
+import { addExplored, addHormone, completeLesson, emptyLearning, LEARNING_KEY, learningSummary, normalizeLearning, readLearning } from "./learning";
+import { ANATOMY, findGlossaryTerm, HORMONES, LESSON_ID, LESSON2_ID, QUIZ, QUIZ2, quizScore } from "./learning-data";
 import { BREA_INTERESTS, restartBreaDemo } from "./onboarding";
 beforeEach(() => localStorage.clear());
 describe("Brea learning rules", () => {
@@ -58,5 +58,41 @@ describe("Brea learning rules", () => {
   });
   it("names the fourth pathway Find Care", () => {
     expect(BREA_INTERESTS[3].title).toBe("Find Care");
+  });
+  it("Lesson 2 completion awards Hormone Helper and 40 percent progress", () => {
+    const first = completeLesson(emptyLearning());
+    const second = completeLesson(first.state, LESSON2_ID);
+    expect(second.firstCompletion).toBe(true);
+    expect(second.state.badges).toEqual(["anatomy-explorer", "hormone-helper"]);
+    expect(learningSummary(second.state)).toEqual({ completed: 2, remaining: 3, percent: 40, badges: 2 });
+  });
+  it("Lesson 2 revisit never duplicates its badge or erases Lesson 1", () => {
+    let state = completeLesson(emptyLearning()).state;
+    state = completeLesson(state, LESSON2_ID).state;
+    const revisit = completeLesson(state, LESSON2_ID);
+    expect(revisit.firstCompletion).toBe(false);
+    expect(revisit.state.completed).toEqual([LESSON_ID, LESSON2_ID]);
+    expect(revisit.state.badges).toHaveLength(2);
+  });
+  it("counts each of four hormones only once", () => {
+    let state = emptyLearning();
+    for (const h of HORMONES) state = addHormone(addHormone(state, h.id), h.id);
+    expect(state.hormones).toHaveLength(4);
+  });
+  it("a zero Lesson 2 quiz score never removes the Hormone Helper badge", () => {
+    const state = normalizeLearning({ ...completeLesson(completeLesson(emptyLearning()).state, LESSON2_ID).state, quiz2Result: 0 });
+    expect(state.quiz2Result).toBe(0);
+    expect(state.badges).toContain("hormone-helper");
+  });
+  it("uses the three specified Lesson 2 quiz answers", () => {
+    expect(QUIZ2.map((q) => q.correct)).toEqual([0, 0, 1]);
+    expect(quizScore([0, 0, 1], QUIZ2)).toBe(3);
+    expect(quizScore([1, 1, 0], QUIZ2)).toBe(0);
+  });
+  it("defines all new hormone glossary terms in plain language", () => {
+    for (const term of ["Hormone", "Estrogen", "Progesterone", "Prolactin", "Oxytocin", "Mammary gland", "Lactation", "Milk let-down reflex", "Puberty", "Menstrual cycle", "Perimenopause", "Menopause", "Breast tenderness"]) {
+      expect(findGlossaryTerm(term)?.definition.length).toBeGreaterThan(20);
+    }
+    expect(findGlossaryTerm("Glandular tissue")?.definition).toContain("lobules");
   });
 });

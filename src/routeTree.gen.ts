@@ -14,6 +14,7 @@ import { Route as ApiBriRouteImport } from './routes/api/bri'
 import { Route as BreaIndexRouteImport } from './routes/brea/index'
 import { Route as BreaHomeRouteImport } from './routes/brea/home'
 import { Route as BreaLearnIndexRouteImport } from './routes/brea/learn/index'
+import { Route as BreaLearnBreastsAndHormonesRouteImport } from './routes/brea/learn/breasts-and-hormones'
 import { Route as BreaLearnMeetYourBreastsRouteImport } from './routes/brea/learn/meet-your-breasts'
 
 const IndexRoute = IndexRouteImport.update({
@@ -41,6 +42,12 @@ const BreaLearnIndexRoute = BreaLearnIndexRouteImport.update({
   path: '/brea/learn/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BreaLearnBreastsAndHormonesRoute =
+  BreaLearnBreastsAndHormonesRouteImport.update({
+    id: '/brea/learn/breasts-and-hormones',
+    path: '/brea/learn/breasts-and-hormones',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const BreaLearnMeetYourBreastsRoute =
   BreaLearnMeetYourBreastsRouteImport.update({
     id: '/brea/learn/meet-your-breasts',
@@ -53,6 +60,7 @@ export interface FileRoutesByFullPath {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
@@ -61,6 +69,7 @@ export interface FileRoutesByTo {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea': typeof BreaIndexRoute
+  '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn': typeof BreaLearnIndexRoute
 }
@@ -70,6 +79,7 @@ export interface FileRoutesById {
   '/api/bri': typeof ApiBriRoute
   '/brea/home': typeof BreaHomeRoute
   '/brea/': typeof BreaIndexRoute
+  '/brea/learn/breasts-and-hormones': typeof BreaLearnBreastsAndHormonesRoute
   '/brea/learn/meet-your-breasts': typeof BreaLearnMeetYourBreastsRoute
   '/brea/learn/': typeof BreaLearnIndexRoute
 }
@@ -80,6 +90,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/'
   fileRoutesByTo: FileRoutesByTo
@@ -88,6 +99,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea'
+    | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn'
   id:
@@ -96,6 +108,7 @@ export interface FileRouteTypes {
     | '/api/bri'
     | '/brea/home'
     | '/brea/'
+    | '/brea/learn/breasts-and-hormones'
     | '/brea/learn/meet-your-breasts'
     | '/brea/learn/'
   fileRoutesById: FileRoutesById
@@ -105,6 +118,7 @@ export interface RootRouteChildren {
   ApiBriRoute: typeof ApiBriRoute
   BreaHomeRoute: typeof BreaHomeRoute
   BreaIndexRoute: typeof BreaIndexRoute
+  BreaLearnBreastsAndHormonesRoute: typeof BreaLearnBreastsAndHormonesRoute
   BreaLearnMeetYourBreastsRoute: typeof BreaLearnMeetYourBreastsRoute
   BreaLearnIndexRoute: typeof BreaLearnIndexRoute
 }
@@ -146,6 +160,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BreaLearnIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/brea/learn/breasts-and-hormones': {
+      id: '/brea/learn/breasts-and-hormones'
+      path: '/brea/learn/breasts-and-hormones'
+      fullPath: '/brea/learn/breasts-and-hormones'
+      preLoaderRoute: typeof BreaLearnBreastsAndHormonesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/brea/learn/meet-your-breasts': {
       id: '/brea/learn/meet-your-breasts'
       path: '/brea/learn/meet-your-breasts'
@@ -161,6 +182,7 @@ const rootRouteChildren: RootRouteChildren = {
   ApiBriRoute: ApiBriRoute,
   BreaHomeRoute: BreaHomeRoute,
   BreaIndexRoute: BreaIndexRoute,
+  BreaLearnBreastsAndHormonesRoute: BreaLearnBreastsAndHormonesRoute,
   BreaLearnMeetYourBreastsRoute: BreaLearnMeetYourBreastsRoute,
   BreaLearnIndexRoute: BreaLearnIndexRoute,
 }
