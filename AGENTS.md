@@ -32,3 +32,4 @@ Brea learning UI uses scoped shared controls and an original SVG cross-section w
 
 - Brea editorial emphasis uses the reusable .brea-em class (dusty rose #B65F7B via --brea-rose/--color-brea-rose tokens) for selective italic headline words; sage stays primary and no large pink panels.
 - Brea Lesson 5 (screening) content lives in src/lib/brea/screening-data.ts with explorers in ScreeningExplorers.tsx and the shell in ScreeningLesson.tsx, following the same data-driven pattern as earlier lessons; learning state extends with position5/started5/quiz5Result only.
+- Brea's Understand Breast Changes pathway lives under src/routes/brea/breast-changes/ (index + lesson leaves), with curated data in src/lib/brea/changes-data.ts and its own versioned localStorage record (brea-changes-v1) in changes.ts; this keeps its progress and badges separate from the five-lesson Learning Garden. Its glossary terms extend the shared MedDecode GLOSSARY.
