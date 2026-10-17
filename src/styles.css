@@ -319,7 +319,7 @@
 @media (prefers-reduced-motion: reduce) { .brea-nav-capsule { transition: none; } }
 
 /* BeyondPink's introduction only; Brea's app screens remain untouched. */
-.brea-tour { background: var(--ivory); color: var(--charcoal); letter-spacing: 0; }
+.brea-tour { background: var(--ivory); color: var(--charcoal); letter-spacing: 0; overflow-x: clip; }
 .tour-logo-frame { width: 42px; height: 42px; overflow: hidden; }
 .tour-logo-frame img { transform: scale(1.7); transform-origin: 52% 44%; }
 .brea-tour .tour-button { min-height: 48px; height: auto; max-width: 100%; padding: 12px 24px; border-radius: 999px; font-size: 14px; white-space: normal; border: 1px solid var(--border); }
@@ -332,10 +332,10 @@
 .tour-skip, .tour-back { color: var(--charcoal); white-space: normal; height: auto; }
 /* Current-page marker: a soft blush capsule that reads as "you are here", not a second CTA. */
 .tour-current-page { display: none; }
-@media (min-width: 1024px) {
+@media (min-width: 768px) {
   .tour-current-page {
     display: inline-flex; align-items: center; justify-content: center; gap: 9px;
-    min-height: 44px; padding: 10px 22px; border-radius: 999px; white-space: nowrap;
+    min-height: 44px; padding: 10px 20px; border-radius: 999px; white-space: nowrap;
     border: 1px solid color-mix(in oklab, var(--tour-rose) 55%, var(--ivory));
     background: color-mix(in oklab, var(--blush) 40%, var(--ivory));
     color: var(--tour-rose-deep); font-size: 15px; font-weight: 600; line-height: 1.3;
@@ -343,7 +343,7 @@
     transition: background .2s ease, border-color .2s ease, box-shadow .2s ease;
   }
 }
-@media (min-width: 1280px) { .tour-current-page { font-size: 16px; } }
+@media (min-width: 1280px) { .tour-current-page { font-size: 16px; padding: 10px 22px; } }
 .tour-current-page-icon { width: 17px; height: 17px; flex-shrink: 0; }
 .tour-current-page:hover { background: color-mix(in oklab, var(--blush) 60%, var(--ivory)); border-color: var(--tour-rose); color: var(--tour-rose-deep); box-shadow: 0 9px 22px -14px color-mix(in oklab, var(--tour-rose) 75%, transparent); }
 .tour-current-page:active { background: color-mix(in oklab, var(--blush) 70%, var(--ivory)); color: var(--tour-rose-deep); }
