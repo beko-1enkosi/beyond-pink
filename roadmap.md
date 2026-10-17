@@ -1,7 +1,7 @@
 # Brea journey and celebrations
-- [ ] Restore scroll-triggered arrows and flower blooms without altering layout.
-- [ ] Refine brief badge/quiz confetti and correct/incorrect feedback, preserving first-award guards.
-- [ ] Verify lessons, scores, persistence, reduced motion and desktop/mobile interactions.
+- [x] Restore scroll-triggered arrows and flower blooms without altering layout.
+- [x] Refine brief badge/quiz confetti and correct/incorrect feedback, preserving first-award guards.
+- [x] Verify Lesson 1 badge/quiz end-to-end on desktop/mobile, zero-score celebration, persistence, no repeat on revisit/quick quiz exit and reduced motion; 144 tests pass. Other lesson award flows share these controls but were not individually browser-tested.
 # Landing animation restoration
 - [x] Restore carousel, reveals, counters and Bri idle cycle without changing content.
 - [x] Verify actual desktop/mobile motion, controls, reduced motion and errors; published changes require publishing and a subsequent live check.
