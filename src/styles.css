@@ -73,7 +73,7 @@
 
 :root {
   --radius: 0.875rem;
-  --tour-rose: oklch(0.552 0.122 356);
+  --tour-rose: oklch(0.595487 0.116116 0.737971); /* #B65F7B */
   --tour-phone-shadow: 0 22px 42px -22px color-mix(in oklab, var(--charcoal) 38%, transparent), 0 3px 8px color-mix(in oklab, var(--charcoal) 10%, transparent);
   --tour-cta-shadow: 0 5px 24px -8px color-mix(in oklab, var(--tour-rose) 58%, transparent);
   /* Brand palette */
@@ -384,7 +384,7 @@
   .tour-step-heading { font-size: 44px; }
   .tour-phone-pair { gap: 12px; }
   .tour-phone-pair .tour-phone-figure { width: 155px; }
-  .tour-hero-botanical { width: 120px; right: 40px; opacity: .5; }
+  .tour-hero-botanical { width: 100px; height: 120px; right: 40px; top: 35px; opacity: .5; }
 }
 @media (max-width: 767px) {
   .tour-navigation > div { justify-content: center; }
