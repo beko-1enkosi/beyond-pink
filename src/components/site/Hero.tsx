@@ -82,7 +82,7 @@ export function Hero() {
           <p className="mt-4 max-w-md text-[0.95rem] leading-relaxed text-muted-foreground sm:mt-6 sm:text-lg">{t("Breast health is more than a conversation in October. Discover accessible education, compassionate support and a place where everyone belongs.")}</p>
           <div className="mt-6 flex flex-wrap gap-3 sm:mt-8">
             <Button variant="brea" asChild className="h-[3.25rem] px-7 text-base sm:px-8">
-              <Link to="/brea">{t("Try Brea")}<ArrowRight aria-hidden /></Link>
+              <Link to="/how-brea-works">{t("Try Brea")}<ArrowRight aria-hidden /></Link>
             </Button>
             <Button
               variant="outline"
