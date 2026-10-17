@@ -7,7 +7,7 @@ export function LearnButton({ className, variant = "ghost", ...props }: ButtonPr
   return <Button variant={variant} className={cn("min-h-11 h-auto rounded-full border border-brea-sage/30 px-5 py-3 whitespace-normal text-brea-sage-deep hover:bg-brea-sage/15 focus-visible:ring-brea-sage-deep", className)} {...props} />;
 }
 export function PrimaryButton(props: ButtonProps) {
-  return <LearnButton {...props} className={cn("bg-brea-sage-deep text-brea-ivory hover:bg-brea-sage-deep/90 border-brea-sage-deep shadow-brea-soft", props.className)} />;
+  return <LearnButton {...props} className={cn("bg-brea-sage-deep text-brea-ivory border-brea-sage-deep shadow-brea-soft hover:bg-brea-sage-deeper hover:text-brea-ivory active:bg-brea-sage-deeper active:text-brea-ivory focus-visible:text-brea-ivory focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-brea-sage-deep focus-visible:ring-offset-brea-ivory", props.className)} />;
 }
 export function LearnShell({ children }: { children: ReactNode }) {
   return <div lang="en" className="brea-learning relative min-h-dvh bg-brea-ivory text-brea-charcoal font-[family-name:var(--font-brea-body)]"><BotanicalBackdrop /><div className="relative z-10 mx-auto max-w-5xl px-5 pb-32 pt-5 sm:px-8 sm:pt-8">{children}<footer className="mt-12"><DisclaimerCapsule /></footer></div></div>;
@@ -46,4 +46,7 @@ export function SupportBadge({ earned = false, large = false }: { earned?: boole
 }
 export function SupportPetals({ count }: { count: number }) {
   return <div className="flex gap-2" role="img" aria-label={`${count} of 3 support petals collected`}>{[0, 1, 2].map((i) => <svg key={i} viewBox="0 0 24 32" className="h-8 w-6" aria-hidden><path d="M12 2 C20 10 20 22 12 30 C4 22 4 10 12 2 Z" fill={i < count ? "var(--brea-blush)" : "none"} stroke={i < count ? "var(--brea-rose)" : "var(--brea-sage)"} strokeWidth="1.5" strokeDasharray={i < count ? undefined : "3 2"} /></svg>)}</div>;
+}
+export function CompanionBadge({ earned = false, large = false }: { earned?: boolean; large?: boolean }) {
+  return <BadgeFrame earned={earned} large={large} label="Compassionate Companion"><svg viewBox="0 0 64 64" className={large ? "h-20 w-20" : "h-11 w-11"} aria-hidden><path d="M24 56 Q18 40 30 30 Q40 22 34 10 M40 56 Q46 40 34 30 Q24 22 30 10" fill="none" stroke="var(--brea-sage-deep)" strokeWidth="2" strokeLinecap="round" /><ellipse cx="20" cy="44" rx="4" ry="8" transform="rotate(-35 20 44)" fill="var(--brea-sage)" /><ellipse cx="44" cy="44" rx="4" ry="8" transform="rotate(35 44 44)" fill="var(--brea-sage)" /><path d="M32 30 C26 24 20 30 26 35 L32 40 L38 35 C44 30 38 24 32 30 Z" fill="var(--brea-blush)" stroke="var(--brea-rose)" strokeWidth="1" /><circle cx="14" cy="16" r="2" fill="var(--brea-gold)" /><circle cx="50" cy="16" r="2" fill="var(--brea-gold)" /><circle cx="32" cy="8" r="1.5" fill="var(--brea-gold)" /></svg>{earned && <span className="absolute -bottom-1 rounded-full bg-brea-sage-deep px-2 py-0.5 text-xs text-brea-ivory">FS2</span>}</BadgeFrame>;
 }
