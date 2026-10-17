@@ -251,8 +251,8 @@
   --brea-quiz-error-bg: color-mix(in oklab, var(--brea-blush) 25%, var(--brea-ivory));
   --brea-confetti-olive: var(--olive);
 }
-.brea-quiz-correct, .brea-quiz-correct:disabled { background: var(--brea-quiz-success-bg); border-color: var(--brea-sage-deep); color: var(--brea-sage-deep); }
-.brea-quiz-incorrect, .brea-quiz-incorrect:disabled { background: var(--brea-quiz-error-bg); border-color: var(--brea-rose-deep); color: var(--brea-rose-deep); }
+.brea-learning .brea-quiz-correct, .brea-learning .brea-quiz-correct:disabled { background: var(--brea-quiz-success-bg); border-color: var(--brea-sage-deep); color: var(--brea-sage-deep); }
+.brea-learning .brea-quiz-incorrect, .brea-learning .brea-quiz-incorrect:disabled { background: var(--brea-quiz-error-bg); border-color: var(--brea-rose-deep); color: var(--brea-rose-deep); }
 .brea-confetti i { position: absolute; top: 0; width: 9px; height: 13px; background: var(--brea-sage); border-radius: 2px; animation: brea-confetti 2.5s ease-out both; }
 .brea-confetti i:nth-child(4n+1) { background: var(--brea-blush); }
 .brea-confetti i:nth-child(4n+2) { background: var(--brea-sage); }
