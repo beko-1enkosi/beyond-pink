@@ -2,6 +2,9 @@
 export type GuideId = "before" | "during" | "after";
 export const GUIDE_IDS: readonly GuideId[] = ["before", "during", "after"];
 export const SUPPORT_BADGE = "Support Pathfinder";
+export type CaringId = "words" | "acts" | "self";
+export const CARING_IDS: readonly CaringId[] = ["words", "acts", "self"];
+export const COMPANION_BADGE = "Compassionate Companion";
 
 export type SupportCard = { title: string; body: string; points?: readonly string[]; pointsLabel?: string };
 export type SupportGuide = { id: GuideId; label: string; tagline: string; intro: string; cards: readonly SupportCard[]; note: string; closing?: string };
@@ -53,6 +56,6 @@ export const SUPPORT_GUIDES: readonly SupportGuide[] = [
 
 export const SUPPORT_PATHWAYS = [
   { id: "looking", title: "I’m Looking for Support", description: "Find gentle guidance for wherever you are in your journey.", available: true },
-  { id: "supporting", title: "I’m Supporting Someone", description: "Discover ways to listen, care and show up for someone.", available: false },
+  { id: "supporting", title: "I’m Supporting Someone", description: "Discover ways to listen, care and show up for someone.", available: true },
   { id: "connect", title: "I Want to Connect", description: "Find connection through shared experiences and supportive community.", available: false },
 ] as const;

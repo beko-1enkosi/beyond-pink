@@ -1,21 +1,30 @@
 import { useEffect, useRef, useState } from "react";
 import { getBreaName } from "./onboarding";
-import { GUIDE_IDS, SUPPORT_BADGE, type GuideId } from "./support-data";
+import { CARING_IDS, COMPANION_BADGE, GUIDE_IDS, SUPPORT_BADGE, type CaringId, type GuideId } from "./support-data";
 // Separate Support Garden record. Stores only explored guide IDs and the earned badge —
 // never the selected Before/During/After tab or any personal or medical status.
 export const SUPPORT_KEY = "brea-support-v1";
 const CHANGE_EVENT = "brea-support-changed";
-export type SupportState = { version: 1; explored: GuideId[]; badges: string[] };
-export function emptySupport(): SupportState { return { version: 1, explored: [], badges: [] }; }
+// `caring` holds explored Supporting Someone section IDs only — never details about another person.
+export type SupportState = { version: 1; explored: GuideId[]; caring: CaringId[]; badges: string[] };
+export function emptySupport(): SupportState { return { version: 1, explored: [], caring: [], badges: [] }; }
 export function normalizeSupport(input: unknown): SupportState {
   if (!input || typeof input !== "object") return emptySupport();
   const v = input as Partial<SupportState>;
   const explored = Array.isArray(v.explored) ? GUIDE_IDS.filter((id) => v.explored!.includes(id)) : [];
-  return { version: 1, explored, badges: explored.length === GUIDE_IDS.length ? [SUPPORT_BADGE] : [] };
+  const caring = Array.isArray(v.caring) ? CARING_IDS.filter((id) => v.caring!.includes(id)) : [];
+  const badges: string[] = [];
+  if (explored.length === GUIDE_IDS.length) badges.push(SUPPORT_BADGE);
+  if (caring.length === CARING_IDS.length) badges.push(COMPANION_BADGE);
+  return { version: 1, explored, caring, badges };
 }
 export function markGuideExplored(state: SupportState, id: GuideId): { state: SupportState; firstBadge: boolean } {
   const next = normalizeSupport({ ...state, explored: [...state.explored, id] });
   return { state: next, firstBadge: !state.badges.includes(SUPPORT_BADGE) && next.badges.includes(SUPPORT_BADGE) };
+}
+export function markCaringExplored(state: SupportState, id: CaringId): { state: SupportState; firstBadge: boolean } {
+  const next = normalizeSupport({ ...state, caring: [...state.caring, id] });
+  return { state: next, firstBadge: !state.badges.includes(COMPANION_BADGE) && next.badges.includes(COMPANION_BADGE) };
 }
 export function readSupport(): SupportState {
   try { return normalizeSupport(JSON.parse(window.localStorage.getItem(SUPPORT_KEY) ?? "null")); } catch { return emptySupport(); }
